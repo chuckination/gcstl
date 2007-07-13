@@ -1,0 +1,111 @@
+/* Copyright (C) 2007, Charles Stewart */
+
+/* This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+
+/*******************************************************************************
+ *
+ * $URL$
+ * $Id$
+ *
+ ******************************************************************************/
+
+#include "test_cstl_rbtree.h"
+#include "cstl_rbtree.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <CUnit/CUnit.h>
+
+int basicNumericCompare(void *data1, void *data2)
+{
+   int *int1 = (int *) data1;
+   int *int2 = (int *) data2;
+
+   if ((*int1) < (*int2))
+   {
+      return -1;
+   }
+   else if ((*int1) > (*int2))
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;
+   }
+}
+
+void test_cstl_rbtree_insert()
+{
+   cstl_rbtree myRbtree;
+
+   cstl_rbtree_initialize(&myRbtree, basicNumericCompare, NULL);
+
+   int *myIntp1 = NULL;
+   myIntp1 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp1);
+   *myIntp1 = 0;
+
+   cstl_rbtree_element *myElement = cstl_rbtree_find(&myRbtree, myIntp1);
+   CU_ASSERT_EQUAL(NULL, myElement);
+
+   int *myIntp2 = NULL;
+   myIntp2 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp2);
+   *myIntp2 = 1;
+
+   myElement = cstl_rbtree_find(&myRbtree, myIntp2);
+   CU_ASSERT_EQUAL(NULL, myElement);
+
+   int *myIntp3 = NULL;
+   myIntp3 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp3);
+   *myIntp3 = 2;
+
+   myElement = cstl_rbtree_find(&myRbtree, myIntp3);
+   CU_ASSERT_EQUAL(NULL, myElement);
+
+   int *myIntp4 = NULL;
+   myIntp4 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp4);
+   *myIntp4 = 3;
+
+   myElement = cstl_rbtree_find(&myRbtree, myIntp4);
+   CU_ASSERT_EQUAL(NULL, myElement);
+
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp1));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp2));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp3));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp4));
+
+   int myInt1 = 0;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt1);
+   CU_ASSERT_NOT_EQUAL(myIntp1, myElement);
+
+   int myInt2 = 0;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt2);
+   CU_ASSERT_NOT_EQUAL(myIntp2, myElement);
+
+   int myInt3 = 0;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt3);
+   CU_ASSERT_NOT_EQUAL(myIntp3, myElement);
+
+   int myInt4 = 0;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt4);
+   CU_ASSERT_NOT_EQUAL(myIntp4, myElement);
+
+   cstl_rbtree_destroy(&myRbtree);
+}

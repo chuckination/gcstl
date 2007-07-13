@@ -1,0 +1,7 @@
+depcomp
+missing
+SVNIGNORE
+config.guess
+config.sub
+ltmain.sh
+install-sh
