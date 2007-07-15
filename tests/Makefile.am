@@ -27,10 +27,6 @@ SUBDIRS =  destroy \
            list \
            rbtree
 
-DIST_SUBDIRS = destroy \
-               list \
-               rbtree
-
 TESTS = test_cstl
 
 INCLUDES = -I$(top_srcdir)/src/destroy \
