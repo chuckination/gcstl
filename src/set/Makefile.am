@@ -16,15 +16,18 @@
 
 ################################################################################
 ##
-## $URL$
-## $Id$
+## $URL: svn+ssh://hades/var/svn/cstl/trunk/src/rbtree/Makefile.am $
+## $Id: Makefile.am 46 2007-07-22 00:11:23Z chucks $
 ##
 ################################################################################
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
 library_includedir=$(includedir)
-library_include_HEADERS = cstl_destroy.h
+library_include_HEADERS = cstl_set.h
 
-noinst_LTLIBRARIES = libcstl_destroy.la
-libcstl_destroy_la_SOURCES = cstl_destroy.c cstl_destroy.h
+INCLUDES = -I$(top_srcdir)/src/destroy \
+			  -I$(top_srcdir)/src/rbtree
+
+noinst_LTLIBRARIES = libcstl_set.la
+libcstl_set_la_SOURCES = cstl_set.c cstl_set.h

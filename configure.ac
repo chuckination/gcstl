@@ -64,6 +64,7 @@ AC_OUTPUT(Makefile \
           src/destroy/Makefile \
           src/list/Makefile \
           src/rbtree/Makefile \
+          src/set/Makefile \
 			 tests/Makefile \
           tests/destroy/Makefile \
           tests/list/Makefile \

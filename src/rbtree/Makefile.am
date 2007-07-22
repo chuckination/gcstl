@@ -23,7 +23,7 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-library_includedir=$(includedir)/$(GENERIC_LIBRARY_NAME)
+library_includedir=$(includedir)
 library_include_HEADERS = cstl_rbtree.h
 
 INCLUDES = -I$(top_srcdir)/src/destroy
