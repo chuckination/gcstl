@@ -24,7 +24,6 @@
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
 SUBDIRS = src tests
-DIST_SUBDIRS = src tests
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = cstl.pc
