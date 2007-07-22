@@ -407,14 +407,6 @@ void cstl_rbtree_insert_rebalance(cstl_rbtree_element *element)
    if (!element)
       return;
 
-   /* the element is the root and red */
-   if ((element->rbtree->root == element) &&
-      (cstl_rbtree_color(element) == RED))
-   {
-      element->color = BLACK;
-      return;
-   }
-
    cstl_rbtree_insert_case1(element);
 }
 
@@ -422,8 +414,12 @@ void cstl_rbtree_insert_case1(cstl_rbtree_element *element)
 {
    if (element->parent == NULL)
    {
-      /* the element is the root and red */
-      element->color = BLACK;
+      /* the element is the root */
+      if (cstl_rbtree_color(element) == RED)
+      {
+         /* the element is a red root */
+         element->color = BLACK;
+      }
    }
    else
    {
