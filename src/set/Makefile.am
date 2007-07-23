@@ -27,7 +27,7 @@ library_includedir=$(includedir)
 library_include_HEADERS = cstl_set.h
 
 INCLUDES = -I$(top_srcdir)/src/destroy \
-			  -I$(top_srcdir)/src/rbtree
+           -I$(top_srcdir)/src/rbtree
 
 noinst_LTLIBRARIES = libcstl_set.la
 libcstl_set_la_SOURCES = cstl_set.c cstl_set.h

@@ -30,18 +30,18 @@ SUBDIRS =  destroy \
 TESTS = test_cstl
 
 INCLUDES = -I$(top_srcdir)/src/destroy \
-			  -I$(top_srcdir)/src/list \
-			  -I$(top_srcdir)/src/rbtree \
-			  -I$(top_srcdir)/tests/destroy \
-			  -I$(top_srcdir)/tests/list \
-			  -I$(top_srcdir)/tests/rbtree
+           -I$(top_srcdir)/src/list \
+           -I$(top_srcdir)/src/rbtree \
+           -I$(top_srcdir)/tests/destroy \
+           -I$(top_srcdir)/tests/list \
+           -I$(top_srcdir)/tests/rbtree
 
 check_PROGRAMS = test_cstl
 test_cstl_LDADD = $(top_builddir)/src/destroy/libcstl_destroy.la \
-								 $(top_builddir)/src/list/libcstl_list.la \
-								 $(top_builddir)/src/rbtree/libcstl_rbtree.la
+                         $(top_builddir)/src/list/libcstl_list.la \
+                         $(top_builddir)/src/rbtree/libcstl_rbtree.la
 test_cstl_LDFLAGS = -lcunit
 test_cstl_SOURCES = main.c \
-						  destroy/test_cstl_destroy.h destroy/test_cstl_destroy.c \
-						  list/test_cstl_list.h list/test_cstl_list.c \
-						  rbtree/test_cstl_rbtree.h rbtree/test_cstl_rbtree.c
+                    destroy/test_cstl_destroy.h destroy/test_cstl_destroy.c \
+                    list/test_cstl_list.h list/test_cstl_list.c \
+                    rbtree/test_cstl_rbtree.h rbtree/test_cstl_rbtree.c

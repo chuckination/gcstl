@@ -26,13 +26,13 @@
 #TESTS = test_cstl_list
 
 INCLUDES = -I$(top_srcdir)/src/destroy \
-			  -I$(top_srcdir)/src/list
+           -I$(top_srcdir)/src/list
 
 #check_PROGRAMS = test_cstl_list
 
 EXTRA_PROGRAMS = test_cstl_list
 test_cstl_list_LDADD = $(top_builddir)/src/destroy/libcstl_destroy.la \
-							  $(top_builddir)/src/list/libcstl_list.la
+                       $(top_builddir)/src/list/libcstl_list.la
 test_cstl_list_LDFLAGS = -lcunit
 test_cstl_list_SOURCES = main.c \
-						 		 test_cstl_list.h test_cstl_list.c
+                         test_cstl_list.h test_cstl_list.c

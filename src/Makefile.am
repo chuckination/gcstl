@@ -31,7 +31,7 @@ library_include_HEADERS = cstl.h
 lib_LTLIBRARIES = libcstl.la
 libcstl_la_SOURCES =
 libcstl_la_LIBADD = destroy/libcstl_destroy.la \
-						  list/libcstl_list.la \
-						  rbtree/libcstl_rbtree.la \
-						  set/libcstl_set.la
+                    list/libcstl_list.la \
+                    rbtree/libcstl_rbtree.la \
+                    set/libcstl_set.la
 libcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)
