@@ -58,14 +58,14 @@ struct cstl_rbtree
    cstl_rbtree_element *end;
    unsigned long int size;
    short int validator;
-   int (*comparator)(void *, void *);
-   void (*destroy)(void *);
+   int (*comparator)(void *, void *, void *);
+   void (*destroy)(void *, void *);
 };
 
 /* initialize a red-black tree */
 extern int cstl_rbtree_initialize(cstl_rbtree *rbtree,
-                                  int (*comparator)(void *, void *),
-                                  void (*destroy)(void *));
+                                  int (*comparator)(void *, void *, void *),
+                                  void (*destroy)(void *, void *));
 
 /* destroy a red-black tree */
 extern int cstl_rbtree_destroy(cstl_rbtree *rbtree);

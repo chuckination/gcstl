@@ -29,7 +29,7 @@
 
 #include <CUnit/CUnit.h>
 
-int basicNumericCompare(void *data1, void *data2)
+int basicNumericCompare(void *data1, void *data2, void *arg)
 {
    int *int1 = (int *) data1;
    int *int2 = (int *) data2;
@@ -57,7 +57,7 @@ void test_cstl_rbtree_insert()
    int *myIntp1 = NULL;
    myIntp1 = (int *) malloc(sizeof(int));
    CU_ASSERT_NOT_EQUAL(NULL, myIntp1);
-   *myIntp1 = 0;
+   *myIntp1 = 1;
 
    cstl_rbtree_element *myElement = cstl_rbtree_find(&myRbtree, myIntp1);
    CU_ASSERT_EQUAL(NULL, myElement);
@@ -65,7 +65,7 @@ void test_cstl_rbtree_insert()
    int *myIntp2 = NULL;
    myIntp2 = (int *) malloc(sizeof(int));
    CU_ASSERT_NOT_EQUAL(NULL, myIntp2);
-   *myIntp2 = 1;
+   *myIntp2 = 2;
 
    myElement = cstl_rbtree_find(&myRbtree, myIntp2);
    CU_ASSERT_EQUAL(NULL, myElement);
@@ -73,7 +73,7 @@ void test_cstl_rbtree_insert()
    int *myIntp3 = NULL;
    myIntp3 = (int *) malloc(sizeof(int));
    CU_ASSERT_NOT_EQUAL(NULL, myIntp3);
-   *myIntp3 = 2;
+   *myIntp3 = 3;
 
    myElement = cstl_rbtree_find(&myRbtree, myIntp3);
    CU_ASSERT_EQUAL(NULL, myElement);
@@ -81,7 +81,7 @@ void test_cstl_rbtree_insert()
    int *myIntp4 = NULL;
    myIntp4 = (int *) malloc(sizeof(int));
    CU_ASSERT_NOT_EQUAL(NULL, myIntp4);
-   *myIntp4 = 3;
+   *myIntp4 = 4;
 
    myElement = cstl_rbtree_find(&myRbtree, myIntp4);
    CU_ASSERT_EQUAL(NULL, myElement);
@@ -91,21 +91,21 @@ void test_cstl_rbtree_insert()
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp3));
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp4));
 
-   int myInt1 = 0;
+   int myInt1 = 1;
    myElement = cstl_rbtree_find(&myRbtree, &myInt1);
-   CU_ASSERT_NOT_EQUAL(myIntp1, myElement);
+   CU_ASSERT_EQUAL(myIntp1, cstl_rbtree_data(myElement));
 
-   int myInt2 = 0;
+   int myInt2 = 2;
    myElement = cstl_rbtree_find(&myRbtree, &myInt2);
-   CU_ASSERT_NOT_EQUAL(myIntp2, myElement);
+   CU_ASSERT_EQUAL(myIntp2, cstl_rbtree_data(myElement));
 
-   int myInt3 = 0;
+   int myInt3 = 3;
    myElement = cstl_rbtree_find(&myRbtree, &myInt3);
-   CU_ASSERT_NOT_EQUAL(myIntp3, myElement);
+   CU_ASSERT_EQUAL(myIntp3, cstl_rbtree_data(myElement));
 
-   int myInt4 = 0;
+   int myInt4 = 4;
    myElement = cstl_rbtree_find(&myRbtree, &myInt4);
-   CU_ASSERT_NOT_EQUAL(myIntp4, myElement);
+   CU_ASSERT_EQUAL(myIntp4, cstl_rbtree_data(myElement));
 
    cstl_rbtree_destroy(&myRbtree);
 }

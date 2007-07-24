@@ -29,24 +29,6 @@
 /* list validator value */
 #define CSTL_LIST_VALIDATOR 0x1
 
-/* a doubly linked list element */
-struct cstl_list_element
-{
-   cstl_list *list;
-   cstl_list_element *next;
-   cstl_list_element *prev;
-   void *data;
-};
-
-/* a doubly linked list */
-struct cstl_list
-{
-   cstl_list_element *head;
-   unsigned long int size;
-   short int validator;
-   void (*destroy)(void *);
-};
-
 int cstl_list_initialize(cstl_list *list,
                          void (*destroy)(void *))
 {
@@ -96,7 +78,7 @@ int cstl_list_destroy(cstl_list *list)
    while (iter != list->head)
    {
       /* free the list element data */
-      list->destroy(iter->data);
+      list->destroy(iter->data, NULL);
 
       /* free the element */
       cstl_list_element *tmp = iter->next;
@@ -291,7 +273,7 @@ int cstl_list_remove(cstl_list_element *element)
    element->list->size--;
 
    /* call the list destroy method to free the element data */
-   element->list->destroy(element->data);
+   element->list->destroy(element->data, NULL);
 
    /* free the element */
    free(element);
@@ -386,7 +368,7 @@ int cstl_list_pop_back(cstl_list *list)
    list->size--;
 
    /* call the list destroy method to free the element data */
-   list->destroy(oldElement->data);
+   list->destroy(oldElement->data, NULL);
 
    /* free the element */
    free(oldElement);
@@ -473,7 +455,7 @@ int cstl_list_pop_front(cstl_list *list)
    cstl_list_element *oldElement = list->head->next;
 
    /* call the list destroy method to free the element data */
-   list->destroy(oldElement->data);
+   list->destroy(oldElement->data, NULL);
 
    /* unlink the element from the list */
    oldElement->prev->next = oldElement->next;

@@ -29,19 +29,27 @@ extern "C"
 {
 #endif
 
-/*
- * struct declarations
- */
-
-/* a doubly linked list element */
+/* forward declarations */
 typedef struct cstl_list_element cstl_list_element;
-
-/* a doubly linked list */
 typedef struct cstl_list cstl_list;
 
-/*
- * initialization and cleanup
- */
+/* a doubly linked list element */
+struct cstl_list_element
+{
+   cstl_list *list;
+   cstl_list_element *next;
+   cstl_list_element *prev;
+   void *data;
+};
+
+/* a doubly linked list */
+struct cstl_list
+{
+   cstl_list_element *head;
+   unsigned long int size;
+   short int validator;
+   void (*destroy)(void *, void *);
+};
 
 /* initialize a doubly linked list */
 extern int cstl_list_initialize(cstl_list *list,
@@ -49,10 +57,6 @@ extern int cstl_list_initialize(cstl_list *list,
 
 /* destroy a doubly linked list */
 extern int cstl_list_destroy(cstl_list *list);
-
-/*
- * data structure methods
- */
 
 /* retrieve the number of elements in a list */
 extern int cstl_list_size(cstl_list *list);

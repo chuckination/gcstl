@@ -2,8 +2,8 @@
 
 /* initialize a set */
 int cstl_set_initialize(cstl_set *set,
-                        int (*comparator)(void *, void *),
-                        void (*destroy)(void *))
+                        int (*comparator)(void *, void *, void *),
+                        void (*destroy)(void *, void *))
 {
    return cstl_rbtree_initialize(set,
                                  comparator,
