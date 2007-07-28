@@ -32,9 +32,25 @@ extern "C"
 #endif
 
 /* typedef wrappers */
-typedef struct cstl_map_item cstl_map_item;
-typedef cstl_rbtree_element cstl_map_element;
+typedef struct cstl_map_element cstl_map_element;
 typedef struct cstl_map cstl_map;
+
+/* a map element */
+struct cstl_map_element
+{
+   cstl_rbtree_element *rbtree_element;
+   void *first;
+   void *second;
+};
+
+/* a map */
+struct cstl_map
+{
+   cstl_rbtree *rbtree;
+   int (*comparator)(void *, void *, void *);
+   void (*destroy_first)(void *, void *);
+   void (*destroy_second)(void *, void *);
+};
 
 /* initialize a map */
 extern int cstl_map_initialize(cstl_map *map,

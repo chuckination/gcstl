@@ -29,16 +29,17 @@ extern "C"
 {
 #endif
 
+/* forward declarations */
+typedef enum cstl_rbtree_element_color cstl_rbtree_element_color;
+typedef struct cstl_rbtree_element cstl_rbtree_element;
+typedef struct cstl_rbtree cstl_rbtree;
+
 /* red-black tree color enumeration */
-typedef enum cstl_rbtree_element_color
+enum cstl_rbtree_element_color
 {
    RED,
    BLACK
-} cstl_rbtree_element_color;
-
-/* forward declarations */
-typedef struct cstl_rbtree_element cstl_rbtree_element;
-typedef struct cstl_rbtree cstl_rbtree;
+};
 
 /* a red-black tree element */
 struct cstl_rbtree_element
