@@ -1,9 +1,35 @@
 #include "cstl_map.h"
 
+#include <stdlib.h>
+
+int cstl_map_comparator(void *first,
+                        void *second,
+                        int (*comparator)(void *, void *))
+{
+   return comparator((cstl_map_element *)first->first,
+                     (cstl_map_element *)second->first);
+}
+
+typedef struct cstl_map_destroy_arg cstl_map_destroy_arg;
+struct cstl_map_destroy_arg
+{
+   void (*destroy_first)(void *, void *);
+   void (*destroy_second)(void *, void *);
+};
+
+void cstl_map_destroy(void *data, void *destroy_arg)
+{
+   (cstl_map_destroy_arg *)destroy_arg->destroy_first(
+                                             (cstl_map_element *)data->first);
+   (cstl_map_destroy_arg *)destroy_arg->destroy_second(
+                                             (cstl_map_element *)data->second);
+   free(data);
+}
+
 /* initialize a map */
 int cstl_map_initialize(cstl_map *map,
-                        int (*comparator)(void *, void *, void *),
-                        void (*destroy)(void *, void *))
+                        int (*comparator)(void *, void *),
+                        void (*destroy)(void *))
 {
    return cstl_rbtree_initialize(map,
                                  comparator,

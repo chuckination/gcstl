@@ -28,15 +28,21 @@
 
 #define CSTL_RBTREE_VALIDATOR 0x1
 
-int cstl_rbtree_initialize(cstl_rbtree *rbtree,
-                           int (*comparator)(void *, void *, void *),
-                           void (*destroy)(void *, void *))
+int cstl_rbtree_initialize(
+                     cstl_rbtree *rbtree,
+                     int (*comparator)(void *,
+                                       void *,
+                                       int (*sub_comparator)(void *, void *)),
+                     int (*sub_comparator)(void *, void *),
+                     void (*destroy)(void *, void *),
+                     void *destroy_arg)
 {
    /* ensure that rbtree is not null */
    if (!rbtree)
       return -1;
 
-   /* ensure that comparator is not null */
+   /* ensure that comparator is not null,
+    * sub_comparator may be NULL */
    if (!comparator)
       return -1;
 
@@ -64,8 +70,10 @@ int cstl_rbtree_initialize(cstl_rbtree *rbtree,
 
    /* register the comparator function */
    rbtree->comparator = comparator;
+   rbtree->sub_comparator = sub_comparator;
 
    /* register the data destroy function */
+   rbtree->destroy_arg = destroy_arg;
    if (destroy)
       rbtree->destroy = destroy;
    else
@@ -90,6 +98,7 @@ int cstl_rbtree_destroy(cstl_rbtree *rbtree)
    rbtree->end = NULL;
    rbtree->destroy = NULL;
    rbtree->comparator = NULL;
+   rbtree->sub_comparator = NULL;
    rbtree->size = 0;
    rbtree->validator = 0;
 
@@ -105,7 +114,8 @@ void cstl_rbtree_destroy_element(cstl_rbtree_element *element)
       cstl_rbtree_destroy_element(element->right);
 
    if (element->data)
-      element->rbtree->destroy(element->data, NULL);
+      element->rbtree->destroy(element->data,
+                               element->rbtree->destroy_arg);
 
    free(element);
 }
@@ -278,7 +288,7 @@ cstl_rbtree_element *cstl_rbtree_find(cstl_rbtree *rbtree,
       /* compare the data to be inserted with
        * the data of the element iterator */
       compareResult =
-         rbtree->comparator(data, element->data, NULL);
+         rbtree->comparator(data, element->data, rbtree->sub_comparator);
 
       if (0 > compareResult)
       {
@@ -336,7 +346,7 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
       /* compare the data to be inserted with
        * the data of the element iterator */
       compareResult =
-         rbtree->comparator(data, element->data, NULL);
+         rbtree->comparator(data, element->data, rbtree->sub_comparator);
 
       if (0 > compareResult)
       {
@@ -623,7 +633,8 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
    }
 
    /* remove the element and its data from the tree */
-   element->rbtree->destroy(element->data, NULL);
+   element->rbtree->destroy(element->data,
+                            element->rbtree->destroy_arg);
    free(element);
 
    cstl_rbtree_remove_rebalance(replacement,

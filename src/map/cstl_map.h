@@ -47,15 +47,12 @@ struct cstl_map_element
 struct cstl_map
 {
    cstl_rbtree *rbtree;
-   int (*comparator)(void *, void *, void *);
-   void (*destroy_first)(void *, void *);
-   void (*destroy_second)(void *, void *);
 };
 
 /* initialize a map */
 extern int cstl_map_initialize(cstl_map *map,
-                               int (*comparator)(void *, void *, void *),
-                               void (*destroy)(void *, void *));
+                               int (*comparator)(void *, void *),
+                               void (*destroy)(void *));
 
 /* destroy a map */
 extern int cstl_map_destroy(cstl_map *map);
