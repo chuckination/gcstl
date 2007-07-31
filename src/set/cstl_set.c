@@ -1,17 +1,24 @@
 #include "cstl_set.h"
+#include "cstl_destroy.h"
 
 #include <stdlib.h>
+
+void cstl_set_destroy_default(void *data, void *arg)
+{
+   void (*destroy)(void *) = arg;
+   destroy(data);
+}
 
 /* initialize a set */
 int cstl_set_initialize(cstl_set *set,
                         int (*comparator)(void *, void *),
-                        void (*destroy)(void *, void *))
+                        void (*destroy)(void *))
 {
    return cstl_rbtree_initialize(set,
                                  comparator,
                                  NULL,
-                                 destroy,
-                                 NULL);
+                                 cstl_set_destroy_default,
+                                 destroy ? destroy : cstl_destroy_default);
 }
 
 /* destroy a set */

@@ -48,7 +48,7 @@ struct cstl_list
    cstl_list_element *head;
    unsigned long int size;
    short int validator;
-   void (*destroy)(void *, void *);
+   void (*destroy)(void *);
 };
 
 /* initialize a doubly linked list */

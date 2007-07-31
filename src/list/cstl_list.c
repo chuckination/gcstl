@@ -78,7 +78,7 @@ int cstl_list_destroy(cstl_list *list)
    while (iter != list->head)
    {
       /* free the list element data */
-      list->destroy(iter->data, NULL);
+      list->destroy(iter->data);
 
       /* free the element */
       cstl_list_element *tmp = iter->next;
@@ -273,7 +273,7 @@ int cstl_list_remove(cstl_list_element *element)
    element->list->size--;
 
    /* call the list destroy method to free the element data */
-   element->list->destroy(element->data, NULL);
+   element->list->destroy(element->data);
 
    /* free the element */
    free(element);
@@ -368,7 +368,7 @@ int cstl_list_pop_back(cstl_list *list)
    list->size--;
 
    /* call the list destroy method to free the element data */
-   list->destroy(oldElement->data, NULL);
+   list->destroy(oldElement->data);
 
    /* free the element */
    free(oldElement);
@@ -455,7 +455,7 @@ int cstl_list_pop_front(cstl_list *list)
    cstl_list_element *oldElement = list->head->next;
 
    /* call the list destroy method to free the element data */
-   list->destroy(oldElement->data, NULL);
+   list->destroy(oldElement->data);
 
    /* unlink the element from the list */
    oldElement->prev->next = oldElement->next;

@@ -30,7 +30,7 @@ extern "C"
 #endif
 
 /* default cleanup function, calls free() on data and sets data to NULL */
-extern void cstl_destroy_default(void *data, void *arg);
+extern void cstl_destroy_default(void *data);
 
 #ifdef __cplusplus
 }

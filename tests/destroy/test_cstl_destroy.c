@@ -34,6 +34,6 @@ void test_cstl_destroy_default()
 
    CU_ASSERT_NOT_EQUAL(NULL, someMemory);
 
-   cstl_destroy_default(someMemory, NULL);
+   cstl_destroy_default(someMemory);
    someMemory = NULL;
 }

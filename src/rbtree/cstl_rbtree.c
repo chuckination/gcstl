@@ -46,6 +46,11 @@ int cstl_rbtree_initialize(
    if (!comparator)
       return -1;
 
+   /* ensure that destroy is not null,
+    * destroy_arg may be NULL */
+   if (!destroy)
+      return -1;
+
    /* allocate the end pointer */
    rbtree->end = NULL;
    rbtree->end = (cstl_rbtree_element *) malloc(sizeof(cstl_rbtree_element));
@@ -74,10 +79,9 @@ int cstl_rbtree_initialize(
 
    /* register the data destroy function */
    rbtree->destroy_arg = destroy_arg;
-   if (destroy)
-      rbtree->destroy = destroy;
-   else
-      rbtree->destroy = cstl_destroy_default;
+   rbtree->destroy = destroy;
+
+   return 0;
 }
 
 void cstl_rbtree_destroy_element(cstl_rbtree_element *element);

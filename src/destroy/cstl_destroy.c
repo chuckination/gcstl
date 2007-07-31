@@ -25,7 +25,7 @@
 
 #include <stdlib.h>
 
-void cstl_destroy_default(void *data, void *arg)
+void cstl_destroy_default(void *data)
 {
    free(data);
    data = NULL;

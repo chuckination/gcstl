@@ -33,26 +33,36 @@ extern "C"
 
 /* typedef wrappers */
 typedef struct cstl_map_element cstl_map_element;
+typedef struct cstl_map_destroy_arg cstl_map_destroy_arg;
 typedef struct cstl_map cstl_map;
 
 /* a map element */
 struct cstl_map_element
 {
    cstl_rbtree_element *rbtree_element;
-   void *first;
-   void *second;
+   void *key;
+   void *value;
+};
+
+/* a map destroy collection */
+struct cstl_map_destroy_arg
+{
+   void (*destroy_key)(void *);
+   void (*destroy_value)(void *);
 };
 
 /* a map */
 struct cstl_map
 {
    cstl_rbtree *rbtree;
+   cstl_map_destroy_arg *destroy_arg;
 };
 
 /* initialize a map */
 extern int cstl_map_initialize(cstl_map *map,
                                int (*comparator)(void *, void *),
-                               void (*destroy)(void *));
+                               void (*destroy_key)(void *),
+                               void (*destroy_value)(void *));
 
 /* destroy a map */
 extern int cstl_map_destroy(cstl_map *map);

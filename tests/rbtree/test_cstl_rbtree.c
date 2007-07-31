@@ -29,7 +29,9 @@
 
 #include <CUnit/CUnit.h>
 
-int basicNumericCompare(void *data1, void *data2, void *arg)
+int basicNumericCompare(void *data1,
+                        void *data2,
+                        int (*sub_comparator)(void *, void *))
 {
    int *int1 = (int *) data1;
    int *int2 = (int *) data2;
@@ -48,11 +50,21 @@ int basicNumericCompare(void *data1, void *data2, void *arg)
    }
 }
 
+int basicDestroy(void *data, void *arg)
+{
+   free(data);
+}
+
 void test_cstl_rbtree_insert()
 {
    cstl_rbtree myRbtree;
 
-   cstl_rbtree_initialize(&myRbtree, basicNumericCompare, NULL);
+   int initVal = cstl_rbtree_initialize(&myRbtree,
+                                        basicNumericCompare,
+                                        NULL,
+                                        basicDestroy,
+                                        NULL);
+   CU_ASSERT_EQUAL(0, initVal);
 
    int *myIntp1 = NULL;
    myIntp1 = (int *) malloc(sizeof(int));

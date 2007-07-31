@@ -1,4 +1,5 @@
 #include "cstl_map.h"
+#include "cstl_destroy.h"
 
 #include <stdlib.h>
 
@@ -6,34 +7,50 @@ int cstl_map_comparator(void *first,
                         void *second,
                         int (*comparator)(void *, void *))
 {
-   return comparator((cstl_map_element *)first->first,
-                     (cstl_map_element *)second->first);
+   return comparator(((cstl_map_element *)first)->key,
+                     ((cstl_map_element *)second)->key);
 }
 
-typedef struct cstl_map_destroy_arg cstl_map_destroy_arg;
-struct cstl_map_destroy_arg
+void cstl_map_destroy_default(void *data, void *destroy_arg)
 {
-   void (*destroy_first)(void *, void *);
-   void (*destroy_second)(void *, void *);
-};
-
-void cstl_map_destroy(void *data, void *destroy_arg)
-{
-   (cstl_map_destroy_arg *)destroy_arg->destroy_first(
-                                             (cstl_map_element *)data->first);
-   (cstl_map_destroy_arg *)destroy_arg->destroy_second(
-                                             (cstl_map_element *)data->second);
+   ((cstl_map_destroy_arg *)destroy_arg)->destroy_key(
+                                             ((cstl_map_element *)data)->key);
+   ((cstl_map_destroy_arg *)destroy_arg)->destroy_value(
+                                             ((cstl_map_element *)data)->value);
    free(data);
 }
 
 /* initialize a map */
 int cstl_map_initialize(cstl_map *map,
                         int (*comparator)(void *, void *),
-                        void (*destroy)(void *))
+                        void (*destroy_key)(void *),
+                        void (*destroy_value)(void *))
 {
-   return cstl_rbtree_initialize(map,
+   /* ensure that map is not NULL */
+   if (!map)
+      return -1;
+
+   /* ensure comparator is not NULL */
+   if (!comparator)
+      return -1;
+
+   /* allocate a destroy_arg structure */
+   cstl_map_destroy_arg *destroy_arg = NULL;
+   destroy_arg = (cstl_map_destroy_arg *)malloc(sizeof(cstl_map_destroy_arg));
+   if (!destroy_arg)
+      return -1;
+
+   /* assign the appropriate values to the destroy_arg fields */
+   destroy_arg->destroy_key =
+      destroy_key ? destroy_key : cstl_destroy_default;
+   destroy_arg->destroy_value =
+      destroy_value ? destroy_value : cstl_destroy_default;
+
+   return cstl_rbtree_initialize(map->rbtree,
+                                 cstl_map_comparator,
                                  comparator,
-                                 destroy);
+                                 cstl_map_destroy_default,
+                                 (void *)destroy_arg);
 }
 
 /* destroy a map */

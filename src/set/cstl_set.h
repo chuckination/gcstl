@@ -38,7 +38,7 @@ typedef cstl_rbtree cstl_set;
 /* initialize a set */
 extern int cstl_set_initialize(cstl_set *set,
                                int (*comparator)(void *, void *),
-                               void (*destroy)(void *, void *));
+                               void (*destroy)(void *));
 
 /* destroy a set */
 extern int cstl_set_destroy(cstl_set *set);
