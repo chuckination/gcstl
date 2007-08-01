@@ -32,14 +32,14 @@ extern "C"
 #endif
 
 /* typedef wrappers */
-typedef struct cstl_map_element cstl_map_element;
+typedef struct cstl_map_pair cstl_map_pair;
+typedef cstl_rbtree_element cstl_map_element;
 typedef struct cstl_map_destroy_arg cstl_map_destroy_arg;
 typedef struct cstl_map cstl_map;
 
 /* a map element */
-struct cstl_map_element
+struct cstl_map_pair
 {
-   cstl_rbtree_element *rbtree_element;
    void *key;
    void *value;
 };
@@ -87,7 +87,8 @@ extern cstl_map_element *cstl_map_prev(cstl_map_element *element);
 
 /* insert data into map */
 extern int cstl_map_insert(cstl_map *map,
-                           void *data);
+                           void *key,
+                           void *value);
 
 /* retrieve data from map */
 extern cstl_map_element *cstl_map_find(cstl_map *map,

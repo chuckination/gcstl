@@ -7,16 +7,16 @@ int cstl_map_comparator(void *first,
                         void *second,
                         int (*comparator)(void *, void *))
 {
-   return comparator(((cstl_map_element *)first)->key,
-                     ((cstl_map_element *)second)->key);
+   return comparator(((cstl_map_pair *)first)->key,
+                     ((cstl_map_pair *)second)->key);
 }
 
 void cstl_map_destroy_default(void *data, void *destroy_arg)
 {
    ((cstl_map_destroy_arg *)destroy_arg)->destroy_key(
-                                             ((cstl_map_element *)data)->key);
+                                             ((cstl_map_pair *)data)->key);
    ((cstl_map_destroy_arg *)destroy_arg)->destroy_value(
-                                             ((cstl_map_element *)data)->value);
+                                             ((cstl_map_pair *)data)->value);
    free(data);
 }
 
@@ -56,31 +56,65 @@ int cstl_map_initialize(cstl_map *map,
 /* destroy a map */
 int cstl_map_destroy(cstl_map *map)
 {
-   return cstl_rbtree_destroy(map);
+   /* attempt to destroy the red-black tree part of the make */
+   int return_value = cstl_rbtree_destroy(map->rbtree);
+   if (0 != return_value)
+      return return_value;
+
+   /* free the map destroy argument */
+   free(map->destroy_arg);
+   map->destroy_arg = NULL;
 }
 
 /* retrieve the number of elements in an map */
 int cstl_map_size(cstl_map *map)
 {
-   return cstl_rbtree_size(map);
+   /* return the map size */
+   return cstl_rbtree_size(map->rbtree);
 }
 
 /* retrieve the data from an map element */
-void *cstl_map_data(cstl_map_element *element)
+void *cstl_map_key(cstl_map_element *element)
 {
-   return cstl_map_data(element);
+   /* ensure that the element is not NULL */
+   if (!element)
+      return NULL;
+
+   /* attempt to retrieve the data from the map element */
+   cstl_map_pair *data = (cstl_map_pair *)cstl_rbtree_data(element);
+   if (!data)
+      return NULL;
+
+   /* return the element's key */
+   return data->key;
+}
+
+/* retrieve the data from an map element */
+void *cstl_map_value(cstl_map_element *element)
+{
+   /* ensure that the element is not NULL */
+   if (!element)
+      return NULL;
+
+   /* attempt to retrieve the data from the map element */
+   cstl_map_pair *data = (cstl_map_pair *)cstl_rbtree_data(element);
+   if (!data)
+      return NULL;
+
+   /* return the element's key */
+   return data->value;
 }
 
 /* retrieve the element at the beginning of the linked map */
 cstl_map_element *cstl_map_begin(cstl_map *map)
 {
-   return cstl_rbtree_begin(map);
+   return cstl_rbtree_begin(map->rbtree);
 }
 
 /* retrieve the element at the end of the linked map */
 cstl_map_element *cstl_map_end(cstl_map *map)
 {
-   return cstl_rbtree_end(map);
+   return cstl_rbtree_end(map->rbtree);
 }
 
 /* retrieve the next map element */
@@ -97,21 +131,43 @@ cstl_map_element *cstl_map_prev(cstl_map_element *element)
 
 /* insert data into map */
 int cstl_map_insert(cstl_map *map,
-                    void *data)
+                    void *key,
+                    void *value)
 {
-   return cstl_rbtree_insert(map,
-                             data);
+   /* ensure that the key is not null */
+   if (!key)
+      return -1;
+
+   /* attempt to allocate a map pair to hold the key and the data */
+   cstl_map_pair *data = (cstl_map_pair *)malloc(sizeof(cstl_map_pair));
+   if (!data)
+      return -1;
+
+   /* attempt to insert the pair into the map */
+   data->key = key;
+   data->value = value;
+   int return_value = cstl_rbtree_insert(map->rbtree,
+                                         data);
+
+   if (0 != return_value)
+   {
+      free(data);
+      return -1;
+   }
+   else
+      return 0;
 }
 
 /* retrieve data from map */
 cstl_map_element *cstl_map_find(cstl_map *map,
                                 void *data)
 {
+   /* TODO */
 }
 
 /* remove the element from the map while calling the destroy method */
 int cstl_map_remove(cstl_map *map,
-                    void *data)
+                    void *key)
 {
    return cstl_rbtree_remove(map,
                              data);
