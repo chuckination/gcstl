@@ -56,7 +56,7 @@ int cstl_map_initialize(cstl_map *map,
 /* destroy a map */
 int cstl_map_destroy(cstl_map *map)
 {
-   /* attempt to destroy the red-black tree part of the make */
+   /* attempt to destroy the red-black tree part of the map */
    int return_value = cstl_rbtree_destroy(map->rbtree);
    if (0 != return_value)
       return return_value;
@@ -155,22 +155,47 @@ int cstl_map_insert(cstl_map *map,
       return -1;
    }
    else
-      return 0;
+   {
+      return return_value;
+   }
 }
 
 /* retrieve data from map */
 cstl_map_element *cstl_map_find(cstl_map *map,
-                                void *data)
+                                void *key)
 {
-   /* TODO */
+   if ((NULL == map) ||
+        NULL == key)
+   {
+      return NULL;
+   }
+   else
+   {
+      cstl_map_pair search;
+      search.key = key;
+
+      return cstl_rbtree_find(map->rbtree,
+                              &search);
+   }
 }
 
 /* remove the element from the map while calling the destroy method */
 int cstl_map_remove(cstl_map *map,
                     void *key)
 {
-   return cstl_rbtree_remove(map,
-                             data);
+   if ((NULL == map) ||
+       (NULL == key))
+   {
+      return -1;
+   }
+   else
+   {
+      cstl_map_pair search;
+      search.key = key;
+
+      return cstl_rbtree_remove(map->rbtree,
+                                &search);
+   }
 }
 
 /* remove the element from the map while calling the destroy method */
@@ -181,12 +206,24 @@ int cstl_map_remove_element(cstl_map_element *element)
 
 /* remove the element from the map while not calling the destroy method */
 int cstl_map_unlink(cstl_map *map,
-                    void *data,
+                    void *key,
                     void **retData)
 {
-   return cstl_rbtree_unlink(map,
-                             data,
-                             retData);
+   if ((NULL == map) ||
+       (NULL == key) ||
+       (NULL == retData))
+   {
+      return -1;
+   }
+   else
+   {
+      cstl_map_pair search;
+      search.key = key;
+
+      return cstl_rbtree_unlink(map,
+                                &search,
+                                retData);
+   }
 }
 
 /* remove the element from the map while not calling the destroy method */

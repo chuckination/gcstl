@@ -92,18 +92,18 @@ extern int cstl_map_insert(cstl_map *map,
 
 /* retrieve data from map */
 extern cstl_map_element *cstl_map_find(cstl_map *map,
-                                       void *data);
+                                       void *key);
 
 /* remove the element from the map while calling the destroy method */
 extern int cstl_map_remove(cstl_map *map,
-                           void *data);
+                           void *key);
 
 /* remove the element from the map while calling the destroy method */
 extern int cstl_map_remove_element(cstl_map_element *element);
 
 /* remove the element from the map while not calling the destroy method */
 extern int cstl_map_unlink(cstl_map *map,
-                           void *data,
+                           void *key,
                            void **retData);
 
 /* remove the element from the map while not calling the destroy method */

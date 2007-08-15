@@ -106,7 +106,7 @@ int cstl_rbtree_destroy(cstl_rbtree *rbtree)
    rbtree->size = 0;
    rbtree->validator = 0;
 
-   return -1;
+   return 0;
 }
 
 void cstl_rbtree_destroy_element(cstl_rbtree_element *element)

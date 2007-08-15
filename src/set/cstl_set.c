@@ -3,7 +3,15 @@
 
 #include <stdlib.h>
 
-void cstl_set_destroy_default(void *data, void *arg)
+int cstl_set_comparator(void *first,
+                        void *second,
+                        int (*comparator)(void *, void *))
+{
+   return comparator(first, second);
+}
+
+void cstl_set_destroy_default(void *data,
+                              void *arg)
 {
    void (*destroy)(void *) = arg;
    destroy(data);
@@ -15,8 +23,8 @@ int cstl_set_initialize(cstl_set *set,
                         void (*destroy)(void *))
 {
    return cstl_rbtree_initialize(set,
+                                 cstl_set_comparator,
                                  comparator,
-                                 NULL,
                                  cstl_set_destroy_default,
                                  destroy ? destroy : cstl_destroy_default);
 }
