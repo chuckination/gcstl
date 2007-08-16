@@ -63,6 +63,8 @@ AC_OUTPUT(Makefile \
           src/Makefile \
           src/destroy/Makefile \
           src/list/Makefile \
+          src/stack/Makefile \
+          src/queue/Makefile \
           src/rbtree/Makefile \
           src/set/Makefile \
           src/map/Makefile

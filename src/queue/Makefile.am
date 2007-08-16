@@ -16,22 +16,17 @@
 
 ################################################################################
 ##
-## $URL$
-## $Id$
+## $URL: https://gcstl.svn.sourceforge.net/svnroot/gcstl/trunk/src/queue/Makefile.am $
+## $Id: Makefile.am 47 2007-07-22 02:12:41Z chucks $
 ##
 ################################################################################
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-SUBDIRS = destroy list rbtree set map
-
 library_includedir=$(includedir)
-library_include_HEADERS = cstl.h
+library_include_HEADERS = cstl_queue.h
 
-lib_LTLIBRARIES = libcstl.la
-libcstl_la_SOURCES =
-libcstl_la_LIBADD = destroy/libcstl_destroy.la \
-                    list/libcstl_list.la \
-                    rbtree/libcstl_rbtree.la \
-                    set/libcstl_set.la
-libcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)
+INCLUDES = -I$(top_srcdir)/src/destroy
+
+noinst_LTLIBRARIES = libcstl_queue.la
+libcstl_queue_la_SOURCES = cstl_queue.c cstl_queue.h
