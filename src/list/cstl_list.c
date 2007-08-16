@@ -265,6 +265,10 @@ int cstl_list_remove(cstl_list_element *element)
    if (CSTL_LIST_VALIDATOR != element->list->validator)
       return -1;
 
+   /* ensure that the element is not the list head */
+   if (element == element->list->head)
+      return -1;
+
    /* unlink the element from the list */
    element->next->prev = element->prev;
    element->prev->next = element->next;
@@ -282,7 +286,7 @@ int cstl_list_remove(cstl_list_element *element)
 }
 
 int cstl_list_unlink(cstl_list_element *element,
-                     void **data)
+                     void **retData)
 {
    /* ensure that element is not null */
    if (!element)
@@ -296,6 +300,10 @@ int cstl_list_unlink(cstl_list_element *element,
    if (CSTL_LIST_VALIDATOR != element->list->validator)
       return -1;
 
+   /* ensure that the element is not the list head */
+   if (element == element->list->head)
+      return -1;
+
    /* unlink the element from the list */
    element->next->prev = element->prev;
    element->prev->next = element->next;
@@ -303,8 +311,14 @@ int cstl_list_unlink(cstl_list_element *element,
    /* decrement the list size */
    element->list->size--;
 
-   /* point data to the element data */
-   (*data) = element->data;
+   /* retData can be NULL, but this indicates that the developer
+    * already has a poiner to the item and just wants it removed
+    * from the list */
+   if (NULL != retData)
+   {
+      /* point data to the element data */
+      (*retData) = element->data;
+   }
 
    /* free the element */
    free(element);
@@ -358,26 +372,30 @@ int cstl_list_pop_back(cstl_list *list)
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *oldElement = list->head->prev;
+   cstl_list_element *element = list->head->prev;
+
+   /* ensure that the element is not the list head */
+   if (element->list->head->prev == element->list->head)
+      return -1;
 
    /* unlink the element from the list */
-   oldElement->next->prev = oldElement->prev;
-   oldElement->prev->next = oldElement->next;
+   element->next->prev = element->prev;
+   element->prev->next = element->next;
 
    /* decrement the list size */
    list->size--;
 
    /* call the list destroy method to free the element data */
-   list->destroy(oldElement->data);
+   list->destroy(element->data);
 
    /* free the element */
-   free(oldElement);
+   free(element);
 
    return 0;
 }
 
 int cstl_list_unlink_back(cstl_list *list,
-                          void **data)
+                          void **retData)
 {
    /* ensure that list is not null */
    if (!list)
@@ -388,20 +406,30 @@ int cstl_list_unlink_back(cstl_list *list,
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *oldElement = list->head->prev;
+   cstl_list_element *element = list->head->prev;
 
-   /* point data to the element data */
-   (*data) = oldElement->data;
+   /* ensure that the element is not the list head */
+   if (element->list->head->prev == element->list->head)
+      return -1;
 
    /* unlink the element from the list */
-   oldElement->next->prev = oldElement->prev;
-   oldElement->prev->next = oldElement->next;
+   element->next->prev = element->prev;
+   element->prev->next = element->next;
 
    /* decrement the list size */
    list->size--;
 
+   /* retData can be NULL, and this indicates that the developer
+    * already has a poiner to the item and just wants it removed
+    * from the list */
+   if (NULL != retData)
+   {
+      /* point data to the element data */
+      (*retData) = element->data;
+   }
+
    /* free the element */
-   free(oldElement);
+   free(element);
 
    return 0;
 }
@@ -452,26 +480,30 @@ int cstl_list_pop_front(cstl_list *list)
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *oldElement = list->head->next;
+   cstl_list_element *element = list->head->next;
+
+   /* ensure that the element is not the list head */
+   if (element->list->head->next == element->list->head)
+      return -1;
 
    /* call the list destroy method to free the element data */
-   list->destroy(oldElement->data);
+   list->destroy(element->data);
 
    /* unlink the element from the list */
-   oldElement->prev->next = oldElement->next;
-   oldElement->next->prev = oldElement->prev;
+   element->prev->next = element->next;
+   element->next->prev = element->prev;
 
    /* decrement the list size */
    list->size--;
 
    /* free the element */
-   free(oldElement);
+   free(element);
 
    return 0;
 }
 
 int cstl_list_unlink_front(cstl_list *list,
-                        void **data)
+                        void **retData)
 {
    /* ensure that list is not null */
    if (!list)
@@ -482,20 +514,30 @@ int cstl_list_unlink_front(cstl_list *list,
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *oldElement = list->head->next;
+   cstl_list_element *element = list->head->next;
 
-   /* point data at the element data */
-   (*data) = oldElement->data;
+   /* ensure that the element is not the list head */
+   if (element->list->head->next == element->list->head)
+      return -1;
 
    /* unlink the element from the list */
-   oldElement->prev->next = oldElement->next;
-   oldElement->next->prev = oldElement->prev;
+   element->prev->next = element->next;
+   element->next->prev = element->prev;
 
    /* decrement the list size */
    list->size--;
 
+   /* retData can be NULL, and this indicates that the developer
+    * already has a poiner to the item and just wants it removed
+    * from the list */
+   if (NULL != retData)
+   {
+      /* point data to the element data */
+      (*retData) = element->data;
+   }
+
    /* free the element */
-   free(oldElement);
+   free(element);
 
    return 0;
 }

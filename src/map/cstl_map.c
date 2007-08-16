@@ -36,10 +36,17 @@ int cstl_map_comparator(void *first,
 
 void cstl_map_destroy_default(void *data, void *destroy_arg)
 {
+   /* cleanup the element's key */
    ((cstl_map_destroy_arg *)destroy_arg)->destroy_key(
                                              ((cstl_map_pair *)data)->key);
-   ((cstl_map_destroy_arg *)destroy_arg)->destroy_value(
-                                             ((cstl_map_pair *)data)->value);
+
+   /* only cleanup the element's data if it is non-NULL */
+   if (((cstl_map_pair *)data)->value)
+   {
+      ((cstl_map_destroy_arg *)destroy_arg)->destroy_value(
+                                                ((cstl_map_pair *)data)->value);
+   }
+
    free(data);
 }
 

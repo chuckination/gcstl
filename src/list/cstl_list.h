@@ -93,7 +93,7 @@ extern int cstl_list_remove(cstl_list_element *element);
 
 /* remove the element from the list while not calling the destroy method */
 extern int cstl_list_unlink(cstl_list_element *element,
-                            void **data);
+                            void **retData);
 
 /* insert the data at the end of the linked list */
 extern int cstl_list_push_back(cstl_list *list,
@@ -106,7 +106,7 @@ extern int cstl_list_pop_back(cstl_list *list);
 /* remove the element from the end of the linked list while not calling
  * the destroy method */
 extern int cstl_list_unlink_back(cstl_list *list,
-                                 void **data);
+                                 void **retData);
 
 /* insert the data at the beginning of the linked list */
 extern int cstl_list_push_front(cstl_list *list,
@@ -119,7 +119,7 @@ extern int cstl_list_pop_front(cstl_list *list);
 /* remove the element from the beginning of the linked list while not calling
  * the destroy method */
 extern int cstl_list_unlink_front(cstl_list *list,
-                                  void **data);
+                                  void **retData);
 
 #ifdef __cplusplus
 }

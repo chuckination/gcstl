@@ -169,15 +169,15 @@ cstl_rbtree_element *cstl_rbtree_begin(cstl_rbtree *rbtree)
          element = iter;
          iter = iter->left;
       }
+
+      return element;
    }
    // the iterator is NULL
    else
    {
       // get the end of the tree
-      element = cstl_rbtree_end(rbtree);
+      return rbtree->end;
    }
-
-   return element;
 }
 
 cstl_rbtree_element *cstl_rbtree_end(cstl_rbtree *rbtree)
@@ -205,20 +205,32 @@ cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
 
    for (;;)
    {
-
       if (element->right)
-         return element->right;
-
-      if (element->parent)
       {
-         if (element == element->parent->left)
+         element = element->right;
+
+         while (element->left)
          {
-            return element->parent;
+            element = element->left;
          }
-         else
+
+         return element;
+      }
+      else if (element->parent)
+      {
+         while (element->parent)
          {
-            element = element->parent;
+            if (element == element->parent->left)
+            {
+               return element->parent;
+            }
+            else
+            {
+               element = element->parent;
+            }
          }
+
+         return element->rbtree->end;
       }
       else
       {
@@ -239,20 +251,32 @@ cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
 
    for (;;)
    {
-
       if (element->left)
-         return element->left;
-
-      if (element->parent)
       {
-         if (element == element->parent->right)
+         element = element->left;
+
+         while (element->right)
          {
-            return element->parent;
+            element = element->right;
          }
-         else
+
+         return element;
+      }
+      else if (element->parent)
+      {
+         while (element->parent)
          {
-            element = element->parent;
+            if (element == element->parent->right)
+            {
+               return element->parent;
+            }
+            else
+            {
+               element = element->parent;
+            }
          }
+
+         return element->rbtree->end;
       }
       else
       {
@@ -665,10 +689,6 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
    if (CSTL_RBTREE_VALIDATOR != element->rbtree->validator)
       return -1;
 
-   /* ensure that data is not null */
-   if (!retData)
-      return -1;
-
    /* find the predecessor */
    if ((NULL != element->left) && (NULL != element->right))
    {
@@ -724,8 +744,17 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
       }
    }
 
-   /* remove the element and point data to its data */
-   *retData = element->data;
+
+   /* retData can be NULL, and this indicates that the developer
+    * already has a poiner to the item and just wants it removed
+    * from the tree */
+   if (NULL != retData)
+   {
+      /* point data to the element data */
+      (*retData) = element->data;
+   }
+
+   /* remove the element from the tree */
    free(element);
 
    cstl_rbtree_remove_rebalance(replacement,
