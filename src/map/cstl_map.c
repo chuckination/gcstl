@@ -201,6 +201,7 @@ cstl_map_element *cstl_map_find(cstl_map *map,
    }
    else
    {
+      /* create a search key */
       cstl_map_pair search;
       search.key = key;
 
@@ -220,6 +221,7 @@ int cstl_map_remove(cstl_map *map,
    }
    else
    {
+      /* create a search key */
       cstl_map_pair search;
       search.key = key;
 
@@ -240,19 +242,44 @@ int cstl_map_unlink(cstl_map *map,
                     void **retData)
 {
    if ((NULL == map) ||
-       (NULL == key) ||
-       (NULL == retData))
+       (NULL == key))
    {
       return -1;
    }
    else
    {
+      int return_value;
+      cstl_map_pair *tmp = NULL;
+
+      /* create a search key */
       cstl_map_pair search;
       search.key = key;
 
-      return cstl_rbtree_unlink(map,
-                                &search,
-                                retData);
+      return_value = cstl_rbtree_unlink(map,
+                                        &search,
+                                        (void **) &tmp);
+
+      /* only assign the value in tmp to retData is we successfully
+       * removed that element from the map */
+      if (0 == return_value)
+      {
+         /* always call destroy_key on the element's key */
+         map->destroy_arg->destroy_key(tmp->key);
+
+         /* retData can be NULL, and this indicates that the developer
+          * already has a poiner to the item and just wants it removed
+          * from the tree */
+         if (retData)
+         {
+            /* point retData to the pair's value */
+            (*retData) = tmp->value;
+         }
+
+         /* free the temporary map pair item */
+         free(tmp);
+      }
+
+      return return_value;
    }
 }
 
@@ -260,6 +287,38 @@ int cstl_map_unlink(cstl_map *map,
 int cstl_map_unlink_element(cstl_map_element *element,
                             void **retData)
 {
-   return cstl_rbtree_unlink_element(element,
-                                     retData);
+   /* ensure that element is not null */
+   if (!element)
+      return -1;
+
+   /* get a pointer to the rbtree */
+   cstl_rbtree *rbtree = element->rbtree;
+
+   int return_value;
+   cstl_map_pair *tmp = NULL;
+
+   return_value = cstl_rbtree_unlink_element(element,
+                                             (void **) &tmp);
+
+   /* only assign the value in tmp to retData is we successfully
+    * removed that element from the map */
+   if (0 == return_value)
+   {
+      /* always call destroy_key on the element's key */
+      ((cstl_map_destroy_arg *)rbtree->destroy_arg)->destroy_key(tmp->key);
+
+      /* retData can be NULL, and this indicates that the developer
+       * already has a poiner to the item and just wants it removed
+       * from the tree */
+      if (retData)
+      {
+         /* point retData to the pair's value */
+         (*retData) = tmp->value;
+      }
+
+      /* free the temporary map pair item */
+      free(tmp);
+   }
+
+   return return_value;
 }

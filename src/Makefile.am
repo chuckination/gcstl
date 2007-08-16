@@ -23,7 +23,7 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-SUBDIRS = destroy list rbtree set map
+SUBDIRS = destroy list stack queue rbtree set map
 
 library_includedir=$(includedir)
 library_include_HEADERS = cstl.h

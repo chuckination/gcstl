@@ -601,6 +601,10 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
    if (!element)
       return -1;
 
+   /* ensure that the rbtree is not null */
+   if (!element->rbtree)
+      return -1;
+
    /* ensure that the rbtree is valid */
    if (CSTL_RBTREE_VALIDATOR != element->rbtree->validator)
       return -1;
@@ -685,6 +689,10 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
    if (!element)
       return -1;
 
+   /* ensure that the rbtree is not null */
+   if (!element->rbtree)
+      return -1;
+
    /* ensure that the rbtree is valid */
    if (CSTL_RBTREE_VALIDATOR != element->rbtree->validator)
       return -1;
@@ -750,7 +758,7 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
     * from the tree */
    if (NULL != retData)
    {
-      /* point data to the element data */
+      /* point retData to the element data */
       (*retData) = element->data;
    }
 
