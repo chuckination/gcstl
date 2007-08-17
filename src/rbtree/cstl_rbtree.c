@@ -203,6 +203,9 @@ cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
    if (CSTL_RBTREE_VALIDATOR != element->rbtree->validator)
       return NULL;
 
+   if (element == element->rbtree->end)
+      return cstl_rbtree_begin(element->rbtree);
+
    for (;;)
    {
       if (element->right)
@@ -216,7 +219,7 @@ cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
 
          return element;
       }
-      else if (element->parent)
+      else
       {
          while (element->parent)
          {
@@ -232,10 +235,6 @@ cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
 
          return element->rbtree->end;
       }
-      else
-      {
-         return element->rbtree->end;
-      }
    }
 }
 
@@ -248,6 +247,9 @@ cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
    /* ensure that the rbtree is valid */
    if (CSTL_RBTREE_VALIDATOR != element->rbtree->validator)
       return NULL;
+
+   if (element == element->rbtree->end)
+      return cstl_rbtree_end(element->rbtree);
 
    for (;;)
    {
@@ -262,7 +264,7 @@ cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
 
          return element;
       }
-      else if (element->parent)
+      else
       {
          while (element->parent)
          {
@@ -276,10 +278,6 @@ cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
             }
          }
 
-         return element->rbtree->end;
-      }
-      else
-      {
          return element->rbtree->end;
       }
    }
