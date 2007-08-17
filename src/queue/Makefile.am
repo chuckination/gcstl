@@ -26,7 +26,8 @@
 library_includedir=$(includedir)
 library_include_HEADERS = cstl_queue.h
 
-INCLUDES = -I$(top_srcdir)/src/destroy
+INCLUDES = -I$(top_srcdir)/src/destroy \
+           -I$(top_srcdir)/src/list
 
 noinst_LTLIBRARIES = libcstl_queue.la
 libcstl_queue_la_SOURCES = cstl_queue.c cstl_queue.h

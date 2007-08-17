@@ -21,4 +21,43 @@
  *
  ******************************************************************************/
 
+#include "cstl_queue.h"
 
+int cstl_queue_initialize(cstl_queue *queue,
+                          void (*destroy)(void *))
+{
+   return cstl_list_initialize(queue, destroy);
+}
+
+int cstl_queue_destroy(cstl_queue *queue)
+{
+   return cstl_list_destroy(queue);
+}
+
+int cstl_queue_size(cstl_queue *queue)
+{
+   return cstl_list_size(queue);
+}
+
+void *cstl_queue_data(cstl_queue_element *element)
+{
+   return cstl_list_data(element);
+}
+
+int cstl_queue_pop_back(cstl_queue *queue)
+{
+   return cstl_queue_pop_back(queue);
+}
+
+int cstl_queue_unlink_back(cstl_queue *queue,
+                           void **retData)
+{
+   return cstl_queue_unlink_back(queue, retData);
+}
+
+
+int cstl_queue_push_front(cstl_queue *queue,
+                          void *data)
+{
+   return cstl_list_push_front(queue, data);
+}

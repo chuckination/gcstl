@@ -62,7 +62,7 @@ extern int cstl_list_destroy(cstl_list *list);
 extern int cstl_list_size(cstl_list *list);
 
 /* retrieve the data from a list element */
-extern void *cstl_list_data(cstl_list_element *cstl_list_element);
+extern void *cstl_list_data(cstl_list_element *element);
 
 /* change the elment data without calling the destroy method */
 extern void *cstl_list_newdata(cstl_list_element *cstl_list_element,

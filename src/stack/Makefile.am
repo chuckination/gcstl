@@ -26,7 +26,8 @@
 library_includedir=$(includedir)
 library_include_HEADERS = cstl_stack.h
 
-INCLUDES = -I$(top_srcdir)/src/destroy
+INCLUDES = -I$(top_srcdir)/src/destroy \
+           -I$(top_srcdir)/src/list
 
 noinst_LTLIBRARIES = libcstl_stack.la
 libcstl_stack_la_SOURCES = cstl_stack.c cstl_stack.h

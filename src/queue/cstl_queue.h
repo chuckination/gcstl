@@ -24,10 +24,42 @@
 #ifndef CSTL_QUEUE_H
 #define CSTL_QUEUE_H
 
+#include "cstl_list.h"
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
+/* forward declarations */
+typedef cstl_list_element cstl_queue_element;
+typedef cstl_list cstl_queue;
+
+/* initialize a doubly linked queue */
+extern int cstl_queue_initialize(cstl_queue *queue,
+                                 void (*destroy)(void *));
+
+/* destroy a doubly linked queue */
+extern int cstl_queue_destroy(cstl_queue *queue);
+
+/* retrieve the number of elements in a queue */
+extern int cstl_queue_size(cstl_queue *queue);
+
+/* retrieve the data from a queue element */
+extern void *cstl_queue_data(cstl_queue_element *element);
+
+/* remove the element from the end of the linked queue while calling the
+ * destroy method */
+extern int cstl_queue_pop_back(cstl_queue *queue);
+
+/* remove the element from the end of the linked queue while not calling
+ * the destroy method */
+extern int cstl_queue_unlink_back(cstl_queue *queue,
+                                  void **retData);
+
+/* insert the data at the beginning of the linked queue */
+extern int cstl_queue_push_front(cstl_queue *queue,
+                                 void *data);
 
 #ifdef __cplusplus
 }
