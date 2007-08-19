@@ -23,10 +23,14 @@
 
 #include "cstl_stack.h"
 
-int cstl_stack_initialize(cstl_stack *stack,
-                          void (*destroy)(void *))
+void cstl_stack_destroy_null(void *data)
 {
-   return cstl_list_initialize(stack, destroy);
+   /* do nothing */
+}
+
+int cstl_stack_initialize(cstl_stack *stack)
+{
+   return cstl_list_initialize(stack, cstl_stack_destroy_null);
 }
 
 int cstl_stack_destroy(cstl_stack *stack)
@@ -39,24 +43,18 @@ int cstl_stack_size(cstl_stack *stack)
    return cstl_list_size(stack);
 }
 
-void *cstl_stack_data(cstl_stack_element *element)
+void *cstl_stack_top(cstl_stack *stack)
 {
-   return cstl_list_data(element);
+   return cstl_list_data(cstl_list_front(stack));
 }
 
-int cstl_stack_push_front(cstl_stack *stack,
-                          void *data)
+int cstl_stack_push(cstl_stack *stack,
+                    void *data)
 {
-   return cstl_list_stac(stack, data);
+   return cstl_list_push_front(stack, data);
 }
 
-int cstl_stack_pop_front(cstl_stack *stack)
+int cstl_stack_pop(cstl_stack *stack)
 {
    return cstl_list_pop_front(stack);
-}
-
-int cstl_stack_unlink_front(cstl_stack *stack,
-                            void **retData)
-{
-   return cstl_list_unlink_front(stack, retData);
 }

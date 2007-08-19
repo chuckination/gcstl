@@ -23,10 +23,14 @@
 
 #include "cstl_queue.h"
 
-int cstl_queue_initialize(cstl_queue *queue,
-                          void (*destroy)(void *))
+void cstl_queue_destroy_null(void *data)
 {
-   return cstl_list_initialize(queue, destroy);
+   /* do nothing */
+}
+
+int cstl_queue_initialize(cstl_queue *queue)
+{
+   return cstl_list_initialize(queue, cstl_queue_destroy_null);
 }
 
 int cstl_queue_destroy(cstl_queue *queue)
@@ -39,25 +43,18 @@ int cstl_queue_size(cstl_queue *queue)
    return cstl_list_size(queue);
 }
 
-void *cstl_queue_data(cstl_queue_element *element)
+void *cstl_queue_front(cstl_queue *queue)
 {
-   return cstl_list_data(element);
+   return cstl_list_data(cstl_list_back(queue));
 }
 
-int cstl_queue_pop_back(cstl_queue *queue)
-{
-   return cstl_queue_pop_back(queue);
-}
-
-int cstl_queue_unlink_back(cstl_queue *queue,
-                           void **retData)
-{
-   return cstl_queue_unlink_back(queue, retData);
-}
-
-
-int cstl_queue_push_front(cstl_queue *queue,
-                          void *data)
+int cstl_queue_push(cstl_queue *queue,
+                    void *data)
 {
    return cstl_list_push_front(queue, data);
+}
+
+int cstl_queue_pop(cstl_queue *queue)
+{
+   return cstl_queue_pop_back(queue);
 }

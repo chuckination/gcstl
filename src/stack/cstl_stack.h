@@ -36,8 +36,7 @@ typedef cstl_list_element cstl_stack_element;
 typedef cstl_list cstl_stack;
 
 /* initialize a doubly linked stack */
-extern int cstl_stack_initialize(cstl_stack *stack,
-                                 void (*destroy)(void *));
+extern int cstl_stack_initialize(cstl_stack *stack);
 
 /* destroy a doubly linked stack */
 extern int cstl_stack_destroy(cstl_stack *stack);
@@ -46,20 +45,15 @@ extern int cstl_stack_destroy(cstl_stack *stack);
 extern int cstl_stack_size(cstl_stack *stack);
 
 /* retrieve the data from a stack element */
-extern void *cstl_stack_data(cstl_stack_element *element);
+extern void *cstl_stack_top(cstl_stack *stack);
 
 /* insert the data at the beginning of the linked stack */
-extern int cstl_stack_push_front(cstl_stack *stack,
-                                 void *data);
+extern int cstl_stack_push(cstl_stack *stack,
+                           void *data);
 
 /* remove the element from the beginning of the linked stack while calling the
  * destroy method */
-extern int cstl_stack_pop_front(cstl_stack *stack);
-
-/* remove the element from the beginning of the linked stack while not calling
- * the destroy method */
-extern int cstl_stack_unlink_front(cstl_stack *stack,
-                                   void **retData);
+extern int cstl_stack_pop(cstl_stack *stack);
 
 #ifdef __cplusplus
 }
