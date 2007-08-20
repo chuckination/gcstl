@@ -37,8 +37,8 @@ typedef struct cstl_rbtree cstl_rbtree;
 /* red-black tree color enumeration */
 enum cstl_rbtree_element_color
 {
-   RED,
-   BLACK
+   CSTL_RBTREE_RED,
+   CSTL_RBTREE_BLACK
 };
 
 /* a red-black tree element */

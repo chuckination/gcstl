@@ -416,7 +416,7 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
    element->parent = parent;
    element->left = NULL;
    element->right = NULL;
-   element->color = RED;
+   element->color = CSTL_RBTREE_RED;
    element->data = data;
 
    /* increment the size of the rbtree */
@@ -451,10 +451,10 @@ void cstl_rbtree_insert_case1(cstl_rbtree_element *element)
    if (element->parent == NULL)
    {
       /* the element is the root */
-      if (cstl_rbtree_color(element) == RED)
+      if (cstl_rbtree_color(element) == CSTL_RBTREE_RED)
       {
          /* the element is a red root */
-         element->color = BLACK;
+         element->color = CSTL_RBTREE_BLACK;
       }
    }
    else
@@ -467,7 +467,7 @@ void cstl_rbtree_insert_case1(cstl_rbtree_element *element)
 void cstl_rbtree_insert_case2(cstl_rbtree_element *element)
 {
    /* the element's parent is red */
-   if (cstl_rbtree_color(element->parent) == RED)
+   if (cstl_rbtree_color(element->parent) == CSTL_RBTREE_RED)
    {
       /* the parent is the left child of the grandparent */
       if (element->parent == element->parent->parent->left)
@@ -486,12 +486,12 @@ void cstl_rbtree_insert_case2(cstl_rbtree_element *element)
 void cstl_rbtree_insert_case3_left(cstl_rbtree_element *element)
 {
    /* the element's uncle is red */
-   if (cstl_rbtree_color(element->parent->parent->right) == RED)
+   if (cstl_rbtree_color(element->parent->parent->right) == CSTL_RBTREE_RED)
    {
       /* flip the color of the parent, uncle, and grandparent */
-      element->parent->color = BLACK;
-      element->parent->parent->right->color = BLACK;
-      element->parent->parent->color = RED;
+      element->parent->color = CSTL_RBTREE_BLACK;
+      element->parent->parent->right->color = CSTL_RBTREE_BLACK;
+      element->parent->parent->color = CSTL_RBTREE_RED;
 
       /* the color change could break the red rule for the grandparent,
        * so rebalance starting at the grandparent */
@@ -529,19 +529,19 @@ void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element)
    cstl_rbtree_rotate_right(element->parent);
 
    /* recolor the element and the elements right child */
-   element->color = BLACK;
-   element->right->color = RED;
+   element->color = CSTL_RBTREE_BLACK;
+   element->right->color = CSTL_RBTREE_RED;
 }
 
 void cstl_rbtree_insert_case3_right(cstl_rbtree_element *element)
 {
    /* the element's uncle is red */
-   if (cstl_rbtree_color(element->parent->parent->left) == RED)
+   if (cstl_rbtree_color(element->parent->parent->left) == CSTL_RBTREE_RED)
    {
       /* flip the color of the parent, uncle, and grandparent */
-      element->parent->color = BLACK;
-      element->parent->parent->left->color = BLACK;
-      element->parent->parent->color = RED;
+      element->parent->color = CSTL_RBTREE_BLACK;
+      element->parent->parent->left->color = CSTL_RBTREE_BLACK;
+      element->parent->parent->color = CSTL_RBTREE_RED;
 
       /* the color change could break the red rule for the grandparent,
        * so rebalance starting at the grandparent */
@@ -579,8 +579,8 @@ void cstl_rbtree_insert_case5_right(cstl_rbtree_element *element)
    cstl_rbtree_rotate_left(element->parent);
 
    /* recolor the element and the elements left child */
-   element->color = BLACK;
-   element->left->color = RED;
+   element->color = CSTL_RBTREE_BLACK;
+   element->left->color = CSTL_RBTREE_RED;
 }
 
 int cstl_rbtree_remove(cstl_rbtree *rbtree,
@@ -795,9 +795,9 @@ void cstl_rbtree_remove_case6_right(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_rebalance(cstl_rbtree_element *replacement,
                                   cstl_rbtree_element *parent)
 {
-   if (cstl_rbtree_color(replacement) == RED)
+   if (cstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
    {
-      replacement->color = BLACK;
+      replacement->color = CSTL_RBTREE_BLACK;
    }
    else
    {
@@ -830,10 +830,10 @@ void cstl_rbtree_remove_case2_left(cstl_rbtree_element *replacement,
 {
    cstl_rbtree_element *sibling = parent->right;
 
-   if (cstl_rbtree_color(sibling) == RED)
+   if (cstl_rbtree_color(sibling) == CSTL_RBTREE_RED)
    {
-      parent->color = RED;
-      sibling->color = BLACK;
+      parent->color = CSTL_RBTREE_RED;
+      sibling->color = CSTL_RBTREE_BLACK;
 
       cstl_rbtree_rotate_left(parent);
       sibling = parent->right;
@@ -853,10 +853,10 @@ void cstl_rbtree_remove_case2_right(cstl_rbtree_element *replacement,
 {
    cstl_rbtree_element *sibling = parent->left;
 
-   if (cstl_rbtree_color(sibling) == RED)
+   if (cstl_rbtree_color(sibling) == CSTL_RBTREE_RED)
    {
-      parent->color = RED;
-      sibling->color = BLACK;
+      parent->color = CSTL_RBTREE_RED;
+      sibling->color = CSTL_RBTREE_BLACK;
 
       cstl_rbtree_rotate_right(parent);
       sibling = parent->left;
@@ -874,12 +874,12 @@ void cstl_rbtree_remove_case2_right(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case3_left(cstl_rbtree_element *replacement,
                                    cstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == BLACK) &&
-       (cstl_rbtree_color(parent->right) == BLACK) &&
-       (cstl_rbtree_color(parent->right->left) == BLACK) &&
-       (cstl_rbtree_color(parent->right->right) == BLACK))
+   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
    {
-      parent->right->color = RED;
+      parent->right->color = CSTL_RBTREE_RED;
 
       cstl_rbtree_remove_case1(parent,
                                parent->parent);
@@ -894,12 +894,12 @@ void cstl_rbtree_remove_case3_left(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case3_right(cstl_rbtree_element *replacement,
                                     cstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == BLACK) &&
-       (cstl_rbtree_color(parent->left) == BLACK) &&
-       (cstl_rbtree_color(parent->left->left) == BLACK) &&
-       (cstl_rbtree_color(parent->left->right) == BLACK))
+   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
    {
-      parent->left->color = RED;
+      parent->left->color = CSTL_RBTREE_RED;
 
       cstl_rbtree_remove_case1(parent,
                                parent->parent);
@@ -914,13 +914,13 @@ void cstl_rbtree_remove_case3_right(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case4_left(cstl_rbtree_element *replacement,
                                    cstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == RED) &&
-       (cstl_rbtree_color(parent->right) == BLACK) &&
-       (cstl_rbtree_color(parent->right->left) == BLACK) &&
-       (cstl_rbtree_color(parent->right->right) == BLACK))
+   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
+       (cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
    {
-      parent->right->color = RED;
-      parent->color = BLACK;
+      parent->right->color = CSTL_RBTREE_RED;
+      parent->color = CSTL_RBTREE_BLACK;
    }
    else
    {
@@ -932,13 +932,13 @@ void cstl_rbtree_remove_case4_left(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case4_right(cstl_rbtree_element *replacement,
                                     cstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == RED) &&
-       (cstl_rbtree_color(parent->left) == BLACK) &&
-       (cstl_rbtree_color(parent->left->left) == BLACK) &&
-       (cstl_rbtree_color(parent->left->right) == BLACK))
+   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
+       (cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
    {
-      parent->left->color = RED;
-      parent->color = BLACK;
+      parent->left->color = CSTL_RBTREE_RED;
+      parent->color = CSTL_RBTREE_BLACK;
    }
    else
    {
@@ -951,12 +951,12 @@ void cstl_rbtree_remove_case4_right(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case5_left(cstl_rbtree_element *replacement,
                                    cstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent->right) == BLACK) &&
-       (cstl_rbtree_color(parent->right->left) == RED) &&
-       (cstl_rbtree_color(parent->right->right) == BLACK))
+   if ((cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_RED) &&
+       (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
    {
-      parent->right->color = RED;
-      parent->right->left->color = BLACK;
+      parent->right->color = CSTL_RBTREE_RED;
+      parent->right->left->color = CSTL_RBTREE_BLACK;
       cstl_rbtree_rotate_right(parent->right);
       parent->right = parent->right->parent;
    }
@@ -968,12 +968,12 @@ void cstl_rbtree_remove_case5_left(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case5_right(cstl_rbtree_element *replacement,
                                     cstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent->left) == BLACK) &&
-       (cstl_rbtree_color(parent->left->right) == RED) &&
-       (cstl_rbtree_color(parent->left->left) == BLACK))
+   if ((cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
+       (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_RED) &&
+       (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK))
    {
-      parent->left->color = RED;
-      parent->left->right->color = BLACK;
+      parent->left->color = CSTL_RBTREE_RED;
+      parent->left->right->color = CSTL_RBTREE_BLACK;
       cstl_rbtree_rotate_left(parent->left);
       parent->left = parent->left->parent;
    }
@@ -986,8 +986,8 @@ void cstl_rbtree_remove_case6_left(cstl_rbtree_element *replacement,
                                    cstl_rbtree_element *parent)
 {
    parent->right->color = parent->color;
-   parent->color = BLACK;
-   parent->right->right->color = BLACK;
+   parent->color = CSTL_RBTREE_BLACK;
+   parent->right->right->color = CSTL_RBTREE_BLACK;
    cstl_rbtree_rotate_left(parent);
 }
 
@@ -995,8 +995,8 @@ void cstl_rbtree_remove_case6_right(cstl_rbtree_element *replacement,
                                     cstl_rbtree_element *parent)
 {
    parent->left->color = parent->color;
-   parent->color = BLACK;
-   parent->left->left->color = BLACK;
+   parent->color = CSTL_RBTREE_BLACK;
+   parent->left->left->color = CSTL_RBTREE_BLACK;
    cstl_rbtree_rotate_right(parent);
 }
 
@@ -1004,7 +1004,7 @@ cstl_rbtree_element_color cstl_rbtree_color(cstl_rbtree_element *element)
 {
    /* NULL elements are black */
    if (!element)
-      return BLACK;
+      return CSTL_RBTREE_BLACK;
    else
       return element->color;
 }
