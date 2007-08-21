@@ -430,8 +430,7 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
 
 void cstl_rbtree_insert_case1(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case2(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case3_left(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case3_right(cstl_rbtree_element *element);
+void cstl_rbtree_insert_case3(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element);
@@ -469,75 +468,63 @@ void cstl_rbtree_insert_case2(cstl_rbtree_element *element)
    /* the element's parent is red */
    if (cstl_rbtree_color(element->parent) == CSTL_RBTREE_RED)
    {
-      /* the parent is the left child of the grandparent */
+      /* call case 3 on the element */
+      cstl_rbtree_insert_case3(element);
+   }
+}
+
+void cstl_rbtree_insert_case3(cstl_rbtree_element *element)
+{
+   /* get a pointer to the element's uncle */
+   cstl_rbtree_element *uncle = NULL;
+   if (element->parent == element->parent->parent->left)
+   {
+      uncle = element->parent->parent->right;
+   }
+   else
+   {
+      uncle = element->parent->parent->left;
+   }
+
+   /* the element's uncle is red */
+   if (cstl_rbtree_color(uncle) == CSTL_RBTREE_RED)
+   {
+      /* flip the color of the parent, uncle, and grandparent */
+      element->parent->color = CSTL_RBTREE_BLACK;
+
+      uncle->color = CSTL_RBTREE_BLACK;
+      element->parent->parent->color = CSTL_RBTREE_RED;
+
+      /* the color change could break the red rule for the grandparent,
+       * so rebalance starting at the grandparent */
+      cstl_rbtree_insert_case1(element->parent->parent);
+   }
+   /* the element's uncle is black */
+   else
+   {
       if (element == element->parent->left)
       {
          /* call case 3 on the element */
-         cstl_rbtree_insert_case3_left(element);
+         cstl_rbtree_insert_case4_left(element);
       }
-      /* the parent is the right child of the grandparent */
       else
       {
          /* call case 3 on the element */
-         cstl_rbtree_insert_case3_right(element);
+         cstl_rbtree_insert_case4_right(element);
       }
-   }
-}
-
-void cstl_rbtree_insert_case3_left(cstl_rbtree_element *element)
-{
-   /* the element's uncle is red */
-   if (cstl_rbtree_color(element->parent->parent->right) == CSTL_RBTREE_RED)
-   {
-      /* flip the color of the parent, uncle, and grandparent */
-      element->parent->color = CSTL_RBTREE_BLACK;
-      element->parent->parent->right->color = CSTL_RBTREE_BLACK;
-      element->parent->parent->color = CSTL_RBTREE_RED;
-
-      /* the color change could break the red rule for the grandparent,
-       * so rebalance starting at the grandparent */
-      cstl_rbtree_insert_case1(element->parent->parent);
-   }
-   /* the element's uncle is black */
-   else
-   {
-      /* call case 4 on the element */
-      cstl_rbtree_insert_case4_left(element);
-   }
-}
-
-void cstl_rbtree_insert_case3_right(cstl_rbtree_element *element)
-{
-   /* the element's uncle is red */
-   if (cstl_rbtree_color(element->parent->parent->left) == CSTL_RBTREE_RED)
-   {
-      /* flip the color of the parent, uncle, and grandparent */
-      element->parent->color = CSTL_RBTREE_BLACK;
-      element->parent->parent->left->color = CSTL_RBTREE_BLACK;
-      element->parent->parent->color = CSTL_RBTREE_RED;
-
-      /* the color change could break the red rule for the grandparent,
-       * so rebalance starting at the grandparent */
-      cstl_rbtree_insert_case1(element->parent->parent);
-   }
-   /* the element's uncle is black */
-   else
-   {
-      /* call case 4 on the element */
-      cstl_rbtree_insert_case4_right(element);
    }
 }
 
 void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element)
 {
    /* the element is the parent's right child */
-   if (element == element->parent->right)
+   if (element->parent == element->parent->parent->right)
    {
       /* rotate the element's parent to the left */
-      cstl_rbtree_rotate_left(element->parent);
+      cstl_rbtree_rotate_right(element->parent);
 
       /* call case 5 on the element's left child */
-      cstl_rbtree_insert_case5_left(element->left);
+      cstl_rbtree_insert_case5_right(element->right);
    }
    else
    {
@@ -549,13 +536,13 @@ void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element)
 void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element)
 {
    /* the element is the parent's left child */
-   if (element == element->parent->left)
+   if (element->parent == element->parent->parent->left)
    {
       /* rotate the element's parent to the right */
-      cstl_rbtree_rotate_right(element->parent);
+      cstl_rbtree_rotate_left(element->parent);
 
       /* call case 5 on the element's right child */
-      cstl_rbtree_insert_case5_right(element->right);
+      cstl_rbtree_insert_case5_left(element->left);
    }
    else
    {
