@@ -431,10 +431,10 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
 void cstl_rbtree_insert_case1(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case2(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case3_left(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case3_right(cstl_rbtree_element *element);
+void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element);
+void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element);
 void cstl_rbtree_insert_case5_right(cstl_rbtree_element *element);
 
 void cstl_rbtree_insert_rebalance(cstl_rbtree_element *element)
@@ -470,15 +470,16 @@ void cstl_rbtree_insert_case2(cstl_rbtree_element *element)
    if (cstl_rbtree_color(element->parent) == CSTL_RBTREE_RED)
    {
       /* the parent is the left child of the grandparent */
-      if (element->parent == element->parent->parent->left)
+      if (element == element->parent->left)
       {
+         /* call case 3 on the element */
          cstl_rbtree_insert_case3_left(element);
       }
       /* the parent is the right child of the grandparent */
       else
       {
          /* call case 3 on the element */
-         cstl_rbtree_insert_case3_left(element);
+         cstl_rbtree_insert_case3_right(element);
       }
    }
 }
@@ -505,34 +506,6 @@ void cstl_rbtree_insert_case3_left(cstl_rbtree_element *element)
    }
 }
 
-void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element)
-{
-   /* the element is the parent's right child */
-   if (element == element->parent->right)
-   {
-      /* rotate the element's parent to the left */
-      cstl_rbtree_rotate_left(element->parent);
-
-      /* call case 5 on the element's left child */
-      cstl_rbtree_insert_case5_left(element->left);
-   }
-   else
-   {
-      /* call case 5 on the element */
-      cstl_rbtree_insert_case5_left(element);
-   }
-}
-
-void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element)
-{
-   /* rotate the element's parent to the right */
-   cstl_rbtree_rotate_right(element->parent);
-
-   /* recolor the element and the elements right child */
-   element->color = CSTL_RBTREE_BLACK;
-   element->right->color = CSTL_RBTREE_RED;
-}
-
 void cstl_rbtree_insert_case3_right(cstl_rbtree_element *element)
 {
    /* the element's uncle is red */
@@ -555,6 +528,24 @@ void cstl_rbtree_insert_case3_right(cstl_rbtree_element *element)
    }
 }
 
+void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element)
+{
+   /* the element is the parent's right child */
+   if (element == element->parent->right)
+   {
+      /* rotate the element's parent to the left */
+      cstl_rbtree_rotate_left(element->parent);
+
+      /* call case 5 on the element's left child */
+      cstl_rbtree_insert_case5_left(element->left);
+   }
+   else
+   {
+      /* call case 5 on the element */
+      cstl_rbtree_insert_case5_left(element);
+   }
+}
+
 void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element)
 {
    /* the element is the parent's left child */
@@ -573,14 +564,24 @@ void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element)
    }
 }
 
+void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element)
+{
+   /* recolor the element and the elements right child */
+   element->parent->color = CSTL_RBTREE_BLACK;
+   element->parent->parent->color = CSTL_RBTREE_RED;
+
+   /* rotate the element's parent to the right */
+   cstl_rbtree_rotate_right(element->parent->parent);
+}
+
 void cstl_rbtree_insert_case5_right(cstl_rbtree_element *element)
 {
-   /* rotate the element's parent to the left */
-   cstl_rbtree_rotate_left(element->parent);
-
    /* recolor the element and the elements left child */
-   element->color = CSTL_RBTREE_BLACK;
-   element->left->color = CSTL_RBTREE_RED;
+   element->parent->color = CSTL_RBTREE_BLACK;
+   element->parent->parent->color = CSTL_RBTREE_RED;
+
+   /* rotate the element's parent to the left */
+   cstl_rbtree_rotate_left(element->parent->parent);
 }
 
 int cstl_rbtree_remove(cstl_rbtree *rbtree,
@@ -1020,15 +1021,18 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
       return;
 
    /* get a pointer to element's right child */
-   cstl_rbtree_element *right;
-   right = element->right;
+   cstl_rbtree_element *right = element->right;
 
    /* reparent right's left child to be element's right child */
    element->right = right->left;
-   right->left->parent = element;
+   if (right->left)
+   {
+      right->left->parent = element;
+   }
 
    /* reparent element to be right's left child */
    right->left = element;
+   right->parent = element->parent;
    element->parent = right;
 }
 
@@ -1043,14 +1047,17 @@ void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
       return;
 
    /* get a pointer to element's left child */
-   cstl_rbtree_element *left;
-   left = element->left;
+   cstl_rbtree_element *left = element->left;
 
    /* reparent right's left child to be element's right child */
    element->left = left->right;
-   left->right->parent = element;
+   if (left->right)
+   {
+      left->right->parent = element;
+   }
 
    /* reparent element to be right's left child */
    left->right = element;
+   left->parent = element->parent;
    element->parent = left;
 }
