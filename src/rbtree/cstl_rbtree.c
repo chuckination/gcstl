@@ -650,13 +650,27 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
       }
    }
 
+   /* we only need to rebalance from removed black nodes */
+   if (cstl_rbtree_color(element) == CSTL_RBTREE_BLACK)
+   {
+      /* the replacement is red */
+      if (cstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
+      {
+         replacement->color = CSTL_RBTREE_BLACK;
+      }
+      /* the replacement is black */
+      else
+      {
+         /* rebalance the rbtree */
+         cstl_rbtree_remove_rebalance(replacement,
+                                      parent);
+      }
+   }
+
    /* remove the element and its data from the tree */
    element->rbtree->destroy(element->data,
                             element->rbtree->destroy_arg);
    free(element);
-
-   cstl_rbtree_remove_rebalance(replacement,
-                                parent);
 
    return 0;
 }
@@ -748,11 +762,25 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
       (*retData) = element->data;
    }
 
+   /* we only need to rebalance from removed black nodes */
+   if (cstl_rbtree_color(element) == CSTL_RBTREE_BLACK)
+   {
+      /* the replacement is red */
+      if (cstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
+      {
+         replacement->color = CSTL_RBTREE_BLACK;
+      }
+      /* the replacement is black */
+      else
+      {
+         /* rebalance the rbtree */
+         cstl_rbtree_remove_rebalance(replacement,
+                                      parent);
+      }
+   }
+
    /* remove the element from the tree */
    free(element);
-
-   cstl_rbtree_remove_rebalance(replacement,
-                                parent);
 
    return 0;
 }
