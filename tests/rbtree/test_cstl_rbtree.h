@@ -25,5 +25,6 @@
 #define TEST_CSTL_RBTREE_H
 
 extern void test_cstl_rbtree_insert();
+extern void test_cstl_rbtree_remove();
 
 #endif

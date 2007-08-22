@@ -863,6 +863,7 @@ void cstl_rbtree_remove_case3_left(cstl_rbtree_element *replacement,
                                    cstl_rbtree_element *parent)
 {
    if ((cstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
+       (parent->right) &&
        (cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
@@ -883,6 +884,7 @@ void cstl_rbtree_remove_case3_right(cstl_rbtree_element *replacement,
                                     cstl_rbtree_element *parent)
 {
    if ((cstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
+       (parent->left) &&
        (cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
@@ -903,6 +905,7 @@ void cstl_rbtree_remove_case4_left(cstl_rbtree_element *replacement,
                                    cstl_rbtree_element *parent)
 {
    if ((cstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
+       (parent->right) &&
        (cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
@@ -921,6 +924,7 @@ void cstl_rbtree_remove_case4_right(cstl_rbtree_element *replacement,
                                     cstl_rbtree_element *parent)
 {
    if ((cstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
+       (parent->left) &&
        (cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
        (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
@@ -1012,15 +1016,21 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
 
    /* reparent right's left child to be element's right child */
    element->right = right->left;
-   if (right->left)
+   if (element->right)
    {
-      right->left->parent = element;
+      element->right->parent = element;
    }
 
    /* reparent element to be right's left child */
    right->left = element;
    right->parent = element->parent;
    element->parent = right;
+
+   /* is the right node now the new root element */
+   if (!right->parent)
+   {
+      right->rbtree->root = right;
+   }
 }
 
 void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
@@ -1038,13 +1048,19 @@ void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
 
    /* reparent right's left child to be element's right child */
    element->left = left->right;
-   if (left->right)
+   if (element->left)
    {
-      left->right->parent = element;
+      element->left->parent = element;
    }
 
    /* reparent element to be right's left child */
    left->right = element;
    left->parent = element->parent;
    element->parent = left;
+
+   /* is the left node now the new root element */
+   if (!left->parent)
+   {
+      left->rbtree->root = left;
+   }
 }

@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
    CU_TestInfo test_cstl_rbtree[] =
       {
          { "test_cstl_rbtree_insert", test_cstl_rbtree_insert },
+         { "test_cstl_rbtree_remove", test_cstl_rbtree_remove },
          CU_TEST_INFO_NULL
       };
 
