@@ -1059,6 +1059,17 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
    {
       right->rbtree->root = right;
    }
+   else
+   {
+      if (element == right->parent->right)
+      {
+         right->parent->right = right;
+      }
+      else
+      {
+         right->parent->left = right;
+      }
+   }
 }
 
 void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
@@ -1090,5 +1101,16 @@ void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
    if (!left->parent)
    {
       left->rbtree->root = left;
+   }
+   else
+   {
+      if (element == left->parent->left)
+      {
+         left->parent->right = left;
+      }
+      else
+      {
+         left->parent->left = left;
+      }
    }
 }

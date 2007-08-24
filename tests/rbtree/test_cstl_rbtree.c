@@ -96,6 +96,36 @@ void test_cstl_rbtree_insert()
    CU_ASSERT_NOT_EQUAL(NULL, myIntp4);
    *myIntp4 = 4;
 
+   int *myIntp5 = NULL;
+   myIntp5 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp5);
+   *myIntp5 = 5;
+
+   int *myIntp6 = NULL;
+   myIntp6 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp6);
+   *myIntp6 = 6;
+
+   int *myIntp7 = NULL;
+   myIntp7 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp7);
+   *myIntp7 = 7;
+
+   int *myIntp8 = NULL;
+   myIntp8 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp8);
+   *myIntp8 = 8;
+
+   int *myIntp9 = NULL;
+   myIntp9 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp9);
+   *myIntp9 = 9;
+
+   int *myIntp10 = NULL;
+   myIntp10 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp10);
+   *myIntp10 = 10;
+
    /* verify that an item cannot be found in the tree */
    myElement = cstl_rbtree_find(&myRbtree, myIntp4);
    CU_ASSERT_EQUAL(NULL, myElement);
@@ -105,6 +135,12 @@ void test_cstl_rbtree_insert()
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp2));
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp3));
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp4));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp5));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp6));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp7));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp8));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp9));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp10));
 
    /* no verify that the items can be found in the tree */
    int myInt1 = 1;
@@ -122,6 +158,30 @@ void test_cstl_rbtree_insert()
    int myInt4 = 4;
    myElement = cstl_rbtree_find(&myRbtree, &myInt4);
    CU_ASSERT_EQUAL(myIntp4, cstl_rbtree_data(myElement));
+
+   int myInt5 = 5;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt5);
+   CU_ASSERT_EQUAL(myIntp5, cstl_rbtree_data(myElement));
+
+   int myInt6 = 6;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt6);
+   CU_ASSERT_EQUAL(myIntp6, cstl_rbtree_data(myElement));
+
+   int myInt7 = 7;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt7);
+   CU_ASSERT_EQUAL(myIntp7, cstl_rbtree_data(myElement));
+
+   int myInt8 = 8;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt8);
+   CU_ASSERT_EQUAL(myIntp8, cstl_rbtree_data(myElement));
+
+   int myInt9 = 9;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt9);
+   CU_ASSERT_EQUAL(myIntp9, cstl_rbtree_data(myElement));
+
+   int myInt10 = 10;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt10);
+   CU_ASSERT_EQUAL(myIntp10, cstl_rbtree_data(myElement));
 
    /* clean up the tree */
    cstl_rbtree_destroy(&myRbtree);
@@ -168,6 +228,36 @@ void test_cstl_rbtree_remove()
    CU_ASSERT_NOT_EQUAL(NULL, myIntp4);
    *myIntp4 = 4;
 
+   int *myIntp5 = NULL;
+   myIntp5 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp5);
+   *myIntp5 = 5;
+
+   int *myIntp6 = NULL;
+   myIntp6 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp6);
+   *myIntp6 = 6;
+
+   int *myIntp7 = NULL;
+   myIntp7 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp7);
+   *myIntp7 = 7;
+
+   int *myIntp8 = NULL;
+   myIntp8 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp8);
+   *myIntp8 = 8;
+
+   int *myIntp9 = NULL;
+   myIntp9 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp9);
+   *myIntp9 = 9;
+
+   int *myIntp10 = NULL;
+   myIntp10 = (int *) malloc(sizeof(int));
+   CU_ASSERT_NOT_EQUAL(NULL, myIntp10);
+   *myIntp10 = 10;
+
    /* verify that an item cannot be found in the tree */
    myElement = cstl_rbtree_find(&myRbtree, myIntp4);
    CU_ASSERT_EQUAL(NULL, myElement);
@@ -177,6 +267,12 @@ void test_cstl_rbtree_remove()
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp2));
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp3));
    CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp4));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp5));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp6));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp7));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp8));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp9));
+   CU_ASSERT_EQUAL(0, cstl_rbtree_insert(&myRbtree, myIntp10));
 
    /* no verify that the items can be found in the tree */
    int myInt1 = 1;
@@ -195,10 +291,74 @@ void test_cstl_rbtree_remove()
    myElement = cstl_rbtree_find(&myRbtree, &myInt4);
    CU_ASSERT_EQUAL(myIntp4, cstl_rbtree_data(myElement));
 
-   /* remove a single item from the tree */
+   int myInt5 = 5;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt5);
+   CU_ASSERT_EQUAL(myIntp5, cstl_rbtree_data(myElement));
+
+   int myInt6 = 6;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt6);
+   CU_ASSERT_EQUAL(myIntp6, cstl_rbtree_data(myElement));
+
+   int myInt7 = 7;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt7);
+   CU_ASSERT_EQUAL(myIntp7, cstl_rbtree_data(myElement));
+
+   int myInt8 = 8;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt8);
+   CU_ASSERT_EQUAL(myIntp8, cstl_rbtree_data(myElement));
+
+   int myInt9 = 9;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt9);
+   CU_ASSERT_EQUAL(myIntp9, cstl_rbtree_data(myElement));
+
+   int myInt10 = 10;
+   myElement = cstl_rbtree_find(&myRbtree, &myInt10);
+   CU_ASSERT_EQUAL(myIntp10, cstl_rbtree_data(myElement));
+
+   /* remove a single item by pointer from the tree */
    CU_ASSERT_EQUAL(0, cstl_rbtree_remove_element(myElement));
-   CU_ASSERT_EQUAL(NULL, cstl_rbtree_find(&myRbtree, &myInt4));
+   CU_ASSERT_EQUAL(myIntp1,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt1)));
+   CU_ASSERT_EQUAL(myIntp2,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt2)));
+   CU_ASSERT_EQUAL(myIntp3,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt3)));
+   CU_ASSERT_EQUAL(myIntp4,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt4)));
+   CU_ASSERT_EQUAL(myIntp5,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt5)));
+   CU_ASSERT_EQUAL(myIntp6,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt6)));
+   CU_ASSERT_EQUAL(myIntp7,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt7)));
+   CU_ASSERT_EQUAL(myIntp8,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt8)));
+   CU_ASSERT_EQUAL(myIntp9,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt9)));
+   CU_ASSERT_EQUAL(NULL, cstl_rbtree_find(&myRbtree, &myInt10));
+
+   /* remove a single item by value from the tree */
+   CU_ASSERT_EQUAL(0, cstl_rbtree_remove(&myRbtree, &myInt9));
+   CU_ASSERT_EQUAL(myIntp1,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt1)));
+   CU_ASSERT_EQUAL(myIntp2,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt2)));
+   CU_ASSERT_EQUAL(myIntp3,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt3)));
+   CU_ASSERT_EQUAL(myIntp4,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt4)));
+   CU_ASSERT_EQUAL(myIntp5,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt5)));
+   CU_ASSERT_EQUAL(myIntp6,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt6)));
+   CU_ASSERT_EQUAL(myIntp7,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt7)));
+   CU_ASSERT_EQUAL(myIntp8,
+                   cstl_rbtree_data(cstl_rbtree_find(&myRbtree, &myInt8)));
+   CU_ASSERT_EQUAL(NULL, cstl_rbtree_find(&myRbtree, &myInt9));
+   CU_ASSERT_EQUAL(NULL, cstl_rbtree_find(&myRbtree, &myInt10));
 
    /* clean up the tree */
-   cstl_rbtree_destroy(&myRbtree);
+   int destroyVal = cstl_rbtree_destroy(&myRbtree);
+   CU_ASSERT_EQUAL(0, destroyVal);
 }
