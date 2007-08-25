@@ -826,7 +826,7 @@ void cstl_rbtree_remove_rebalance(cstl_rbtree_element *replacement,
 void cstl_rbtree_remove_case1(cstl_rbtree_element *replacement,
                               cstl_rbtree_element *parent)
 {
-   if (parent);
+   if (parent)
    {
       if (replacement == parent->left)
       {
@@ -1042,6 +1042,24 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
    /* get a pointer to element's right child */
    cstl_rbtree_element *right = element->right;
 
+   /* if element is the root, that makes right the new root */
+   if (!element->parent)
+   {
+      element->rbtree->root = right;
+   }
+   /* adjust parents proper child pointer to right */
+   else
+   {
+      if (element == element->parent->right)
+      {
+         element->parent->right = right;
+      }
+      else
+      {
+         element->parent->left = right;
+      }
+   }
+
    /* reparent right's left child to be element's right child */
    element->right = right->left;
    if (element->right)
@@ -1053,23 +1071,6 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
    right->left = element;
    right->parent = element->parent;
    element->parent = right;
-
-   /* is the right node now the new root element */
-   if (!right->parent)
-   {
-      right->rbtree->root = right;
-   }
-   else
-   {
-      if (element == right->parent->right)
-      {
-         right->parent->right = right;
-      }
-      else
-      {
-         right->parent->left = right;
-      }
-   }
 }
 
 void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
@@ -1085,6 +1086,24 @@ void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
    /* get a pointer to element's left child */
    cstl_rbtree_element *left = element->left;
 
+   /* if element is the root, that makes left the new root */
+   if (!element->parent)
+   {
+      element->rbtree->root = left;
+   }
+   /* adjust parents proper child pointer to left */
+   else
+   {
+      if (element == element->parent->left)
+      {
+         element->parent->right = left;
+      }
+      else
+      {
+         element->parent->left = left;
+      }
+   }
+
    /* reparent right's left child to be element's right child */
    element->left = left->right;
    if (element->left)
@@ -1096,21 +1115,4 @@ void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
    left->right = element;
    left->parent = element->parent;
    element->parent = left;
-
-   /* is the left node now the new root element */
-   if (!left->parent)
-   {
-      left->rbtree->root = left;
-   }
-   else
-   {
-      if (element == left->parent->left)
-      {
-         left->parent->right = left;
-      }
-      else
-      {
-         left->parent->left = left;
-      }
-   }
 }
