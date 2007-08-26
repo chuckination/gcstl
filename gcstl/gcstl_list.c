@@ -21,15 +21,15 @@
  *
  ******************************************************************************/
 
-#include "gcstl/cstl_list.h"
-#include "gcstl/cstl_destroy.h"
+#include <gcstl/gcstl_list.h>
+#include <gcstl/gcstl_destroy.h>
 
 #include <stdlib.h>
 
 /* list validator value */
 #define CSTL_LIST_VALIDATOR 0x1
 
-int cstl_list_initialize(cstl_list *list,
+int gcstl_list_initialize(gcstl_list *list,
                          void (*destroy)(void *))
 {
    /* ensure that list is not null */
@@ -39,7 +39,7 @@ int cstl_list_initialize(cstl_list *list,
    /* set list->head to null initially and
       attempt to allocate the list head */
    list->head = NULL;
-   list->head = (cstl_list_element *) malloc(sizeof(cstl_list_element));
+   list->head = (gcstl_list_element *) malloc(sizeof(gcstl_list_element));
    if (!list->head)
       return -1;
 
@@ -57,12 +57,12 @@ int cstl_list_initialize(cstl_list *list,
    if (destroy)
       list->destroy = destroy;
    else
-      list->destroy = cstl_destroy_default;
+      list->destroy = gcstl_destroy_default;
 
    return 0;
 }
 
-int cstl_list_destroy(cstl_list *list)
+int gcstl_list_destroy(gcstl_list *list)
 {
    /* ensure that list is not null */
    if (!list)
@@ -74,14 +74,14 @@ int cstl_list_destroy(cstl_list *list)
 
    /* iterate through the list, starting at list->head->next and stopping
     * at list->head with list->head intact */
-   cstl_list_element *iter = list->head->next;
+   gcstl_list_element *iter = list->head->next;
    while (iter != list->head)
    {
       /* free the list element data */
       list->destroy(iter->data);
 
       /* free the element */
-      cstl_list_element *tmp = iter->next;
+      gcstl_list_element *tmp = iter->next;
       free(iter);
       iter = tmp;
    }
@@ -94,7 +94,7 @@ int cstl_list_destroy(cstl_list *list)
    return 0;
 }
 
-cstl_list_element *cstl_list_begin(cstl_list *list)
+gcstl_list_element *gcstl_list_begin(gcstl_list *list)
 {
    /* ensure that list is not null */
    if (!list)
@@ -107,7 +107,7 @@ cstl_list_element *cstl_list_begin(cstl_list *list)
    return list->head->next;
 }
 
-cstl_list_element *cstl_list_end(cstl_list *list)
+gcstl_list_element *gcstl_list_end(gcstl_list *list)
 {
    /* ensure that list is not null */
    if (!list)
@@ -120,7 +120,7 @@ cstl_list_element *cstl_list_end(cstl_list *list)
    return list->head;
 }
 
-int cstl_list_size(cstl_list *list)
+int gcstl_list_size(gcstl_list *list)
 {
    /* ensure that list is not null */
    if (!list)
@@ -133,7 +133,7 @@ int cstl_list_size(cstl_list *list)
    return list->size;
 }
 
-void *cstl_list_data(cstl_list_element *element)
+void *gcstl_list_data(gcstl_list_element *element)
 {
    /* ensure that element is not null */
    if (!element)
@@ -142,7 +142,7 @@ void *cstl_list_data(cstl_list_element *element)
    return element->data;
 }
 
-void *cstl_list_newdata(cstl_list_element *element,
+void *gcstl_list_newdata(gcstl_list_element *element,
                      void *data)
 {
    /* ensure that element is not null */
@@ -155,7 +155,7 @@ void *cstl_list_newdata(cstl_list_element *element,
    return oldData;
 }
 
-cstl_list_element *cstl_list_next(cstl_list_element *element)
+gcstl_list_element *gcstl_list_next(gcstl_list_element *element)
 {
    /* ensure that element is not null */
    if (!element)
@@ -164,7 +164,7 @@ cstl_list_element *cstl_list_next(cstl_list_element *element)
    return element->next;
 }
 
-cstl_list_element *cstl_list_prev(cstl_list_element *element)
+gcstl_list_element *gcstl_list_prev(gcstl_list_element *element)
 {
    /* ensure that element is not null */
    if (!element)
@@ -173,7 +173,7 @@ cstl_list_element *cstl_list_prev(cstl_list_element *element)
    return element->prev;
 }
 
-int cstl_list_insert_before(cstl_list_element *element,
+int gcstl_list_insert_before(gcstl_list_element *element,
                             void *data)
 {
    /* ensure that element is not null */
@@ -189,8 +189,8 @@ int cstl_list_insert_before(cstl_list_element *element,
       return -1;
 
    /* attempt to allocate a new list element */
-   cstl_list_element *newElement = NULL;
-   newElement = (cstl_list_element *) malloc(sizeof(cstl_list_element));
+   gcstl_list_element *newElement = NULL;
+   newElement = (gcstl_list_element *) malloc(sizeof(gcstl_list_element));
    if (!newElement)
       return -1;
 
@@ -212,7 +212,7 @@ int cstl_list_insert_before(cstl_list_element *element,
    return 0;
 }
 
-int cstl_list_insert_after(cstl_list_element *element,
+int gcstl_list_insert_after(gcstl_list_element *element,
                            void *data)
 {
    /* ensure that element is not null */
@@ -228,8 +228,8 @@ int cstl_list_insert_after(cstl_list_element *element,
       return -1;
 
    /* attempt to allocate a new list element */
-   cstl_list_element *newElement = NULL;
-   newElement = (cstl_list_element *) malloc(sizeof(cstl_list_element));
+   gcstl_list_element *newElement = NULL;
+   newElement = (gcstl_list_element *) malloc(sizeof(gcstl_list_element));
    if (!newElement)
       return -1;
 
@@ -251,7 +251,7 @@ int cstl_list_insert_after(cstl_list_element *element,
    return 0;
 }
 
-int cstl_list_remove(cstl_list_element *element)
+int gcstl_list_remove(gcstl_list_element *element)
 {
    /* ensure that element is not null */
    if (!element)
@@ -285,7 +285,7 @@ int cstl_list_remove(cstl_list_element *element)
    return 0;
 }
 
-int cstl_list_unlink(cstl_list_element *element,
+int gcstl_list_unlink(gcstl_list_element *element,
                      void **retData)
 {
    /* ensure that element is not null */
@@ -326,7 +326,7 @@ int cstl_list_unlink(cstl_list_element *element,
    return 0;
 }
 
-int cstl_list_push_back(cstl_list *list,
+int gcstl_list_push_back(gcstl_list *list,
                         void *data)
 {
    /* ensure that list is not null */
@@ -338,8 +338,8 @@ int cstl_list_push_back(cstl_list *list,
       return -1;
 
    /* attempt to allocate a new list element */
-   cstl_list_element *newElement = NULL;
-   newElement = (cstl_list_element *) malloc(sizeof(cstl_list_element));
+   gcstl_list_element *newElement = NULL;
+   newElement = (gcstl_list_element *) malloc(sizeof(gcstl_list_element));
    if (!newElement)
       return -1;
 
@@ -361,7 +361,7 @@ int cstl_list_push_back(cstl_list *list,
    return 0;
 }
 
-int cstl_list_pop_back(cstl_list *list)
+int gcstl_list_pop_back(gcstl_list *list)
 {
    /* ensure that list is not null */
    if (!list)
@@ -372,7 +372,7 @@ int cstl_list_pop_back(cstl_list *list)
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *element = list->head->prev;
+   gcstl_list_element *element = list->head->prev;
 
    /* ensure that the element is not the list head */
    if (element->list->head->prev == element->list->head)
@@ -394,7 +394,7 @@ int cstl_list_pop_back(cstl_list *list)
    return 0;
 }
 
-int cstl_list_unlink_back(cstl_list *list,
+int gcstl_list_unlink_back(gcstl_list *list,
                           void **retData)
 {
    /* ensure that list is not null */
@@ -406,7 +406,7 @@ int cstl_list_unlink_back(cstl_list *list,
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *element = list->head->prev;
+   gcstl_list_element *element = list->head->prev;
 
    /* ensure that the element is not the list head */
    if (element->list->head->prev == element->list->head)
@@ -434,7 +434,7 @@ int cstl_list_unlink_back(cstl_list *list,
    return 0;
 }
 
-int cstl_list_push_front(cstl_list *list,
+int gcstl_list_push_front(gcstl_list *list,
                          void *data)
 {
    /* ensure that list is not null */
@@ -446,8 +446,8 @@ int cstl_list_push_front(cstl_list *list,
       return -1;
 
    /* attempt to allocate a new list element */
-   cstl_list_element *newElement = NULL;
-   newElement = (cstl_list_element *) malloc(sizeof(cstl_list_element));
+   gcstl_list_element *newElement = NULL;
+   newElement = (gcstl_list_element *) malloc(sizeof(gcstl_list_element));
    if (!newElement)
       return -1;
 
@@ -469,7 +469,7 @@ int cstl_list_push_front(cstl_list *list,
    return 0;
 }
 
-int cstl_list_pop_front(cstl_list *list)
+int gcstl_list_pop_front(gcstl_list *list)
 {
    /* ensure that list is not null */
    if (!list)
@@ -480,7 +480,7 @@ int cstl_list_pop_front(cstl_list *list)
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *element = list->head->next;
+   gcstl_list_element *element = list->head->next;
 
    /* ensure that the element is not the list head */
    if (element->list->head->next == element->list->head)
@@ -502,7 +502,7 @@ int cstl_list_pop_front(cstl_list *list)
    return 0;
 }
 
-int cstl_list_unlink_front(cstl_list *list,
+int gcstl_list_unlink_front(gcstl_list *list,
                         void **retData)
 {
    /* ensure that list is not null */
@@ -514,7 +514,7 @@ int cstl_list_unlink_front(cstl_list *list,
       return -1;
 
    /* get a handle to the list element */
-   cstl_list_element *element = list->head->next;
+   gcstl_list_element *element = list->head->next;
 
    /* ensure that the element is not the list head */
    if (element->list->head->next == element->list->head)

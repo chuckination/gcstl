@@ -21,15 +21,15 @@
  *
  ******************************************************************************/
 
-#include "gcstl/cstl_rbtree.h"
-#include "gcstl/cstl_destroy.h"
+#include <gcstl/gcstl_rbtree.h>
+#include <gcstl/gcstl_destroy.h>
 
 #include <stdlib.h>
 
 #define CSTL_RBTREE_VALIDATOR 0x1
 
-int cstl_rbtree_initialize(
-                     cstl_rbtree *rbtree,
+int gcstl_rbtree_initialize(
+                     gcstl_rbtree *rbtree,
                      int (*comparator)(void *,
                                        void *,
                                        int (*sub_comparator)(void *, void *)),
@@ -53,7 +53,7 @@ int cstl_rbtree_initialize(
 
    /* allocate the end pointer */
    rbtree->end = NULL;
-   rbtree->end = (cstl_rbtree_element *) malloc(sizeof(cstl_rbtree_element));
+   rbtree->end = (gcstl_rbtree_element *) malloc(sizeof(gcstl_rbtree_element));
    if (!rbtree->end)
       return -1;
 
@@ -84,9 +84,9 @@ int cstl_rbtree_initialize(
    return 0;
 }
 
-void cstl_rbtree_destroy_element(cstl_rbtree_element *element);
+void gcstl_rbtree_destroy_element(gcstl_rbtree_element *element);
 
-int cstl_rbtree_destroy(cstl_rbtree *rbtree)
+int gcstl_rbtree_destroy(gcstl_rbtree *rbtree)
 {
    /* ensure that the rbtree is not null */
    if (!rbtree)
@@ -96,9 +96,9 @@ int cstl_rbtree_destroy(cstl_rbtree *rbtree)
    if (CSTL_RBTREE_VALIDATOR != rbtree->validator)
       return -1;
 
-   cstl_rbtree_destroy_element(rbtree->root);
+   gcstl_rbtree_destroy_element(rbtree->root);
    rbtree->root = NULL;
-   cstl_rbtree_destroy_element(rbtree->end);
+   gcstl_rbtree_destroy_element(rbtree->end);
    rbtree->end = NULL;
    rbtree->destroy = NULL;
    rbtree->comparator = NULL;
@@ -109,13 +109,13 @@ int cstl_rbtree_destroy(cstl_rbtree *rbtree)
    return 0;
 }
 
-void cstl_rbtree_destroy_element(cstl_rbtree_element *element)
+void gcstl_rbtree_destroy_element(gcstl_rbtree_element *element)
 {
    if (element->left)
-      cstl_rbtree_destroy_element(element->left);
+      gcstl_rbtree_destroy_element(element->left);
 
    if (element->right)
-      cstl_rbtree_destroy_element(element->right);
+      gcstl_rbtree_destroy_element(element->right);
 
    if (element->data)
       element->rbtree->destroy(element->data,
@@ -124,7 +124,7 @@ void cstl_rbtree_destroy_element(cstl_rbtree_element *element)
    free(element);
 }
 
-int cstl_rbtree_size(cstl_rbtree *rbtree)
+int gcstl_rbtree_size(gcstl_rbtree *rbtree)
 {
    /* ensure that the rbtree is not null */
    if (!rbtree)
@@ -137,7 +137,7 @@ int cstl_rbtree_size(cstl_rbtree *rbtree)
    return rbtree->size;
 }
 
-void *cstl_rbtree_data(cstl_rbtree_element *element)
+void *gcstl_rbtree_data(gcstl_rbtree_element *element)
 {
    /* ensure that the element is not null */
    if (!element)
@@ -146,7 +146,7 @@ void *cstl_rbtree_data(cstl_rbtree_element *element)
    return element->data;
 }
 
-cstl_rbtree_element *cstl_rbtree_begin(cstl_rbtree *rbtree)
+gcstl_rbtree_element *gcstl_rbtree_begin(gcstl_rbtree *rbtree)
 {
    /* ensure that the rbtree is not null */
    if (!rbtree)
@@ -157,8 +157,8 @@ cstl_rbtree_element *cstl_rbtree_begin(cstl_rbtree *rbtree)
       return NULL;
 
    // get some iterators for the tree
-   cstl_rbtree_element *iter = rbtree->root;
-   cstl_rbtree_element *element = NULL;
+   gcstl_rbtree_element *iter = rbtree->root;
+   gcstl_rbtree_element *element = NULL;
 
    // the iterator is not NULL
    if (NULL != iter)
@@ -180,7 +180,7 @@ cstl_rbtree_element *cstl_rbtree_begin(cstl_rbtree *rbtree)
    }
 }
 
-cstl_rbtree_element *cstl_rbtree_end(cstl_rbtree *rbtree)
+gcstl_rbtree_element *gcstl_rbtree_end(gcstl_rbtree *rbtree)
 {
    /* ensure that the rbtree is not null */
    if (!rbtree)
@@ -193,7 +193,7 @@ cstl_rbtree_element *cstl_rbtree_end(cstl_rbtree *rbtree)
    return rbtree->end;
 }
 
-cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
+gcstl_rbtree_element *gcstl_rbtree_next(gcstl_rbtree_element *element)
 {
    /* ensure that the rbtree is not null */
    if (!element)
@@ -204,7 +204,7 @@ cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
       return NULL;
 
    if (element == element->rbtree->end)
-      return cstl_rbtree_begin(element->rbtree);
+      return gcstl_rbtree_begin(element->rbtree);
 
    for (;;)
    {
@@ -238,7 +238,7 @@ cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element)
    }
 }
 
-cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
+gcstl_rbtree_element *gcstl_rbtree_prev(gcstl_rbtree_element *element)
 {
    /* ensure that the rbtree is not null */
    if (!element)
@@ -249,7 +249,7 @@ cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
       return NULL;
 
    if (element == element->rbtree->end)
-      return cstl_rbtree_end(element->rbtree);
+      return gcstl_rbtree_end(element->rbtree);
 
    for (;;)
    {
@@ -283,7 +283,7 @@ cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element)
    }
 }
 
-cstl_rbtree_element *cstl_rbtree_find(cstl_rbtree *rbtree,
+gcstl_rbtree_element *gcstl_rbtree_find(gcstl_rbtree *rbtree,
                                       void *data)
 {
    /* ensure that the rbtree is not null */
@@ -303,7 +303,7 @@ cstl_rbtree_element *cstl_rbtree_find(cstl_rbtree *rbtree,
       return NULL;
 
    /* pointers for parent and the element iterator */
-   cstl_rbtree_element *element = rbtree->root;
+   gcstl_rbtree_element *element = rbtree->root;
 
    /* comparator result value */
    int compareResult = 0;
@@ -337,14 +337,14 @@ cstl_rbtree_element *cstl_rbtree_find(cstl_rbtree *rbtree,
 }
 
 /* general balancing helper functions */
-cstl_rbtree_element_color cstl_rbtree_color(cstl_rbtree_element *element);
-void cstl_rbtree_rotate_left(cstl_rbtree_element *element);
-void cstl_rbtree_rotate_right(cstl_rbtree_element *element);
+gcstl_rbtree_element_color gcstl_rbtree_color(gcstl_rbtree_element *element);
+void gcstl_rbtree_rotate_left(gcstl_rbtree_element *element);
+void gcstl_rbtree_rotate_right(gcstl_rbtree_element *element);
 
 /* insert helper functions */
-void cstl_rbtree_insert_rebalance(cstl_rbtree_element *element);
+void gcstl_rbtree_insert_rebalance(gcstl_rbtree_element *element);
 
-int cstl_rbtree_insert(cstl_rbtree *rbtree,
+int gcstl_rbtree_insert(gcstl_rbtree *rbtree,
                        void *data)
 {
    /* ensure that the rbtree is not null */
@@ -360,8 +360,8 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
       return -1;
 
    /* pointers for parent and the element iterator */
-   cstl_rbtree_element *parent = NULL;
-   cstl_rbtree_element *element = rbtree->root;
+   gcstl_rbtree_element *parent = NULL;
+   gcstl_rbtree_element *element = rbtree->root;
 
    /* comparator result value */
    int compareResult = 0;
@@ -394,7 +394,7 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
       }
    }
 
-   element = (cstl_rbtree_element *) malloc(sizeof(cstl_rbtree_element));
+   element = (gcstl_rbtree_element *) malloc(sizeof(gcstl_rbtree_element));
    if (!element)
       return -1;
 
@@ -423,34 +423,34 @@ int cstl_rbtree_insert(cstl_rbtree *rbtree,
    rbtree->size++;
 
    /* rebalance insert element */
-   cstl_rbtree_insert_rebalance(element);
+   gcstl_rbtree_insert_rebalance(element);
 
    return 0;
 }
 
-void cstl_rbtree_insert_case1(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case2(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case3(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element);
-void cstl_rbtree_insert_case5_right(cstl_rbtree_element *element);
+void gcstl_rbtree_insert_case1(gcstl_rbtree_element *element);
+void gcstl_rbtree_insert_case2(gcstl_rbtree_element *element);
+void gcstl_rbtree_insert_case3(gcstl_rbtree_element *element);
+void gcstl_rbtree_insert_case4_left(gcstl_rbtree_element *element);
+void gcstl_rbtree_insert_case4_right(gcstl_rbtree_element *element);
+void gcstl_rbtree_insert_case5_left(gcstl_rbtree_element *element);
+void gcstl_rbtree_insert_case5_right(gcstl_rbtree_element *element);
 
-void cstl_rbtree_insert_rebalance(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_rebalance(gcstl_rbtree_element *element)
 {
    /* do nothing to NULL elements */
    if (!element)
       return;
 
-   cstl_rbtree_insert_case1(element);
+   gcstl_rbtree_insert_case1(element);
 }
 
-void cstl_rbtree_insert_case1(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case1(gcstl_rbtree_element *element)
 {
    if (element->parent == NULL)
    {
       /* the element is the root */
-      if (cstl_rbtree_color(element) == CSTL_RBTREE_RED)
+      if (gcstl_rbtree_color(element) == CSTL_RBTREE_RED)
       {
          /* the element is a red root */
          element->color = CSTL_RBTREE_BLACK;
@@ -459,24 +459,24 @@ void cstl_rbtree_insert_case1(cstl_rbtree_element *element)
    else
    {
       /* call case 2 on the element */
-      cstl_rbtree_insert_case2(element);
+      gcstl_rbtree_insert_case2(element);
    }
 }
 
-void cstl_rbtree_insert_case2(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case2(gcstl_rbtree_element *element)
 {
    /* the element's parent is red */
-   if (cstl_rbtree_color(element->parent) == CSTL_RBTREE_RED)
+   if (gcstl_rbtree_color(element->parent) == CSTL_RBTREE_RED)
    {
       /* call case 3 on the element */
-      cstl_rbtree_insert_case3(element);
+      gcstl_rbtree_insert_case3(element);
    }
 }
 
-void cstl_rbtree_insert_case3(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case3(gcstl_rbtree_element *element)
 {
    /* get a pointer to the element's uncle */
-   cstl_rbtree_element *uncle = NULL;
+   gcstl_rbtree_element *uncle = NULL;
    if (element->parent == element->parent->parent->left)
    {
       uncle = element->parent->parent->right;
@@ -487,7 +487,7 @@ void cstl_rbtree_insert_case3(cstl_rbtree_element *element)
    }
 
    /* the element's uncle is red */
-   if (cstl_rbtree_color(uncle) == CSTL_RBTREE_RED)
+   if (gcstl_rbtree_color(uncle) == CSTL_RBTREE_RED)
    {
       /* flip the color of the parent, uncle, and grandparent */
       element->parent->color = CSTL_RBTREE_BLACK;
@@ -497,7 +497,7 @@ void cstl_rbtree_insert_case3(cstl_rbtree_element *element)
 
       /* the color change could break the red rule for the grandparent,
        * so rebalance starting at the grandparent */
-      cstl_rbtree_insert_case1(element->parent->parent);
+      gcstl_rbtree_insert_case1(element->parent->parent);
    }
    /* the element's uncle is black */
    else
@@ -505,83 +505,83 @@ void cstl_rbtree_insert_case3(cstl_rbtree_element *element)
       if (element == element->parent->left)
       {
          /* call case 3 on the element */
-         cstl_rbtree_insert_case4_left(element);
+         gcstl_rbtree_insert_case4_left(element);
       }
       else
       {
          /* call case 3 on the element */
-         cstl_rbtree_insert_case4_right(element);
+         gcstl_rbtree_insert_case4_right(element);
       }
    }
 }
 
-void cstl_rbtree_insert_case4_left(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case4_left(gcstl_rbtree_element *element)
 {
    /* the element is the parent's right child */
    if (element->parent == element->parent->parent->right)
    {
       /* rotate the element's parent to the left */
-      cstl_rbtree_rotate_right(element->parent);
+      gcstl_rbtree_rotate_right(element->parent);
 
       /* call case 5 on the element's left child */
-      cstl_rbtree_insert_case5_right(element->right);
+      gcstl_rbtree_insert_case5_right(element->right);
    }
    else
    {
       /* call case 5 on the element */
-      cstl_rbtree_insert_case5_left(element);
+      gcstl_rbtree_insert_case5_left(element);
    }
 }
 
-void cstl_rbtree_insert_case4_right(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case4_right(gcstl_rbtree_element *element)
 {
    /* the element is the parent's left child */
    if (element->parent == element->parent->parent->left)
    {
       /* rotate the element's parent to the right */
-      cstl_rbtree_rotate_left(element->parent);
+      gcstl_rbtree_rotate_left(element->parent);
 
       /* call case 5 on the element's right child */
-      cstl_rbtree_insert_case5_left(element->left);
+      gcstl_rbtree_insert_case5_left(element->left);
    }
    else
    {
       /* call case 5 on the element */
-      cstl_rbtree_insert_case5_right(element);
+      gcstl_rbtree_insert_case5_right(element);
    }
 }
 
-void cstl_rbtree_insert_case5_left(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case5_left(gcstl_rbtree_element *element)
 {
    /* recolor the element and the elements right child */
    element->parent->color = CSTL_RBTREE_BLACK;
    element->parent->parent->color = CSTL_RBTREE_RED;
 
    /* rotate the element's parent to the right */
-   cstl_rbtree_rotate_right(element->parent->parent);
+   gcstl_rbtree_rotate_right(element->parent->parent);
 }
 
-void cstl_rbtree_insert_case5_right(cstl_rbtree_element *element)
+void gcstl_rbtree_insert_case5_right(gcstl_rbtree_element *element)
 {
    /* recolor the element and the elements left child */
    element->parent->color = CSTL_RBTREE_BLACK;
    element->parent->parent->color = CSTL_RBTREE_RED;
 
    /* rotate the element's parent to the left */
-   cstl_rbtree_rotate_left(element->parent->parent);
+   gcstl_rbtree_rotate_left(element->parent->parent);
 }
 
-int cstl_rbtree_remove(cstl_rbtree *rbtree,
+int gcstl_rbtree_remove(gcstl_rbtree *rbtree,
                        void *data)
 {
-   return cstl_rbtree_remove_element(cstl_rbtree_find(rbtree, data));
+   return gcstl_rbtree_remove_element(gcstl_rbtree_find(rbtree, data));
 }
 
 /* remove helper methods */
-void cstl_rbtree_remove_rebalance(cstl_rbtree_element *replacement,
-                                  cstl_rbtree_element *parent);
+void gcstl_rbtree_remove_rebalance(gcstl_rbtree_element *replacement,
+                                  gcstl_rbtree_element *parent);
 
-int cstl_rbtree_remove_element(cstl_rbtree_element *element)
+int gcstl_rbtree_remove_element(gcstl_rbtree_element *element)
 {
    /* ensure that the rbtree is not null */
    if (!element)
@@ -599,8 +599,8 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
    if ((NULL != element->left) && (NULL != element->right))
    {
       /* find the predecessor */
-      cstl_rbtree_element *deleted = element;
-      cstl_rbtree_element *iter = element->left;
+      gcstl_rbtree_element *deleted = element;
+      gcstl_rbtree_element *iter = element->left;
 
       while (NULL != iter)
       {
@@ -616,8 +616,8 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
    }
 
    /* parent and sibling pointers */
-   cstl_rbtree_element *replacement = NULL;
-   cstl_rbtree_element *parent = NULL;
+   gcstl_rbtree_element *replacement = NULL;
+   gcstl_rbtree_element *parent = NULL;
 
    if (!element->parent)
    {
@@ -651,10 +651,10 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
    }
 
    /* we only need to rebalance from removed black nodes */
-   if (cstl_rbtree_color(element) == CSTL_RBTREE_BLACK)
+   if (gcstl_rbtree_color(element) == CSTL_RBTREE_BLACK)
    {
       /* the replacement is red */
-      if (cstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
+      if (gcstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
       {
          replacement->color = CSTL_RBTREE_BLACK;
       }
@@ -662,7 +662,7 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
       else
       {
          /* rebalance the rbtree */
-         cstl_rbtree_remove_rebalance(replacement,
+         gcstl_rbtree_remove_rebalance(replacement,
                                       parent);
       }
    }
@@ -675,14 +675,14 @@ int cstl_rbtree_remove_element(cstl_rbtree_element *element)
    return 0;
 }
 
-int cstl_rbtree_unlink(cstl_rbtree *rbtree,
+int gcstl_rbtree_unlink(gcstl_rbtree *rbtree,
                        void *data,
                        void **retData)
 {
-   return cstl_rbtree_unlink_element(cstl_rbtree_find(rbtree, data), retData);
+   return gcstl_rbtree_unlink_element(gcstl_rbtree_find(rbtree, data), retData);
 }
 
-int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
+int gcstl_rbtree_unlink_element(gcstl_rbtree_element *element,
                                void **retData)
 {
    /* ensure that the rbtree is not null */
@@ -701,8 +701,8 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
    if ((NULL != element->left) && (NULL != element->right))
    {
       /* find the predecessor */
-      cstl_rbtree_element *deleted = element;
-      cstl_rbtree_element *iter = element->left;
+      gcstl_rbtree_element *deleted = element;
+      gcstl_rbtree_element *iter = element->left;
 
       while (NULL != iter)
       {
@@ -718,8 +718,8 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
    }
 
    /* parent and sibling pointers */
-   cstl_rbtree_element *replacement = NULL;
-   cstl_rbtree_element *parent = NULL;
+   gcstl_rbtree_element *replacement = NULL;
+   gcstl_rbtree_element *parent = NULL;
 
    if (!element->parent)
    {
@@ -763,10 +763,10 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
    }
 
    /* we only need to rebalance from removed black nodes */
-   if (cstl_rbtree_color(element) == CSTL_RBTREE_BLACK)
+   if (gcstl_rbtree_color(element) == CSTL_RBTREE_BLACK)
    {
       /* the replacement is red */
-      if (cstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
+      if (gcstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
       {
          replacement->color = CSTL_RBTREE_BLACK;
       }
@@ -774,7 +774,7 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
       else
       {
          /* rebalance the rbtree */
-         cstl_rbtree_remove_rebalance(replacement,
+         gcstl_rbtree_remove_rebalance(replacement,
                                       parent);
       }
    }
@@ -785,242 +785,242 @@ int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
    return 0;
 }
 
-void cstl_rbtree_remove_case1(cstl_rbtree_element *replacement,
-                                  cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case2_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case2_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case3_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case3_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case4_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case4_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case5_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case5_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case6_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent);
-void cstl_rbtree_remove_case6_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case1(gcstl_rbtree_element *replacement,
+                                  gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case2_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case2_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case3_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case3_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case4_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case4_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case5_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case5_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case6_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent);
+void gcstl_rbtree_remove_case6_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent);
 
-void cstl_rbtree_remove_rebalance(cstl_rbtree_element *replacement,
-                                  cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_rebalance(gcstl_rbtree_element *replacement,
+                                  gcstl_rbtree_element *parent)
 {
-   if (cstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
+   if (gcstl_rbtree_color(replacement) == CSTL_RBTREE_RED)
    {
       replacement->color = CSTL_RBTREE_BLACK;
    }
    else
    {
-      cstl_rbtree_remove_case1(replacement,
+      gcstl_rbtree_remove_case1(replacement,
                                parent);
    }
 }
 
 
-void cstl_rbtree_remove_case1(cstl_rbtree_element *replacement,
-                              cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case1(gcstl_rbtree_element *replacement,
+                              gcstl_rbtree_element *parent)
 {
    if (parent)
    {
       if (replacement == parent->left)
       {
-         cstl_rbtree_remove_case2_left(replacement,
+         gcstl_rbtree_remove_case2_left(replacement,
                                        parent);
       }
       else
       {
-         cstl_rbtree_remove_case2_right(replacement,
+         gcstl_rbtree_remove_case2_right(replacement,
                                         parent);
       }
    }
 }
 
-void cstl_rbtree_remove_case2_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case2_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent)
 {
-   cstl_rbtree_element *sibling = parent->right;
+   gcstl_rbtree_element *sibling = parent->right;
 
-   if (cstl_rbtree_color(sibling) == CSTL_RBTREE_RED)
+   if (gcstl_rbtree_color(sibling) == CSTL_RBTREE_RED)
    {
       parent->color = CSTL_RBTREE_RED;
       sibling->color = CSTL_RBTREE_BLACK;
 
-      cstl_rbtree_rotate_left(parent);
+      gcstl_rbtree_rotate_left(parent);
       sibling = parent->right;
 
-      cstl_rbtree_remove_case4_left(replacement,
+      gcstl_rbtree_remove_case4_left(replacement,
                                     parent);
    }
    else
    {
-      cstl_rbtree_remove_case3_left(replacement,
+      gcstl_rbtree_remove_case3_left(replacement,
                                     parent);
    }
 }
 
-void cstl_rbtree_remove_case2_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case2_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent)
 {
-   cstl_rbtree_element *sibling = parent->left;
+   gcstl_rbtree_element *sibling = parent->left;
 
-   if (cstl_rbtree_color(sibling) == CSTL_RBTREE_RED)
+   if (gcstl_rbtree_color(sibling) == CSTL_RBTREE_RED)
    {
       parent->color = CSTL_RBTREE_RED;
       sibling->color = CSTL_RBTREE_BLACK;
 
-      cstl_rbtree_rotate_right(parent);
+      gcstl_rbtree_rotate_right(parent);
       sibling = parent->left;
 
-      cstl_rbtree_remove_case4_right(replacement,
+      gcstl_rbtree_remove_case4_right(replacement,
                                      parent);
    }
    else
    {
-      cstl_rbtree_remove_case3_right(replacement,
+      gcstl_rbtree_remove_case3_right(replacement,
                                      parent);
    }
 }
 
-void cstl_rbtree_remove_case3_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case3_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
+   if ((gcstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
        (parent->right) &&
-       (cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
+       (gcstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
    {
       parent->right->color = CSTL_RBTREE_RED;
 
-      cstl_rbtree_remove_case1(parent,
+      gcstl_rbtree_remove_case1(parent,
                                parent->parent);
    }
    else
    {
-      cstl_rbtree_remove_case4_left(replacement,
+      gcstl_rbtree_remove_case4_left(replacement,
                                     parent);
    }
 }
 
-void cstl_rbtree_remove_case3_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case3_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
+   if ((gcstl_rbtree_color(parent) == CSTL_RBTREE_BLACK) &&
        (parent->left) &&
-       (cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
+       (gcstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
    {
       parent->left->color = CSTL_RBTREE_RED;
 
-      cstl_rbtree_remove_case1(parent,
+      gcstl_rbtree_remove_case1(parent,
                                parent->parent);
    }
    else
    {
-      cstl_rbtree_remove_case4_right(replacement,
+      gcstl_rbtree_remove_case4_right(replacement,
                                      parent);
    }
 }
 
-void cstl_rbtree_remove_case4_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case4_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
+   if ((gcstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
        (parent->right) &&
-       (cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
+       (gcstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->right->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
    {
       parent->right->color = CSTL_RBTREE_RED;
       parent->color = CSTL_RBTREE_BLACK;
    }
    else
    {
-      cstl_rbtree_remove_case5_left(replacement,
+      gcstl_rbtree_remove_case5_left(replacement,
                                     parent);
    }
 }
 
-void cstl_rbtree_remove_case4_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case4_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
+   if ((gcstl_rbtree_color(parent) == CSTL_RBTREE_RED) &&
        (parent->left) &&
-       (cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
+       (gcstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->left->right) == CSTL_RBTREE_BLACK))
    {
       parent->left->color = CSTL_RBTREE_RED;
       parent->color = CSTL_RBTREE_BLACK;
    }
    else
    {
-      cstl_rbtree_remove_case5_right(replacement,
+      gcstl_rbtree_remove_case5_right(replacement,
                                      parent);
    }
 }
 
 
-void cstl_rbtree_remove_case5_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case5_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->right->left) == CSTL_RBTREE_RED) &&
-       (cstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
+   if ((gcstl_rbtree_color(parent->right) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->right->left) == CSTL_RBTREE_RED) &&
+       (gcstl_rbtree_color(parent->right->right) == CSTL_RBTREE_BLACK))
    {
       parent->right->color = CSTL_RBTREE_RED;
       parent->right->left->color = CSTL_RBTREE_BLACK;
-      cstl_rbtree_rotate_right(parent->right);
+      gcstl_rbtree_rotate_right(parent->right);
       parent->right = parent->right->parent;
    }
 
-   cstl_rbtree_remove_case6_left(replacement,
+   gcstl_rbtree_remove_case6_left(replacement,
                                  parent);
 }
 
-void cstl_rbtree_remove_case5_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case5_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent)
 {
-   if ((cstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
-       (cstl_rbtree_color(parent->left->right) == CSTL_RBTREE_RED) &&
-       (cstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK))
+   if ((gcstl_rbtree_color(parent->left) == CSTL_RBTREE_BLACK) &&
+       (gcstl_rbtree_color(parent->left->right) == CSTL_RBTREE_RED) &&
+       (gcstl_rbtree_color(parent->left->left) == CSTL_RBTREE_BLACK))
    {
       parent->left->color = CSTL_RBTREE_RED;
       parent->left->right->color = CSTL_RBTREE_BLACK;
-      cstl_rbtree_rotate_left(parent->left);
+      gcstl_rbtree_rotate_left(parent->left);
       parent->left = parent->left->parent;
    }
 
-   cstl_rbtree_remove_case6_right(replacement,
+   gcstl_rbtree_remove_case6_right(replacement,
                                   parent);
 }
 
-void cstl_rbtree_remove_case6_left(cstl_rbtree_element *replacement,
-                                   cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case6_left(gcstl_rbtree_element *replacement,
+                                   gcstl_rbtree_element *parent)
 {
    parent->right->color = parent->color;
    parent->color = CSTL_RBTREE_BLACK;
    parent->right->right->color = CSTL_RBTREE_BLACK;
-   cstl_rbtree_rotate_left(parent);
+   gcstl_rbtree_rotate_left(parent);
 }
 
-void cstl_rbtree_remove_case6_right(cstl_rbtree_element *replacement,
-                                    cstl_rbtree_element *parent)
+void gcstl_rbtree_remove_case6_right(gcstl_rbtree_element *replacement,
+                                    gcstl_rbtree_element *parent)
 {
    parent->left->color = parent->color;
    parent->color = CSTL_RBTREE_BLACK;
    parent->left->left->color = CSTL_RBTREE_BLACK;
-   cstl_rbtree_rotate_right(parent);
+   gcstl_rbtree_rotate_right(parent);
 }
 
-cstl_rbtree_element_color cstl_rbtree_color(cstl_rbtree_element *element)
+gcstl_rbtree_element_color gcstl_rbtree_color(gcstl_rbtree_element *element)
 {
    /* NULL elements are black */
    if (!element)
@@ -1029,7 +1029,7 @@ cstl_rbtree_element_color cstl_rbtree_color(cstl_rbtree_element *element)
       return element->color;
 }
 
-void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
+void gcstl_rbtree_rotate_left(gcstl_rbtree_element *element)
 {
    /* don't attempt to rotate a NULL element */
    if (!element)
@@ -1040,7 +1040,7 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
       return;
 
    /* get a pointer to element's right child */
-   cstl_rbtree_element *right = element->right;
+   gcstl_rbtree_element *right = element->right;
 
    /* if element is the root, that makes right the new root */
    if (!element->parent)
@@ -1073,7 +1073,7 @@ void cstl_rbtree_rotate_left(cstl_rbtree_element *element)
    element->parent = right;
 }
 
-void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
+void gcstl_rbtree_rotate_right(gcstl_rbtree_element *element)
 {
    /* don't attempt to rotate a NULL element */
    if (!element)
@@ -1084,7 +1084,7 @@ void cstl_rbtree_rotate_right(cstl_rbtree_element *element)
       return;
 
    /* get a pointer to element's left child */
-   cstl_rbtree_element *left = element->left;
+   gcstl_rbtree_element *left = element->left;
 
    /* if element is the root, that makes left the new root */
    if (!element->parent)

@@ -16,17 +16,45 @@
 
 /*******************************************************************************
  *
- * $URL$
- * $Id$
+ * $URL: https://gcstl.svn.sourceforge.net/svnroot/gcstl/trunk/src/list/cstl_list.c $
+ * $Id: cstl_list.c 56 2007-07-31 05:10:01Z chuck_s $
  *
  ******************************************************************************/
 
-#include "gcstl/cstl_destroy.h"
+#include <gcstl/gcstl_queue.h>
 
-#include <stdlib.h>
-
-void cstl_destroy_default(void *data)
+void gcstl_queue_destroy_null(void *data)
 {
-   free(data);
-   data = NULL;
+   /* do nothing */
+}
+
+int gcstl_queue_initialize(gcstl_queue *queue)
+{
+   return gcstl_list_initialize(queue, gcstl_queue_destroy_null);
+}
+
+int gcstl_queue_destroy(gcstl_queue *queue)
+{
+   return gcstl_list_destroy(queue);
+}
+
+int gcstl_queue_size(gcstl_queue *queue)
+{
+   return gcstl_list_size(queue);
+}
+
+void *gcstl_queue_front(gcstl_queue *queue)
+{
+   return gcstl_list_data(gcstl_list_begin(queue));
+}
+
+int gcstl_queue_push(gcstl_queue *queue,
+                    void *data)
+{
+   return gcstl_list_push_back(queue, data);
+}
+
+int gcstl_queue_pop(gcstl_queue *queue)
+{
+   return gcstl_list_pop_front(queue);
 }

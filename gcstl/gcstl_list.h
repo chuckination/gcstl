@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#ifndef CSTL_LIST_H
-#define CSTL_LIST_H
+#ifndef GCSTL_LIST_H
+#define GCSTL_LIST_H
 
 #ifdef __cplusplus
 extern "C"
@@ -30,95 +30,95 @@ extern "C"
 #endif
 
 /* forward declarations */
-typedef struct cstl_list_element cstl_list_element;
-typedef struct cstl_list cstl_list;
+typedef struct gcstl_list_element gcstl_list_element;
+typedef struct gcstl_list gcstl_list;
 
 /* a doubly linked list element */
-struct cstl_list_element
+struct gcstl_list_element
 {
-   cstl_list *list;
-   cstl_list_element *next;
-   cstl_list_element *prev;
+   gcstl_list *list;
+   gcstl_list_element *next;
+   gcstl_list_element *prev;
    void *data;
 };
 
 /* a doubly linked list */
-struct cstl_list
+struct gcstl_list
 {
-   cstl_list_element *head;
+   gcstl_list_element *head;
    unsigned long int size;
    short int validator;
    void (*destroy)(void *);
 };
 
 /* initialize a doubly linked list */
-extern int cstl_list_initialize(cstl_list *list,
+extern int gcstl_list_initialize(gcstl_list *list,
                                 void (*destroy)(void *));
 
 /* destroy a doubly linked list */
-extern int cstl_list_destroy(cstl_list *list);
+extern int gcstl_list_destroy(gcstl_list *list);
 
 /* retrieve the number of elements in a list */
-extern int cstl_list_size(cstl_list *list);
+extern int gcstl_list_size(gcstl_list *list);
 
 /* retrieve the data from a list element */
-extern void *cstl_list_data(cstl_list_element *element);
+extern void *gcstl_list_data(gcstl_list_element *element);
 
 /* change the elment data without calling the destroy method */
-extern void *cstl_list_newdata(cstl_list_element *cstl_list_element,
+extern void *gcstl_list_newdata(gcstl_list_element *gcstl_list_element,
                                void *data);
 
 /* retrieve the element at the beginning of the linked list */
-extern cstl_list_element *cstl_list_begin(cstl_list *list);
+extern gcstl_list_element *gcstl_list_begin(gcstl_list *list);
 
 /* retrieve the element at the end of the linked list */
-extern cstl_list_element *cstl_list_end(cstl_list *list);
+extern gcstl_list_element *gcstl_list_end(gcstl_list *list);
 
 /* retrieve the next list element */
-extern cstl_list_element *cstl_list_next(cstl_list_element *element);
+extern gcstl_list_element *gcstl_list_next(gcstl_list_element *element);
 
 /* retrieve the previous list element */
-extern cstl_list_element *cstl_list_prev(cstl_list_element *element);
+extern gcstl_list_element *gcstl_list_prev(gcstl_list_element *element);
 
 /* insert a new list element before element */
-extern int cstl_list_insert_before(cstl_list_element *element,
+extern int gcstl_list_insert_before(gcstl_list_element *element,
                                    void *data);
 
 /* insert a new list element before element */
-extern int cstl_list_insert_after(cstl_list_element *element,
+extern int gcstl_list_insert_after(gcstl_list_element *element,
                                   void *data);
 
 /* remove the element from the list while calling the destroy method */
-extern int cstl_list_remove(cstl_list_element *element);
+extern int gcstl_list_remove(gcstl_list_element *element);
 
 /* remove the element from the list while not calling the destroy method */
-extern int cstl_list_unlink(cstl_list_element *element,
+extern int gcstl_list_unlink(gcstl_list_element *element,
                             void **retData);
 
 /* insert the data at the end of the linked list */
-extern int cstl_list_push_back(cstl_list *list,
+extern int gcstl_list_push_back(gcstl_list *list,
                                void *data);
 
 /* remove the element from the end of the linked list while calling the
  * destroy method */
-extern int cstl_list_pop_back(cstl_list *list);
+extern int gcstl_list_pop_back(gcstl_list *list);
 
 /* remove the element from the end of the linked list while not calling
  * the destroy method */
-extern int cstl_list_unlink_back(cstl_list *list,
+extern int gcstl_list_unlink_back(gcstl_list *list,
                                  void **retData);
 
 /* insert the data at the beginning of the linked list */
-extern int cstl_list_push_front(cstl_list *list,
+extern int gcstl_list_push_front(gcstl_list *list,
                                 void *data);
 
 /* remove the element from the beginning of the linked list while calling the
  * destroy method */
-extern int cstl_list_pop_front(cstl_list *list);
+extern int gcstl_list_pop_front(gcstl_list *list);
 
 /* remove the element from the beginning of the linked list while not calling
  * the destroy method */
-extern int cstl_list_unlink_front(cstl_list *list,
+extern int gcstl_list_unlink_front(gcstl_list *list,
                                   void **retData);
 
 #ifdef __cplusplus

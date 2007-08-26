@@ -16,45 +16,10 @@
 
 /*******************************************************************************
  *
- * $URL: https://gcstl.svn.sourceforge.net/svnroot/gcstl/trunk/src/list/cstl_list.c $
- * $Id: cstl_list.c 56 2007-07-31 05:10:01Z chuck_s $
+ * $URL$
+ * $Id$
  *
  ******************************************************************************/
 
-#include "gcstl/cstl_queue.h"
-
-void cstl_queue_destroy_null(void *data)
-{
-   /* do nothing */
-}
-
-int cstl_queue_initialize(cstl_queue *queue)
-{
-   return cstl_list_initialize(queue, cstl_queue_destroy_null);
-}
-
-int cstl_queue_destroy(cstl_queue *queue)
-{
-   return cstl_list_destroy(queue);
-}
-
-int cstl_queue_size(cstl_queue *queue)
-{
-   return cstl_list_size(queue);
-}
-
-void *cstl_queue_front(cstl_queue *queue)
-{
-   return cstl_list_data(cstl_list_begin(queue));
-}
-
-int cstl_queue_push(cstl_queue *queue,
-                    void *data)
-{
-   return cstl_list_push_back(queue, data);
-}
-
-int cstl_queue_pop(cstl_queue *queue)
-{
-   return cstl_list_pop_front(queue);
-}
+#include <tests/list/test_gcstl_list.h>
+#include <gcstl/gcstl_list.h>

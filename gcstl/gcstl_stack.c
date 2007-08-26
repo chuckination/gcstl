@@ -16,24 +16,45 @@
 
 /*******************************************************************************
  *
- * $URL$
- * $Id$
+ * $URL: https://gcstl.svn.sourceforge.net/svnroot/gcstl/trunk/src/list/cstl_list.c $
+ * $Id: cstl_list.c 56 2007-07-31 05:10:01Z chuck_s $
  *
  ******************************************************************************/
 
-#include "tests/destroy/test_cstl_destroy.h"
-#include "gcstl/cstl_destroy.h"
+#include <gcstl/gcstl_stack.h>
 
-#include <CUnit/CUnit.h>
-
-void test_cstl_destroy_default()
+void gcstl_stack_destroy_null(void *data)
 {
-   void *someMemory = NULL;
+   /* do nothing */
+}
 
-   someMemory = malloc(sizeof(long int) * 1024);
+int gcstl_stack_initialize(gcstl_stack *stack)
+{
+   return gcstl_list_initialize(stack, gcstl_stack_destroy_null);
+}
 
-   CU_ASSERT_NOT_EQUAL(NULL, someMemory);
+int gcstl_stack_destroy(gcstl_stack *stack)
+{
+   return gcstl_list_destroy(stack);
+}
 
-   cstl_destroy_default(someMemory);
-   someMemory = NULL;
+int gcstl_stack_size(gcstl_stack *stack)
+{
+   return gcstl_list_size(stack);
+}
+
+void *gcstl_stack_top(gcstl_stack *stack)
+{
+   return gcstl_list_data(gcstl_list_begin(stack));
+}
+
+int gcstl_stack_push(gcstl_stack *stack,
+                    void *data)
+{
+   return gcstl_list_push_front(stack, data);
+}
+
+int gcstl_stack_pop(gcstl_stack *stack)
+{
+   return gcstl_list_pop_front(stack);
 }

@@ -23,14 +23,14 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-#TESTS = test_cstl_destroy
+#TESTS = test_gcstl_destroy
 
 INCLUDES = -I$(top_srcdir)
 
-#check_PROGRAMS = test_cstl_destroy
+#check_PROGRAMS = test_gcstl_destroy
 
-EXTRA_PROGRAMS = test_cstl_destroy
-test_cstl_destroy_LDADD = $(top_builddir)/gcstl/libcstl.la
-test_cstl_destroy_LDFLAGS = -lcunit
-test_cstl_destroy_SOURCES = main.c \
-                            test_cstl_destroy.h test_cstl_destroy.c
+EXTRA_PROGRAMS = test_gcstl_destroy
+test_gcstl_destroy_LDADD = $(top_builddir)/gcstl/libgcstl.la
+test_gcstl_destroy_LDFLAGS = -lcunit
+test_gcstl_destroy_SOURCES = main.c \
+                             test_gcstl_destroy.h test_gcstl_destroy.c

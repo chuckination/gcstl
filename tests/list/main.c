@@ -25,9 +25,9 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
-#include "tests/list/test_cstl_list.h"
+#include <tests/list/test_gcstl_list.h>
 
-void cstl_test_testStartPrint()
+void gcstl_test_testStartPrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -36,7 +36,7 @@ void cstl_test_testStartPrint()
    fprintf(stderr, "\n");
 }
 
-void cstl_test_testFailedToCompletePrint()
+void gcstl_test_testFailedToCompletePrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -45,7 +45,7 @@ void cstl_test_testFailedToCompletePrint()
    fprintf(stderr, "\n");
 }
 
-void cstl_test_testCompleteWithFailuresPrint()
+void gcstl_test_testCompleteWithFailuresPrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -54,7 +54,7 @@ void cstl_test_testCompleteWithFailuresPrint()
    fprintf(stderr, "\n");
 }
 
-void cstl_test_testCompleteSuccessfullyPrint()
+void gcstl_test_testCompleteSuccessfullyPrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -72,21 +72,21 @@ int main(int argc, char *argv[])
       return -1;
    }
 
-   cstl_test_testStartPrint();
+   gcstl_test_testStartPrint();
 
-   CU_TestInfo test_cstl_destroy[] =
+   CU_TestInfo test_gcstl_destroy[] =
       {
          /*{ "testName", testName },*/
          CU_TEST_INFO_NULL
       };
 
-   CU_SuiteInfo test_cstl_suite[] =
+   CU_SuiteInfo test_gcstl_suite[] =
       {
-         { "test_cstl_destroy", NULL, NULL, test_cstl_destroy },
+         { "test_gcstl_destroy", NULL, NULL, test_gcstl_destroy },
          CU_SUITE_INFO_NULL
       };
 
-   cuStatus = CU_register_suites(test_cstl_suite);
+   cuStatus = CU_register_suites(test_gcstl_suite);
    if (CUE_SUCCESS != cuStatus)
    {
       fprintf(stderr, "could register CUnit test suites\n");
@@ -96,16 +96,16 @@ int main(int argc, char *argv[])
    CU_basic_run_tests();
    if (CUE_SUCCESS != cuStatus)
    {
-      cstl_test_testFailedToCompletePrint();
+      gcstl_test_testFailedToCompletePrint();
       return -1;
    }
    else if (0 != CU_get_number_of_tests_failed())
    {
-      cstl_test_testCompleteWithFailuresPrint();
+      gcstl_test_testCompleteWithFailuresPrint();
       return -1;
    }
 
-   cstl_test_testCompleteSuccessfullyPrint();
+   gcstl_test_testCompleteSuccessfullyPrint();
 
    CU_cleanup_registry();
 

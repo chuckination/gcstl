@@ -8,6 +8,6 @@ config.h.in
 autom4te.cache
 libtool
 INSTALL
-cstl.pc
+gcstl.pc
 aclocal.m4
 Makefile

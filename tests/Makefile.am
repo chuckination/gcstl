@@ -27,14 +27,14 @@ SUBDIRS =  destroy \
            list \
            rbtree
 
-TESTS = test_cstl
+TESTS = test_gcstl
 
 INCLUDES = -I$(top_srcdir)
 
-check_PROGRAMS = test_cstl
-test_cstl_LDADD = $(top_builddir)/gcstl/libcstl.la
-test_cstl_LDFLAGS = -lcunit
-test_cstl_SOURCES = main.c \
-                    destroy/test_cstl_destroy.h destroy/test_cstl_destroy.c \
-                    list/test_cstl_list.h list/test_cstl_list.c \
-                    rbtree/test_cstl_rbtree.h rbtree/test_cstl_rbtree.c
+check_PROGRAMS = test_gcstl
+test_gcstl_LDADD = $(top_builddir)/gcstl/libgcstl.la
+test_gcstl_LDFLAGS = -lcunit
+test_gcstl_SOURCES = main.c \
+                     destroy/test_gcstl_destroy.h destroy/test_gcstl_destroy.c \
+                     list/test_gcstl_list.h list/test_gcstl_list.c \
+                     rbtree/test_gcstl_rbtree.h rbtree/test_gcstl_rbtree.c

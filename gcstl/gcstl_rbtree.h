@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#ifndef CSTL_RBTREE_H
-#define CSTL_RBTREE_H
+#ifndef GCSTL_RBTREE_H
+#define GCSTL_RBTREE_H
 
 #ifdef __cplusplus
 extern "C"
@@ -30,33 +30,33 @@ extern "C"
 #endif
 
 /* forward declarations */
-typedef enum cstl_rbtree_element_color cstl_rbtree_element_color;
-typedef struct cstl_rbtree_element cstl_rbtree_element;
-typedef struct cstl_rbtree cstl_rbtree;
+typedef enum gcstl_rbtree_element_color gcstl_rbtree_element_color;
+typedef struct gcstl_rbtree_element gcstl_rbtree_element;
+typedef struct gcstl_rbtree gcstl_rbtree;
 
 /* red-black tree color enumeration */
-enum cstl_rbtree_element_color
+enum gcstl_rbtree_element_color
 {
    CSTL_RBTREE_RED,
    CSTL_RBTREE_BLACK
 };
 
 /* a red-black tree element */
-struct cstl_rbtree_element
+struct gcstl_rbtree_element
 {
-   cstl_rbtree *rbtree;
-   cstl_rbtree_element *parent;
-   cstl_rbtree_element *left;
-   cstl_rbtree_element *right;
-   cstl_rbtree_element_color color;
+   gcstl_rbtree *rbtree;
+   gcstl_rbtree_element *parent;
+   gcstl_rbtree_element *left;
+   gcstl_rbtree_element *right;
+   gcstl_rbtree_element_color color;
    void *data;
 };
 
 /* a red-black tree */
-struct cstl_rbtree
+struct gcstl_rbtree
 {
-   cstl_rbtree_element *root;
-   cstl_rbtree_element *end;
+   gcstl_rbtree_element *root;
+   gcstl_rbtree_element *end;
    unsigned long int size;
    short int validator;
    int (*comparator)(void *, void *, int (*)(void *, void *));
@@ -66,8 +66,8 @@ struct cstl_rbtree
 };
 
 /* initialize a red-black tree */
-extern int cstl_rbtree_initialize(
-                      cstl_rbtree *rbtree,
+extern int gcstl_rbtree_initialize(
+                      gcstl_rbtree *rbtree,
                       int (*comparator)(void *,
                                         void *,
                                         int (*sub_comparator)(void *, void *)),
@@ -76,48 +76,48 @@ extern int cstl_rbtree_initialize(
                       void *destroy_arg);
 
 /* destroy a red-black tree */
-extern int cstl_rbtree_destroy(cstl_rbtree *rbtree);
+extern int gcstl_rbtree_destroy(gcstl_rbtree *rbtree);
 
 /* retrieve the number of elements in an rbtree */
-extern int cstl_rbtree_size(cstl_rbtree *rbtree);
+extern int gcstl_rbtree_size(gcstl_rbtree *rbtree);
 
 /* retrieve the data from an rbtree element */
-extern void *cstl_rbtree_data(cstl_rbtree_element *element);
+extern void *gcstl_rbtree_data(gcstl_rbtree_element *element);
 
 /* retrieve the element at the beginning of the linked rbtree */
-extern cstl_rbtree_element *cstl_rbtree_begin(cstl_rbtree *rbtree);
+extern gcstl_rbtree_element *gcstl_rbtree_begin(gcstl_rbtree *rbtree);
 
 /* retrieve the element at the end of the linked rbtree */
-extern cstl_rbtree_element *cstl_rbtree_end(cstl_rbtree *rbtree);
+extern gcstl_rbtree_element *gcstl_rbtree_end(gcstl_rbtree *rbtree);
 
 /* retrieve the next rbtree element */
-extern cstl_rbtree_element *cstl_rbtree_next(cstl_rbtree_element *element);
+extern gcstl_rbtree_element *gcstl_rbtree_next(gcstl_rbtree_element *element);
 
 /* retrieve the previous rbtree element */
-extern cstl_rbtree_element *cstl_rbtree_prev(cstl_rbtree_element *element);
+extern gcstl_rbtree_element *gcstl_rbtree_prev(gcstl_rbtree_element *element);
 
 /* insert data into rbtree */
-extern int cstl_rbtree_insert(cstl_rbtree *rbtree,
+extern int gcstl_rbtree_insert(gcstl_rbtree *rbtree,
                               void *data);
 
 /* retrieve data from rbtree */
-extern cstl_rbtree_element *cstl_rbtree_find(cstl_rbtree *rbtree,
+extern gcstl_rbtree_element *gcstl_rbtree_find(gcstl_rbtree *rbtree,
                                              void *data);
 
 /* remove the element from the rbtree while calling the destroy method */
-extern int cstl_rbtree_remove(cstl_rbtree *rbtree,
+extern int gcstl_rbtree_remove(gcstl_rbtree *rbtree,
                               void *data);
 
 /* remove the element from the rbtree while calling the destroy method */
-extern int cstl_rbtree_remove_element(cstl_rbtree_element *element);
+extern int gcstl_rbtree_remove_element(gcstl_rbtree_element *element);
 
 /* remove the element from the rbtree while not calling the destroy method */
-extern int cstl_rbtree_unlink(cstl_rbtree *rbtree,
+extern int gcstl_rbtree_unlink(gcstl_rbtree *rbtree,
                               void *data,
                               void **retData);
 
 /* remove the element from the rbtree while not calling the destroy method */
-extern int cstl_rbtree_unlink_element(cstl_rbtree_element *element,
+extern int gcstl_rbtree_unlink_element(gcstl_rbtree_element *element,
                                       void **retData);
 
 #ifdef __cplusplus

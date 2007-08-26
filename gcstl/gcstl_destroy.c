@@ -21,10 +21,12 @@
  *
  ******************************************************************************/
 
-#ifndef TEST_CSTL_RBTREE_H
-#define TEST_CSTL_RBTREE_H
+#include <gcstl/gcstl_destroy.h>
 
-extern void test_cstl_rbtree_insert();
-extern void test_cstl_rbtree_remove();
+#include <stdlib.h>
 
-#endif
+void gcstl_destroy_default(void *data)
+{
+   free(data);
+   data = NULL;
+}

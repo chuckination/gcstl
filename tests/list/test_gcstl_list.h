@@ -21,5 +21,7 @@
  *
  ******************************************************************************/
 
-#include "tests/list/test_cstl_list.h"
-#include "gcstl/cstl_list.h"
+#ifndef TEST_GCSTL_LIST_H
+#define TEST_GCSTL_LIST_H
+
+#endif

@@ -23,14 +23,14 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-#TESTS = test_cstl_list
+#TESTS = test_gcstl_list
 
 INCLUDES = -I$(top_srcdir)
 
-#check_PROGRAMS = test_cstl_list
+#check_PROGRAMS = test_gcstl_list
 
-EXTRA_PROGRAMS = test_cstl_list
-test_cstl_list_LDADD = $(top_builddir)/gcstl/libcstl.la
-test_cstl_list_LDFLAGS = -lcunit
-test_cstl_list_SOURCES = main.c \
-                         test_cstl_list.h test_cstl_list.c
+EXTRA_PROGRAMS = test_gcstl_list
+test_gcstl_list_LDADD = $(top_builddir)/gcstl/libgcstl.la
+test_gcstl_list_LDFLAGS = -lcunit
+test_gcstl_list_SOURCES = main.c \
+                          test_gcstl_list.h test_gcstl_list.c

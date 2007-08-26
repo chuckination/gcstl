@@ -21,7 +21,10 @@
  *
  ******************************************************************************/
 
-#ifndef TEST_CSTL_LIST_H
-#define TEST_CSTL_LIST_H
+#ifndef TEST_GCSTL_RBTREE_H
+#define TEST_GCSTL_RBTREE_H
+
+extern void test_gcstl_rbtree_insert();
+extern void test_gcstl_rbtree_remove();
 
 #endif

@@ -21,10 +21,10 @@
  *
  ******************************************************************************/
 
-#ifndef CSTL_QUEUE_H
-#define CSTL_QUEUE_H
+#ifndef GCSTL_QUEUE_H
+#define GCSTL_QUEUE_H
 
-#include "gcstl/cstl_list.h"
+#include <gcstl/gcstl_list.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -32,28 +32,28 @@ extern "C"
 #endif
 
 /* forward declarations */
-typedef cstl_list_element cstl_queue_element;
-typedef cstl_list cstl_queue;
+typedef gcstl_list_element gcstl_queue_element;
+typedef gcstl_list gcstl_queue;
 
 /* initialize a doubly linked queue */
-extern int cstl_queue_initialize(cstl_queue *queue);
+extern int gcstl_queue_initialize(gcstl_queue *queue);
 
 /* destroy a doubly linked queue */
-extern int cstl_queue_destroy(cstl_queue *queue);
+extern int gcstl_queue_destroy(gcstl_queue *queue);
 
 /* retrieve the number of elements in a queue */
-extern int cstl_queue_size(cstl_queue *queue);
+extern int gcstl_queue_size(gcstl_queue *queue);
 
 /* retrieve the data from a queue element */
-extern void *cstl_queue_front(cstl_queue *queue);
+extern void *gcstl_queue_front(gcstl_queue *queue);
 
 /* insert the data at the beginning of the linked queue */
-extern int cstl_queue_push(cstl_queue *queue,
+extern int gcstl_queue_push(gcstl_queue *queue,
                            void *data);
 
 /* remove the element from the end of the linked queue while calling the
  * destroy method */
-extern int cstl_queue_pop(cstl_queue *queue);
+extern int gcstl_queue_pop(gcstl_queue *queue);
 
 #ifdef __cplusplus
 }

@@ -26,6 +26,6 @@
 SUBDIRS = gcstl tests
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = cstl.pc
+pkgconfig_DATA = gcstl.pc
 
 EXTRA_DIST = autogen.sh

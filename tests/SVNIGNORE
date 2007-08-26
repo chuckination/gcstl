@@ -2,4 +2,4 @@ Makefile.in
 .deps
 Makefile
 .libs
-test_cstl
+test_gcstl

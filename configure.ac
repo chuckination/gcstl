@@ -25,12 +25,12 @@
 ## -*- autoconf -*-
 ## Process this file with autoconf to produce a configure script.
 
-AC_INIT(gcstl/cstl.h)
+AC_INIT(gcstl/gcstl.h)
 AC_CONFIG_AUX_DIR(autoconf)
 AM_CONFIG_HEADER(config.h)
 
-GENERIC_LIBRARY_NAME=cstl
-GENERIC_PACKAGE_DESCRIPTION="Standard Template Library for C"
+GENERIC_LIBRARY_NAME=gcstl
+GENERIC_PACKAGE_DESCRIPTION="Generalized Standard Template Library for C"
 GENERIC_MAJOR_VERSION=0
 GENERIC_MINOR_VERSION=3
 GENERIC_MICRO_VERSION=0
@@ -59,7 +59,7 @@ AM_SANITY_CHECK
 AC_FUNC_MALLOC
 
 AC_OUTPUT(Makefile \
-          cstl.pc \
+          gcstl.pc \
           gcstl/Makefile \
 			 tests/Makefile \
           tests/destroy/Makefile \

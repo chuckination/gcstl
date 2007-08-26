@@ -1,4 +1,5 @@
 Makefile.in
+.deps
 .libs
 SVNIGNORE
 Makefile

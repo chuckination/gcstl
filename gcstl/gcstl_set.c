@@ -21,19 +21,19 @@
  *
  ******************************************************************************/
 
-#include "gcstl/cstl_set.h"
-#include "gcstl/cstl_destroy.h"
+#include <gcstl/gcstl_set.h>
+#include <gcstl/gcstl_destroy.h>
 
 #include <stdlib.h>
 
-int cstl_set_comparator(void *first,
+int gcstl_set_comparator(void *first,
                         void *second,
                         int (*comparator)(void *, void *))
 {
    return comparator(first, second);
 }
 
-void cstl_set_destroy_default(void *data,
+void gcstl_set_destroy_default(void *data,
                               void *arg)
 {
    void (*destroy)(void *) = arg;
@@ -41,101 +41,101 @@ void cstl_set_destroy_default(void *data,
 }
 
 /* initialize a set */
-int cstl_set_initialize(cstl_set *set,
+int gcstl_set_initialize(gcstl_set *set,
                         int (*comparator)(void *, void *),
                         void (*destroy)(void *))
 {
-   return cstl_rbtree_initialize(set,
-                                 cstl_set_comparator,
+   return gcstl_rbtree_initialize(set,
+                                 gcstl_set_comparator,
                                  comparator,
-                                 cstl_set_destroy_default,
-                                 destroy ? destroy : cstl_destroy_default);
+                                 gcstl_set_destroy_default,
+                                 destroy ? destroy : gcstl_destroy_default);
 }
 
 /* destroy a set */
-int cstl_set_destroy(cstl_set *set)
+int gcstl_set_destroy(gcstl_set *set)
 {
-   return cstl_rbtree_destroy(set);
+   return gcstl_rbtree_destroy(set);
 }
 
 /* retrieve the number of elements in an set */
-int cstl_set_size(cstl_set *set)
+int gcstl_set_size(gcstl_set *set)
 {
-   return cstl_rbtree_size(set);
+   return gcstl_rbtree_size(set);
 }
 
 /* retrieve the data from an set element */
-void *cstl_set_data(cstl_set_element *element)
+void *gcstl_set_data(gcstl_set_element *element)
 {
-   return cstl_set_data(element);
+   return gcstl_set_data(element);
 }
 
 /* retrieve the element at the beginning of the linked set */
-cstl_set_element *cstl_set_begin(cstl_set *set)
+gcstl_set_element *gcstl_set_begin(gcstl_set *set)
 {
-   return cstl_rbtree_begin(set);
+   return gcstl_rbtree_begin(set);
 }
 
 /* retrieve the element at the end of the linked set */
-cstl_set_element *cstl_set_end(cstl_set *set)
+gcstl_set_element *gcstl_set_end(gcstl_set *set)
 {
-   return cstl_rbtree_end(set);
+   return gcstl_rbtree_end(set);
 }
 
 /* retrieve the next set element */
-cstl_set_element *cstl_set_next(cstl_set_element *element)
+gcstl_set_element *gcstl_set_next(gcstl_set_element *element)
 {
-   return cstl_rbtree_next(element);
+   return gcstl_rbtree_next(element);
 }
 
 /* retrieve the previous set element */
-cstl_set_element *cstl_set_prev(cstl_set_element *element)
+gcstl_set_element *gcstl_set_prev(gcstl_set_element *element)
 {
-   return cstl_rbtree_next(element);
+   return gcstl_rbtree_next(element);
 }
 
 /* insert data into set */
-int cstl_set_insert(cstl_set *set,
+int gcstl_set_insert(gcstl_set *set,
                     void *data)
 {
-   return cstl_rbtree_insert(set,
+   return gcstl_rbtree_insert(set,
                              data);
 }
 
 /* retrieve data from set */
-cstl_set_element *cstl_set_find(cstl_set *set,
+gcstl_set_element *gcstl_set_find(gcstl_set *set,
                                 void *data)
 {
 }
 
 /* remove the element from the set while calling the destroy method */
-int cstl_set_remove(cstl_set *set,
+int gcstl_set_remove(gcstl_set *set,
                     void *data)
 {
-   return cstl_rbtree_remove(set,
+   return gcstl_rbtree_remove(set,
                              data);
 }
 
 /* remove the element from the set while calling the destroy method */
-int cstl_set_remove_element(cstl_set_element *element)
+int gcstl_set_remove_element(gcstl_set_element *element)
 {
-   return cstl_rbtree_remove_element(element);
+   return gcstl_rbtree_remove_element(element);
 }
 
 /* remove the element from the set while not calling the destroy method */
-int cstl_set_unlink(cstl_set *set,
+int gcstl_set_unlink(gcstl_set *set,
                     void *data,
                     void **retData)
 {
-   return cstl_rbtree_unlink(set,
+   return gcstl_rbtree_unlink(set,
                              data,
                              retData);
 }
 
 /* remove the element from the set while not calling the destroy method */
-int cstl_set_unlink_element(cstl_set_element *element,
+int gcstl_set_unlink_element(gcstl_set_element *element,
                             void **retData)
 {
-   return cstl_rbtree_unlink_element(element,
+   return gcstl_rbtree_unlink_element(element,
                                      retData);
 }

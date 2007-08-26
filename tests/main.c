@@ -25,10 +25,10 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
-#include "tests/destroy/test_cstl_destroy.h"
-#include "tests/rbtree/test_cstl_rbtree.h"
+#include <tests/destroy/test_gcstl_destroy.h>
+#include <tests/rbtree/test_gcstl_rbtree.h>
 
-void cstl_test_testStartPrint()
+void gcstl_test_testStartPrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -37,7 +37,7 @@ void cstl_test_testStartPrint()
    fprintf(stderr, "\n");
 }
 
-void cstl_test_testFailedToCompletePrint()
+void gcstl_test_testFailedToCompletePrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -46,7 +46,7 @@ void cstl_test_testFailedToCompletePrint()
    fprintf(stderr, "\n");
 }
 
-void cstl_test_testCompleteWithFailuresPrint()
+void gcstl_test_testCompleteWithFailuresPrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -55,7 +55,7 @@ void cstl_test_testCompleteWithFailuresPrint()
    fprintf(stderr, "\n");
 }
 
-void cstl_test_testCompleteSuccessfullyPrint()
+void gcstl_test_testCompleteSuccessfullyPrint()
 {
    fprintf(stderr, "\n");
    fprintf(stderr, "========================================\n");
@@ -73,29 +73,29 @@ int main(int argc, char *argv[])
       return -1;
    }
 
-   cstl_test_testStartPrint();
+   gcstl_test_testStartPrint();
 
-   CU_TestInfo test_cstl_destroy[] =
+   CU_TestInfo test_gcstl_destroy[] =
       {
-         { "test_cstl_destroy_default", test_cstl_destroy_default },
+         { "test_gcstl_destroy_default", test_gcstl_destroy_default },
          CU_TEST_INFO_NULL
       };
 
-   CU_TestInfo test_cstl_rbtree[] =
+   CU_TestInfo test_gcstl_rbtree[] =
       {
-         { "test_cstl_rbtree_insert", test_cstl_rbtree_insert },
-         { "test_cstl_rbtree_remove", test_cstl_rbtree_remove },
+         { "test_gcstl_rbtree_insert", test_gcstl_rbtree_insert },
+         { "test_gcstl_rbtree_remove", test_gcstl_rbtree_remove },
          CU_TEST_INFO_NULL
       };
 
-   CU_SuiteInfo cstl_test_suites[] =
+   CU_SuiteInfo gcstl_test_suites[] =
       {
-         { "test_cstl_destroy", NULL, NULL, test_cstl_destroy},
-         { "test_cstl_rbtree", NULL, NULL, test_cstl_rbtree },
+         { "test_gcstl_destroy", NULL, NULL, test_gcstl_destroy},
+         { "test_gcstl_rbtree", NULL, NULL, test_gcstl_rbtree },
          CU_SUITE_INFO_NULL
       };
 
-   cuStatus = CU_register_suites(cstl_test_suites);
+   cuStatus = CU_register_suites(gcstl_test_suites);
    if (CUE_SUCCESS != cuStatus)
    {
       fprintf(stderr, "could register CUnit test suites\n");
@@ -105,16 +105,16 @@ int main(int argc, char *argv[])
    CU_basic_run_tests();
    if (CUE_SUCCESS != cuStatus)
    {
-      cstl_test_testFailedToCompletePrint();
+      gcstl_test_testFailedToCompletePrint();
       return -1;
    }
    else if (0 != CU_get_number_of_tests_failed())
    {
-      cstl_test_testCompleteWithFailuresPrint();
+      gcstl_test_testCompleteWithFailuresPrint();
       return -1;
    }
 
-   cstl_test_testCompleteSuccessfullyPrint();
+   gcstl_test_testCompleteSuccessfullyPrint();
 
    CU_cleanup_registry();
 

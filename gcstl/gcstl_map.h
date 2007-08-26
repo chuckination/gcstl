@@ -21,10 +21,10 @@
  *
  ******************************************************************************/
 
-#ifndef CSTL_MAP_H
-#define CSTL_MAP_H
+#ifndef GCSTL_MAP_H
+#define GCSTL_MAP_H
 
-#include "gcstl/cstl_rbtree.h"
+#include <gcstl/gcstl_rbtree.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -32,82 +32,82 @@ extern "C"
 #endif
 
 /* typedef wrappers */
-typedef struct cstl_map_pair cstl_map_pair;
-typedef cstl_rbtree_element cstl_map_element;
-typedef struct cstl_map_destroy_arg cstl_map_destroy_arg;
-typedef struct cstl_map cstl_map;
+typedef struct gcstl_map_pair gcstl_map_pair;
+typedef gcstl_rbtree_element gcstl_map_element;
+typedef struct gcstl_map_destroy_arg gcstl_map_destroy_arg;
+typedef struct gcstl_map gcstl_map;
 
 /* a map element */
-struct cstl_map_pair
+struct gcstl_map_pair
 {
    void *key;
    void *value;
 };
 
 /* a map destroy collection */
-struct cstl_map_destroy_arg
+struct gcstl_map_destroy_arg
 {
    void (*destroy_key)(void *);
    void (*destroy_value)(void *);
 };
 
 /* a map */
-struct cstl_map
+struct gcstl_map
 {
-   cstl_rbtree *rbtree;
-   cstl_map_destroy_arg *destroy_arg;
+   gcstl_rbtree *rbtree;
+   gcstl_map_destroy_arg *destroy_arg;
 };
 
 /* initialize a map */
-extern int cstl_map_initialize(cstl_map *map,
+extern int gcstl_map_initialize(gcstl_map *map,
                                int (*comparator)(void *, void *),
                                void (*destroy_key)(void *),
                                void (*destroy_value)(void *));
 
 /* destroy a map */
-extern int cstl_map_destroy(cstl_map *map);
+extern int gcstl_map_destroy(gcstl_map *map);
 
 /* retrieve the number of elements in an map */
-extern int cstl_map_size(cstl_map *map);
+extern int gcstl_map_size(gcstl_map *map);
 
 /* retrieve the data from an map element */
-extern void *cstl_map_data(cstl_map_element *element);
+extern void *gcstl_map_data(gcstl_map_element *element);
 
 /* retrieve the element at the beginning of the linked map */
-extern cstl_map_element *cstl_map_begin(cstl_map *map);
+extern gcstl_map_element *gcstl_map_begin(gcstl_map *map);
 
 /* retrieve the element at the end of the linked map */
-extern cstl_map_element *cstl_map_end(cstl_map *map);
+extern gcstl_map_element *gcstl_map_end(gcstl_map *map);
 
 /* retrieve the next map element */
-extern cstl_map_element *cstl_map_next(cstl_map_element *element);
+extern gcstl_map_element *gcstl_map_next(gcstl_map_element *element);
 
 /* retrieve the previous map element */
-extern cstl_map_element *cstl_map_prev(cstl_map_element *element);
+extern gcstl_map_element *gcstl_map_prev(gcstl_map_element *element);
 
 /* insert data into map */
-extern int cstl_map_insert(cstl_map *map,
+extern int gcstl_map_insert(gcstl_map *map,
                            void *key,
                            void *value);
 
 /* retrieve data from map */
-extern cstl_map_element *cstl_map_find(cstl_map *map,
+extern gcstl_map_element *gcstl_map_find(gcstl_map *map,
                                        void *key);
 
 /* remove the element from the map while calling the destroy method */
-extern int cstl_map_remove(cstl_map *map,
+extern int gcstl_map_remove(gcstl_map *map,
                            void *key);
 
 /* remove the element from the map while calling the destroy method */
-extern int cstl_map_remove_element(cstl_map_element *element);
+extern int gcstl_map_remove_element(gcstl_map_element *element);
 
 /* remove the element from the map while not calling the destroy method */
-extern int cstl_map_unlink(cstl_map *map,
+extern int gcstl_map_unlink(gcstl_map *map,
                            void *key,
                            void **retData);
 
 /* remove the element from the map while not calling the destroy method */
-extern int cstl_map_unlink_element(cstl_map_element *element,
+extern int gcstl_map_unlink_element(gcstl_map_element *element,
                                    void **retData);
 
 #ifdef __cplusplus

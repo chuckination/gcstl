@@ -23,14 +23,14 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-#TESTS = test_cstl_rbtree
+#TESTS = test_gcstl_rbtree
 
 INCLUDES = -I$(top_srcdir)
 
-#check_PROGRAMS = test_cstl_rbtree
+#check_PROGRAMS = test_gcstl_rbtree
 
-EXTRA_PROGRAMS = test_cstl_rbtree
-test_cstl_rbtree_LDADD = $(top_builddir)/gcstl/libcstl.la
-test_cstl_rbtree_LDFLAGS = -lcunit
-test_cstl_rbtree_SOURCES = main.c \
-                           test_cstl_rbtree.h test_cstl_rbtree.c
+EXTRA_PROGRAMS = test_gcstl_rbtree
+test_gcstl_rbtree_LDADD = $(top_builddir)/gcstl/libgcstl.la
+test_gcstl_rbtree_LDFLAGS = -lcunit
+test_gcstl_rbtree_SOURCES = main.c \
+                            test_gcstl_rbtree.h test_gcstl_rbtree.c

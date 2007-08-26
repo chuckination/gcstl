@@ -21,9 +21,19 @@
  *
  ******************************************************************************/
 
-#ifndef TEST_CSTL_DESTROY_H
-#define TEST_CSTL_DESTROY_H
+#ifndef GCSTL_CLEANUP_H
+#define GCSTL_CLEANUP_H
 
-extern void test_cstl_destroy_default();
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+/* default cleanup function, calls free() on data and sets data to NULL */
+extern void gcstl_destroy_default(void *data);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

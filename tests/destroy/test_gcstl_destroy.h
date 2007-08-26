@@ -21,10 +21,18 @@
  *
  ******************************************************************************/
 
-#ifndef CSTL
-#define CSTL
+#include <gcstl/gcstl_destroy.h>
 
-#include "gcstl/cstl_cleanup.h"
-#include "gcstl/cstl_list.h"
+#include <CUnit/CUnit.h>
 
-#endif
+void test_gcstl_destroy_default()
+{
+   void *someMemory = NULL;
+
+   someMemory = malloc(sizeof(long int) * 1024);
+
+   CU_ASSERT_NOT_EQUAL(NULL, someMemory);
+
+   gcstl_destroy_default(someMemory);
+   someMemory = NULL;
+}

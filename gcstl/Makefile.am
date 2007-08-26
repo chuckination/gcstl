@@ -25,23 +25,23 @@
 
 library_includedir=$(includedir)
 library_include_HEADERS = \
-                          cstl.h \
-                          cstl_destroy.h \
-                          cstl_list.h \
-                          cstl_stack.h \
-                          cstl_queue.h \
-                          cstl_rbtree.h \
-                          cstl_set.h \
-                          cstl_map.h
+                          gcstl.h \
+                          gcstl_destroy.h \
+                          gcstl_list.h \
+                          gcstl_stack.h \
+                          gcstl_queue.h \
+                          gcstl_rbtree.h \
+                          gcstl_set.h \
+                          gcstl_map.h
 
 INCLUDES = -I$(top_srcdir)
-lib_LTLIBRARIES = libcstl.la
-libcstl_la_SOURCES = \
-                     cstl_destroy.c \
-                     cstl_list.c \
-                     cstl_stack.c \
-                     cstl_queue.c \
-                     cstl_rbtree.c \
-                     cstl_set.c \
-                     cstl_map.c
-libcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)
+lib_LTLIBRARIES = libgcstl.la
+libgcstl_la_SOURCES = \
+                      gcstl_destroy.c \
+                      gcstl_list.c \
+                      gcstl_stack.c \
+                      gcstl_queue.c \
+                      gcstl_rbtree.c \
+                      gcstl_set.c \
+                      gcstl_map.c
+libgcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)
