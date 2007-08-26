@@ -23,9 +23,8 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-library_includedir=$(includedir)
+library_includedir=$(includedir)/gcstl
 library_include_HEADERS = \
-                          gcstl.h \
                           gcstl_destroy.h \
                           gcstl_list.h \
                           gcstl_stack.h \
@@ -44,4 +43,3 @@ libgcstl_la_SOURCES = \
                       gcstl_rbtree.c \
                       gcstl_set.c \
                       gcstl_map.c
-libgcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)

@@ -25,7 +25,7 @@
 ## -*- autoconf -*-
 ## Process this file with autoconf to produce a configure script.
 
-AC_INIT(gcstl/gcstl.h)
+AC_INIT(gcstl.h)
 AC_CONFIG_AUX_DIR(autoconf)
 AM_CONFIG_HEADER(config.h)
 

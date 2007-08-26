@@ -11,3 +11,4 @@ INSTALL
 gcstl.pc
 aclocal.m4
 Makefile
+.libs

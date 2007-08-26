@@ -32,7 +32,7 @@ TESTS = test_gcstl
 INCLUDES = -I$(top_srcdir)
 
 check_PROGRAMS = test_gcstl
-test_gcstl_LDADD = $(top_builddir)/gcstl/libgcstl.la
+test_gcstl_LDADD = $(top_builddir)/libgcstl.la
 test_gcstl_LDFLAGS = -lcunit
 test_gcstl_SOURCES = main.c \
                      destroy/test_gcstl_destroy.h destroy/test_gcstl_destroy.c \

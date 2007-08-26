@@ -28,4 +28,12 @@ SUBDIRS = gcstl tests
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gcstl.pc
 
+library_includedir=$(includedir)
+library_include_HEADERS = gcstl.h
+
+INCLUDES = -I$(top_srcdir)
+lib_LTLIBRARIES = libgcstl.la
+libgcstl_la_LIBADD = $(top_builddir)/gcstl/libgcstl.la
+libgcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)
+
 EXTRA_DIST = autogen.sh
