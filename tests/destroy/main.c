@@ -25,7 +25,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
-#include "test_cstl_destroy.h"
+#include "tests/destroy/test_cstl_destroy.h"
 
 void cstl_test_testStartPrint()
 {

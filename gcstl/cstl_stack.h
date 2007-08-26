@@ -21,10 +21,10 @@
  *
  ******************************************************************************/
 
-#ifndef CSTL_QUEUE_H
-#define CSTL_QUEUE_H
+#ifndef CSTL_STACK_H
+#define CSTL_STACK_H
 
-#include "cstl_list.h"
+#include "gcstl/cstl_list.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -32,28 +32,28 @@ extern "C"
 #endif
 
 /* forward declarations */
-typedef cstl_list_element cstl_queue_element;
-typedef cstl_list cstl_queue;
+typedef cstl_list_element cstl_stack_element;
+typedef cstl_list cstl_stack;
 
-/* initialize a doubly linked queue */
-extern int cstl_queue_initialize(cstl_queue *queue);
+/* initialize a doubly linked stack */
+extern int cstl_stack_initialize(cstl_stack *stack);
 
-/* destroy a doubly linked queue */
-extern int cstl_queue_destroy(cstl_queue *queue);
+/* destroy a doubly linked stack */
+extern int cstl_stack_destroy(cstl_stack *stack);
 
-/* retrieve the number of elements in a queue */
-extern int cstl_queue_size(cstl_queue *queue);
+/* retrieve the number of elements in a stack */
+extern int cstl_stack_size(cstl_stack *stack);
 
-/* retrieve the data from a queue element */
-extern void *cstl_queue_front(cstl_queue *queue);
+/* retrieve the data from a stack element */
+extern void *cstl_stack_top(cstl_stack *stack);
 
-/* insert the data at the beginning of the linked queue */
-extern int cstl_queue_push(cstl_queue *queue,
+/* insert the data at the beginning of the linked stack */
+extern int cstl_stack_push(cstl_stack *stack,
                            void *data);
 
-/* remove the element from the end of the linked queue while calling the
+/* remove the element from the beginning of the linked stack while calling the
  * destroy method */
-extern int cstl_queue_pop(cstl_queue *queue);
+extern int cstl_stack_pop(cstl_stack *stack);
 
 #ifdef __cplusplus
 }

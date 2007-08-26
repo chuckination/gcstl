@@ -25,14 +25,12 @@
 
 #TESTS = test_cstl_rbtree
 
-INCLUDES = -I$(top_srcdir)/src/destroy \
-           -I$(top_srcdir)/src/rbtree
+INCLUDES = -I$(top_srcdir)
 
 #check_PROGRAMS = test_cstl_rbtree
 
 EXTRA_PROGRAMS = test_cstl_rbtree
-test_cstl_rbtree_LDADD = $(top_builddir)/src/destroy/libcstl_destroy.la \
-                         $(top_builddir)/src/rbtree/libcstl_rbtree.la
+test_cstl_rbtree_LDADD = $(top_builddir)/gcstl/libcstl.la
 test_cstl_rbtree_LDFLAGS = -lcunit
 test_cstl_rbtree_SOURCES = main.c \
                            test_cstl_rbtree.h test_cstl_rbtree.c

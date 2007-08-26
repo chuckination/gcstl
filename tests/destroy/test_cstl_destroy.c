@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#include "test_cstl_destroy.h"
-#include "cstl_destroy.h"
+#include "tests/destroy/test_cstl_destroy.h"
+#include "gcstl/cstl_destroy.h"
 
 #include <CUnit/CUnit.h>
 

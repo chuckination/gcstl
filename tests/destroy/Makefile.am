@@ -25,12 +25,12 @@
 
 #TESTS = test_cstl_destroy
 
-INCLUDES = -I$(top_srcdir)/src/destroy
+INCLUDES = -I$(top_srcdir)
 
 #check_PROGRAMS = test_cstl_destroy
 
 EXTRA_PROGRAMS = test_cstl_destroy
-test_cstl_destroy_LDADD = $(top_builddir)/src/destroy/libcstl_destroy.la
+test_cstl_destroy_LDADD = $(top_builddir)/gcstl/libcstl.la
 test_cstl_destroy_LDFLAGS = -lcunit
 test_cstl_destroy_SOURCES = main.c \
                             test_cstl_destroy.h test_cstl_destroy.c

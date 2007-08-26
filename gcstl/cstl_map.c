@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#include "cstl_map.h"
-#include "cstl_destroy.h"
+#include "gcstl/cstl_map.h"
+#include "gcstl/cstl_destroy.h"
 
 #include <stdlib.h>
 

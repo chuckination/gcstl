@@ -23,7 +23,7 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-SUBDIRS = src tests
+SUBDIRS = gcstl tests
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = cstl.pc

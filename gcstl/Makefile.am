@@ -23,15 +23,25 @@
 
 ## Process this file with automake to produce Makefile.in -*-Makefile-*-
 
-SUBDIRS = destroy list stack queue rbtree set map
-
 library_includedir=$(includedir)
-library_include_HEADERS = cstl.h
+library_include_HEADERS = \
+                          cstl.h \
+                          cstl_destroy.h \
+                          cstl_list.h \
+                          cstl_stack.h \
+                          cstl_queue.h \
+                          cstl_rbtree.h \
+                          cstl_set.h \
+                          cstl_map.h
 
+INCLUDES = -I$(top_srcdir)
 lib_LTLIBRARIES = libcstl.la
-libcstl_la_SOURCES =
-libcstl_la_LIBADD = destroy/libcstl_destroy.la \
-                    list/libcstl_list.la \
-                    rbtree/libcstl_rbtree.la \
-                    set/libcstl_set.la
+libcstl_la_SOURCES = \
+                     cstl_destroy.c \
+                     cstl_list.c \
+                     cstl_stack.c \
+                     cstl_queue.c \
+                     cstl_rbtree.c \
+                     cstl_set.c \
+                     cstl_map.c
 libcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)

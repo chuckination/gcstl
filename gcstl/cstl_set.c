@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#include "cstl_set.h"
-#include "cstl_destroy.h"
+#include "gcstl/cstl_set.h"
+#include "gcstl/cstl_destroy.h"
 
 #include <stdlib.h>
 

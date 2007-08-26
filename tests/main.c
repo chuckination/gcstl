@@ -25,8 +25,8 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
-#include "test_cstl_destroy.h"
-#include "test_cstl_rbtree.h"
+#include "tests/destroy/test_cstl_destroy.h"
+#include "tests/rbtree/test_cstl_rbtree.h"
 
 void cstl_test_testStartPrint()
 {

@@ -16,45 +16,17 @@
 
 /*******************************************************************************
  *
- * $URL: https://gcstl.svn.sourceforge.net/svnroot/gcstl/trunk/src/list/cstl_list.c $
- * $Id: cstl_list.c 56 2007-07-31 05:10:01Z chuck_s $
+ * $URL$
+ * $Id$
  *
  ******************************************************************************/
 
-#include "cstl_stack.h"
+#include "gcstl/cstl_destroy.h"
 
-void cstl_stack_destroy_null(void *data)
-{
-   /* do nothing */
-}
+#include <stdlib.h>
 
-int cstl_stack_initialize(cstl_stack *stack)
+void cstl_destroy_default(void *data)
 {
-   return cstl_list_initialize(stack, cstl_stack_destroy_null);
-}
-
-int cstl_stack_destroy(cstl_stack *stack)
-{
-   return cstl_list_destroy(stack);
-}
-
-int cstl_stack_size(cstl_stack *stack)
-{
-   return cstl_list_size(stack);
-}
-
-void *cstl_stack_top(cstl_stack *stack)
-{
-   return cstl_list_data(cstl_list_front(stack));
-}
-
-int cstl_stack_push(cstl_stack *stack,
-                    void *data)
-{
-   return cstl_list_push_front(stack, data);
-}
-
-int cstl_stack_pop(cstl_stack *stack)
-{
-   return cstl_list_pop_front(stack);
+   free(data);
+   data = NULL;
 }

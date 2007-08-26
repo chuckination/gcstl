@@ -25,7 +25,7 @@
 #include <CUnit/CUnit.h>
 #include <CUnit/Basic.h>
 
-#include "test_cstl_rbtree.h"
+#include "tests/rbtree/test_cstl_rbtree.h"
 
 void cstl_test_testStartPrint()
 {

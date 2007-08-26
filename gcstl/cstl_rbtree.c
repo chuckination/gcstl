@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#include "cstl_rbtree.h"
-#include "cstl_destroy.h"
+#include "gcstl/cstl_rbtree.h"
+#include "gcstl/cstl_destroy.h"
 
 #include <stdlib.h>
 

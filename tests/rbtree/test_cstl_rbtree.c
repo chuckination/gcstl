@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#include "test_cstl_rbtree.h"
-#include "cstl_rbtree.h"
+#include "tests/rbtree/test_cstl_rbtree.h"
+#include "gcstl/cstl_rbtree.h"
 
 #include <stdlib.h>
 #include <stdio.h>

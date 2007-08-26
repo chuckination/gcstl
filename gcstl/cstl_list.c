@@ -21,8 +21,8 @@
  *
  ******************************************************************************/
 
-#include "cstl_list.h"
-#include "cstl_destroy.h"
+#include "gcstl/cstl_list.h"
+#include "gcstl/cstl_destroy.h"
 
 #include <stdlib.h>
 

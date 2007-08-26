@@ -25,7 +25,7 @@
 ## -*- autoconf -*-
 ## Process this file with autoconf to produce a configure script.
 
-AC_INIT(src/cstl.h)
+AC_INIT(gcstl/cstl.h)
 AC_CONFIG_AUX_DIR(autoconf)
 AM_CONFIG_HEADER(config.h)
 
@@ -60,14 +60,7 @@ AC_FUNC_MALLOC
 
 AC_OUTPUT(Makefile \
           cstl.pc \
-          src/Makefile \
-          src/destroy/Makefile \
-          src/list/Makefile \
-          src/stack/Makefile \
-          src/queue/Makefile \
-          src/rbtree/Makefile \
-          src/set/Makefile \
-          src/map/Makefile
+          gcstl/Makefile \
 			 tests/Makefile \
           tests/destroy/Makefile \
           tests/list/Makefile \
