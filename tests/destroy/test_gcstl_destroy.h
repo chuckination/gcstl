@@ -21,6 +21,9 @@
  *
  ******************************************************************************/
 
+#ifndef TEST_GCSTL_DESTROY
+#define TEST_GCSTL_DESTROY
+
 #include <gcstl/gcstl_destroy.h>
 
 #include <CUnit/CUnit.h>
@@ -36,3 +39,5 @@ void test_gcstl_destroy_default()
    gcstl_destroy_default(someMemory);
    someMemory = NULL;
 }
+
+#endif

@@ -43,3 +43,4 @@ libgcstl_la_SOURCES = \
                       gcstl_rbtree.c \
                       gcstl_set.c \
                       gcstl_map.c
+libgcstl_la_LDFLAGS = -version-info $(GENERIC_LIBRARY_VERSION) -release $(GENERIC_RELEASE)

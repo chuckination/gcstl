@@ -1,3 +1,25 @@
-Modify map interface to act like an STL map.
+2007-08-27
+----------
 
-Add interface wrappers for queue and stack using list as the backend.
+First source release (0.3.0) to be soon.
+Time to define goals for next release (0.3.1).
+
+-  Automated generation of documentation via doxygen, I already have a basic
+   setup, but I need to refine it for this specific case.  This will also be
+   the basis of the first webpages for sourceforge.
+
+-  More thorough testing.  I've done just enough this release to make sure
+   nothing will blow up badly, but not much more than that.  I would like
+   to achieve as high line coverage as possible.
+
+-  Attempt to hash out implementations of sets and maps that can have make
+   use of different underlying container structures.
+
+-  Attempt implementation of AVL trees.
+
+-  Attempt implementation of hash tables with linear collision handling,
+   quadratic collision handling, and chaining with both lists and maps.
+
+-  Review C++ deque implementations for potential back porting.
+
+-  Review C++ multimap and multiset implementations for potential back porting.

@@ -26,5 +26,9 @@
 
 #include <gcstl/gcstl_cleanup.h>
 #include <gcstl/gcstl_list.h>
+#include <gcstl/gcstl_stack.h>
+#include <gcstl/gcstl_queue.h>
+#include <gcstl/gcstl_set.h>
+#include <gcstl/gcstl_map.h>
 
 #endif
