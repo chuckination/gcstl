@@ -4,8 +4,8 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = "C_STL - Standard Template Library for C"
-PROJECT_NUMBER         = 0.3.0
+PROJECT_NAME           = "GCSTL - Generic Standard Template Library for C"
+PROJECT_NUMBER         = 0.3.1
 OUTPUT_DIRECTORY       = /home/chucks/src/sourceforge/gcstl/trunk/doxygen/
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
@@ -22,7 +22,7 @@ ABBREVIATE_BRIEF       = "The $name class" \
                          a \
                          an \
                          the
-ALWAYS_DETAILED_SEC    = NO
+ALWAYS_DETAILED_SEC    = YES
 INLINE_INHERITED_MEMB  = NO
 FULL_PATH_NAMES        = NO
 STRIP_FROM_PATH        = /home/chucks/src/sourceforge/gcstl/trunk/
@@ -83,7 +83,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = /home/chucks/src/sourceforge/gcstl/trunk/src/
+INPUT                  = /home/chucks/src/sourceforge/gcstl/trunk/gcstl/
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
                          *.cc \
@@ -204,7 +204,7 @@ RTF_EXTENSIONS_FILE    =
 #---------------------------------------------------------------------------
 GENERATE_MAN           = YES
 MAN_OUTPUT             = man
-MAN_EXTENSION          = .3
+MAN_EXTENSION          = .1
 MAN_LINKS              = NO
 #---------------------------------------------------------------------------
 # configuration options related to the XML output

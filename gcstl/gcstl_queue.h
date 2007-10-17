@@ -26,6 +26,15 @@
 
 #include <gcstl/gcstl_list.h>
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup queue queue
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl queue
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -58,5 +67,9 @@ extern int gcstl_queue_pop(gcstl_queue *queue);
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif

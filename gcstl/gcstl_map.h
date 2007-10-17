@@ -26,6 +26,15 @@
 
 #include <gcstl/gcstl_rbtree.h>
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup map map
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl map
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -113,5 +122,9 @@ extern int gcstl_map_unlink_element(gcstl_map_element *element,
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif

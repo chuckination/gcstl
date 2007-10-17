@@ -24,16 +24,32 @@
 #ifndef GCSTL_CLEANUP_H
 #define GCSTL_CLEANUP_H
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup destroy destroy
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl destroy
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-/* default cleanup function, calls free() on data and sets data to NULL */
+/**
+ * @brief default cleup function, calls free() on data
+ * @param[in] data the anonymous container element to free
+ * */
 extern void gcstl_destroy_default(void *data);
 
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif

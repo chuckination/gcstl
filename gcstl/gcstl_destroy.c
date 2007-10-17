@@ -28,5 +28,4 @@
 void gcstl_destroy_default(void *data)
 {
    free(data);
-   data = NULL;
 }

@@ -26,6 +26,15 @@
 
 #include <gcstl/gcstl_rbtree.h>
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup set set
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl set
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -88,5 +97,9 @@ extern int gcstl_set_unlink_element(gcstl_set_element *element,
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif

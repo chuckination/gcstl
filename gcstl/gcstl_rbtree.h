@@ -24,6 +24,15 @@
 #ifndef GCSTL_RBTREE_H
 #define GCSTL_RBTREE_H
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup rbtree rbtree
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl rbtree
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -123,5 +132,9 @@ extern int gcstl_rbtree_unlink_element(gcstl_rbtree_element *element,
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif

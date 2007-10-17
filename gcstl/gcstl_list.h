@@ -24,6 +24,15 @@
 #ifndef GCSTL_LIST_H
 #define GCSTL_LIST_H
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup list list
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl list
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -124,5 +133,9 @@ extern int gcstl_list_unlink_front(gcstl_list *list,
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif

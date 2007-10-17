@@ -26,6 +26,15 @@
 
 #include <gcstl/gcstl_list.h>
 
+/**
+ * @defgroup gcstl gcstl
+ * @defgroup stack stack
+ *
+ * @ingroup gcstl
+ * @ingroup gcstl stack
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -58,5 +67,9 @@ extern int gcstl_stack_pop(gcstl_stack *stack);
 #ifdef __cplusplus
 }
 #endif
+
+/**
+ * @}
+ */
 
 #endif
