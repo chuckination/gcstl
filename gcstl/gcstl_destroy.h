@@ -24,7 +24,7 @@
 #ifndef GCSTL_CLEANUP_H
 #define GCSTL_CLEANUP_H
 
-/**
+/*!
  * @defgroup gcstl gcstl
  * @defgroup destroy destroy
  *
@@ -38,7 +38,7 @@ extern "C"
 {
 #endif
 
-/**
+/*!
  * @brief default cleup function, calls free() on data
  * @param[in] data the anonymous container element to free
  * */
@@ -48,7 +48,7 @@ extern void gcstl_destroy_default(void *data);
 }
 #endif
 
-/**
+/*!
  * @}
  */
 

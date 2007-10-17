@@ -24,7 +24,7 @@
 #ifndef GCSTL_RBTREE_H
 #define GCSTL_RBTREE_H
 
-/**
+/*!
  * @defgroup gcstl gcstl
  * @defgroup rbtree rbtree
  *
@@ -133,7 +133,7 @@ extern int gcstl_rbtree_unlink_element(gcstl_rbtree_element *element,
 }
 #endif
 
-/**
+/*!
  * @}
  */
 

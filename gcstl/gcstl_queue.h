@@ -26,7 +26,7 @@
 
 #include <gcstl/gcstl_list.h>
 
-/**
+/*!
  * @defgroup gcstl gcstl
  * @defgroup queue queue
  *
@@ -68,7 +68,7 @@ extern int gcstl_queue_pop(gcstl_queue *queue);
 }
 #endif
 
-/**
+/*!
  * @}
  */
 

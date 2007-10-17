@@ -26,7 +26,7 @@
 
 #include <gcstl/gcstl_rbtree.h>
 
-/**
+/*!
  * @defgroup gcstl gcstl
  * @defgroup map map
  *
@@ -123,7 +123,7 @@ extern int gcstl_map_unlink_element(gcstl_map_element *element,
 }
 #endif
 
-/**
+/*!
  * @}
  */
 

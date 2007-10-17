@@ -24,7 +24,7 @@
 #ifndef GCSTL_LIST_H
 #define GCSTL_LIST_H
 
-/**
+/*!
  * @defgroup gcstl gcstl
  * @defgroup list list
  *
@@ -38,62 +38,110 @@ extern "C"
 {
 #endif
 
-/* forward declarations */
+/*! @brief creates a type name for gcstl_list_element */
 typedef struct gcstl_list_element gcstl_list_element;
+
+/*! @brief creates a type name for gcstl_list */
 typedef struct gcstl_list gcstl_list;
 
-/* a doubly linked list element */
+/*! @brief a doubly linked list element
+ *  @see gcstl_list */
 struct gcstl_list_element
 {
-   gcstl_list *list;
-   gcstl_list_element *next;
-   gcstl_list_element *prev;
-   void *data;
+   gcstl_list *list; /*!< the associated list */
+   gcstl_list_element *next; /*!< the next element in the list */
+   gcstl_list_element *prev; /*!< the previous element in the list */
+   void *data; /*!< the list element data */
 };
 
-/* a doubly linked list */
+/*! @brief a doubly linked list
+ *  @see gcstl_list_element */
 struct gcstl_list
 {
-   gcstl_list_element *head;
-   unsigned long int size;
-   short int validator;
-   void (*destroy)(void *);
+   gcstl_list_element *head; /*!< the list head element */
+   unsigned long int size; /*!< the number of elements in the list */
+   short int validator; /*!< the list initialization validator */
+   void (*destroy)(void *); /*!< the list data cleanup funtion */
 };
 
-/* initialize a doubly linked list */
+/*! @brief initializes a doubly linked list
+ *  @param[in] list the list
+ *  @param[in] destroy the list data cleanup function to bind to the list
+ *  @return 0 on success, -1 on failure
+ *  @see gcstl_list_destroy */
 extern int gcstl_list_initialize(gcstl_list *list,
                                 void (*destroy)(void *));
 
-/* destroy a doubly linked list */
+/*! @brief destroy a doubly linked list
+ *  @details destroy a doubly linked list, calls the cleanup function on all
+ *  element data in the list
+ *  @param[in] list the list
+ *  @return 0 on success, -1 on failure
+ *  @see gcstl_list_initialize */
 extern int gcstl_list_destroy(gcstl_list *list);
 
-/* retrieve the number of elements in a list */
+/*! @brief returns the number of elements in a list
+ *  @param[in] list the list
+ *  @return size of the list, or -1 if list is invalid */
 extern int gcstl_list_size(gcstl_list *list);
 
-/* retrieve the data from a list element */
+/*! @brief returns the data from a list element
+ *  @param[in] element the list element
+ *  @return the list element data, or NULL if list element is invalid
+ *  @see gcstl_list_newdata */
 extern void *gcstl_list_data(gcstl_list_element *element);
 
-/* change the elment data without calling the destroy method */
-extern void *gcstl_list_newdata(gcstl_list_element *gcstl_list_element,
+/*! @brief replaces the data in a list element, returning the old data
+ *  @param[in] element the list element
+ *  @param[in] data the new element data
+ *  @return the old data, or NULL if the list element is invalid
+ *  @see gcstl_list_data */
+extern void *gcstl_list_newdata(gcstl_list_element *element,
                                void *data);
 
-/* retrieve the element at the beginning of the linked list */
+/*! @brief returns the first list element of the list
+ *  @param[in] list the list
+ *  @return the first element in the list, the list head if the list is empty,
+ *  or NULL if the list is invalid
+ *  @see gcstl_list_end */
 extern gcstl_list_element *gcstl_list_begin(gcstl_list *list);
 
-/* retrieve the element at the end of the linked list */
+/*! @brief returns the list head of the list
+ *  @param[in] list the list
+ *  @return the list head if the list is empty, or NULL if the list is invalid
+ *  @see gcstl_list_begin */
 extern gcstl_list_element *gcstl_list_end(gcstl_list *list);
 
-/* retrieve the next list element */
+/*! @brief returns the next element in a list
+ *  @param[in] element the list element
+ *  @return the next list element in the list, the list head if the specified
+ *  element is the last element in the list, or NULL if the list is invalid
+ *  @see gcstl_list_prev */
 extern gcstl_list_element *gcstl_list_next(gcstl_list_element *element);
 
-/* retrieve the previous list element */
+/*! @brief returns the previous element in a list
+ *  @param[in] element the list element
+ *  @return the previous list element in the list, the list head if the
+ *  specified element is the first element in the list, or NULL if the list
+ *  is invalid
+ *  @see gcstl_list_next */
 extern gcstl_list_element *gcstl_list_prev(gcstl_list_element *element);
 
-/* insert a new list element before element */
+/*! @brief inserts data into a new list element after the specified list
+ *  element
+ *  @param[in] element the list element
+ *  @param[in] data the new element data
+ *  @return 0 on success, -1 on failure
+ *  @see gcstl_list_element_insert_after */
 extern int gcstl_list_insert_before(gcstl_list_element *element,
                                    void *data);
 
-/* insert a new list element before element */
+/*! @brief inserts data into a new list element before the specified list
+ *  element
+ *  @param[in] element the list element
+ *  @param[in] data the new element data
+ *  @return 0 on success, -1 on failure
+ *  @see gcstl_list_element_insert_before */
 extern int gcstl_list_insert_after(gcstl_list_element *element,
                                   void *data);
 
@@ -134,7 +182,7 @@ extern int gcstl_list_unlink_front(gcstl_list *list,
 }
 #endif
 
-/**
+/*!
  * @}
  */
 

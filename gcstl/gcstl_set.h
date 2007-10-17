@@ -26,7 +26,7 @@
 
 #include <gcstl/gcstl_rbtree.h>
 
-/**
+/*!
  * @defgroup gcstl gcstl
  * @defgroup set set
  *
@@ -98,7 +98,7 @@ extern int gcstl_set_unlink_element(gcstl_set_element *element,
 }
 #endif
 
-/**
+/*!
  * @}
  */
 
