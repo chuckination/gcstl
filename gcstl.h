@@ -24,7 +24,7 @@
 #ifndef GCSTL
 #define GCSTL
 
-#include <gcstl/gcstl_cleanup.h>
+#include <gcstl/gcstl_destroy.h>
 #include <gcstl/gcstl_list.h>
 #include <gcstl/gcstl_stack.h>
 #include <gcstl/gcstl_queue.h>
