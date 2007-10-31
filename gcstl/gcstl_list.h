@@ -44,8 +44,7 @@ typedef struct gcstl_list_element gcstl_list_element;
 /*! @brief creates a type name for gcstl_list */
 typedef struct gcstl_list gcstl_list;
 
-/*! @brief a doubly linked list element
- *  @see gcstl_list */
+/*! @brief a doubly linked list element */
 struct gcstl_list_element
 {
    gcstl_list *list; /*!< the associated list */
@@ -54,8 +53,7 @@ struct gcstl_list_element
    void *data; /*!< the list element data */
 };
 
-/*! @brief a doubly linked list
- *  @see gcstl_list_element */
+/*! @brief a doubly linked list */
 struct gcstl_list
 {
    gcstl_list_element *head; /*!< the list head element */
@@ -67,8 +65,7 @@ struct gcstl_list
 /*! @brief initializes a doubly linked list
  *  @param[in] list the list
  *  @param[in] destroy the list data cleanup function to bind to the list
- *  @return 0 on success, -1 on failure
- *  @see gcstl_list_destroy */
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_initialize(gcstl_list *list,
                                 void (*destroy)(void *));
 
@@ -76,8 +73,7 @@ extern int gcstl_list_initialize(gcstl_list *list,
  *  @details destroy a doubly linked list, calls the cleanup function on all
  *  element data in the list
  *  @param[in] list the list
- *  @return 0 on success, -1 on failure
- *  @see gcstl_list_initialize */
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_destroy(gcstl_list *list);
 
 /*! @brief returns the number of elements in a list
@@ -87,52 +83,46 @@ extern int gcstl_list_size(gcstl_list *list);
 
 /*! @brief returns the data from a list element
  *  @param[in] element the list element
- *  @return the list element data, or NULL if list element is invalid
- *  @see gcstl_list_newdata */
+ *  @return the list element data, or NULL if list element is invalid */
 extern void *gcstl_list_data(gcstl_list_element *element);
 
 /*! @brief replaces the data in a list element, returning the old data
  *  @param[in] element the list element
  *  @param[in] data the new element data
- *  @return the old data, or NULL if the list element is invalid
- *  @see gcstl_list_data */
+ *  @return the old data, or NULL if the list element is invalid */
 extern void *gcstl_list_newdata(gcstl_list_element *element,
-                               void *data);
+                                void *data);
 
 /*! @brief returns the first list element of the list
  *  @param[in] list the list
  *  @return the first element in the list, the list head if the list is empty,
- *  or NULL if the list is invalid
- *  @see gcstl_list_end */
+ *  or NULL if the list is invalid */
 extern gcstl_list_element *gcstl_list_begin(gcstl_list *list);
 
 /*! @brief returns the list head of the list
  *  @param[in] list the list
  *  @return the list head if the list is empty, or NULL if the list is invalid
- *  @see gcstl_list_begin */
+ */
 extern gcstl_list_element *gcstl_list_end(gcstl_list *list);
 
 /*! @brief returns the next element in a list
  *  @param[in] element the list element
  *  @return the next list element in the list, the list head if the specified
- *  element is the last element in the list, or NULL if the list is invalid
- *  @see gcstl_list_prev */
+ *  element is the last element in the list, or NULL if the list is invalid */
 extern gcstl_list_element *gcstl_list_next(gcstl_list_element *element);
 
 /*! @brief returns the previous element in a list
  *  @param[in] element the list element
  *  @return the previous list element in the list, the list head if the
  *  specified element is the first element in the list, or NULL if the list
- *  is invalid
- *  @see gcstl_list_next */
+ *  is invalid */
 extern gcstl_list_element *gcstl_list_prev(gcstl_list_element *element);
 
 /*! @brief inserts data into a new list element after the specified list
  *  element
  *  @param[in] element the list element
  *  @param[in] data the new element data
- *  @return 0 on success, -1 on failure
- *  @see gcstl_list_element_insert_after */
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_insert_before(gcstl_list_element *element,
                                    void *data);
 
@@ -140,41 +130,62 @@ extern int gcstl_list_insert_before(gcstl_list_element *element,
  *  element
  *  @param[in] element the list element
  *  @param[in] data the new element data
- *  @return 0 on success, -1 on failure
- *  @see gcstl_list_element_insert_before */
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_insert_after(gcstl_list_element *element,
                                   void *data);
 
-/* remove the element from the list while calling the destroy method */
+/*! @brief removes an existing list element
+ *  @param[in] element the list element
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_remove(gcstl_list_element *element);
 
-/* remove the element from the list while not calling the destroy method */
+/*! @brief removes an existing list element while preserving that element's data
+ *  @param[in] element the list element
+ *  @param[out] retData pointer to the pointer to be set to the preserved
+ *  element data
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_unlink(gcstl_list_element *element,
                             void **retData);
 
-/* insert the data at the end of the linked list */
+/*! @brief inserts data at the end of the list
+ *  @param[in] list the list
+ *  @param[in] data the new element data
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_push_back(gcstl_list *list,
                                void *data);
 
-/* remove the element from the end of the linked list while calling the
- * destroy method */
+/*! @brief removes the element at the end of the list
+ *  @param[in] list the list
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_pop_back(gcstl_list *list);
 
-/* remove the element from the end of the linked list while not calling
- * the destroy method */
+/*! @brief removes the element at the end of the list while preserving that
+ *  element's data
+ *  @param[in] list the list
+ *  @param[out] retData pointer to the pointer to be set to the preserved
+ *  element data
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_unlink_back(gcstl_list *list,
                                  void **retData);
 
-/* insert the data at the beginning of the linked list */
+/*! @brief inserts data at the beginning of the list
+ *  @param[in] list the list
+ *  @param[in] data the new element data
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_push_front(gcstl_list *list,
                                 void *data);
 
-/* remove the element from the beginning of the linked list while calling the
- * destroy method */
+/*! @brief removes the element at the beginning of the list
+ *  @param[in] list the list
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_pop_front(gcstl_list *list);
 
-/* remove the element from the beginning of the linked list while not calling
- * the destroy method */
+/*! @brief removes the element at the beginning of the list while preserving
+ *  that element's data
+ *  @param[in] list the list
+ *  @param[out] retData pointer to the pointer to be set to the preserved
+ *  element data
+ *  @return 0 on success, -1 on failure */
 extern int gcstl_list_unlink_front(gcstl_list *list,
                                   void **retData);
 
