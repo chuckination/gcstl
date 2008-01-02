@@ -26,15 +26,15 @@
 
 #include <stdlib.h>
 
-int gcstl_set_comparator(void *first,
-                        void *second,
-                        int (*comparator)(void *, void *))
+static int gcstl_set_comparator(void *first,
+                                void *second,
+                                int (*comparator)(void *, void *))
 {
    return comparator(first, second);
 }
 
-void gcstl_set_destroy_default(void *data,
-                              void *arg)
+static void gcstl_set_destroy_default(void *data,
+                                      void *arg)
 {
    void (*destroy)(void *) = arg;
    destroy(data);
@@ -46,10 +46,10 @@ int gcstl_set_initialize(gcstl_set *set,
                         void (*destroy)(void *))
 {
    return gcstl_rbtree_initialize(set,
-                                 gcstl_set_comparator,
-                                 comparator,
-                                 gcstl_set_destroy_default,
-                                 destroy ? destroy : gcstl_destroy_default);
+                                  gcstl_set_comparator,
+                                  comparator,
+                                  gcstl_set_destroy_default,
+                                  destroy ? destroy : gcstl_destroy_default);
 }
 
 /* destroy a set */

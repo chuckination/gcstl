@@ -23,7 +23,7 @@
 
 #include <gcstl/gcstl_stack.h>
 
-void gcstl_stack_destroy_null(void *data)
+static void gcstl_stack_destroy_null(void *data)
 {
    /* do nothing */
 }

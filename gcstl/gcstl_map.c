@@ -26,15 +26,15 @@
 
 #include <stdlib.h>
 
-int gcstl_map_comparator(void *first,
-                        void *second,
-                        int (*comparator)(void *, void *))
+static int gcstl_map_comparator(void *first,
+                                void *second,
+                                int (*comparator)(void *, void *))
 {
    return comparator(((gcstl_map_pair *)first)->key,
                      ((gcstl_map_pair *)second)->key);
 }
 
-void gcstl_map_destroy_default(void *data, void *destroy_arg)
+static void gcstl_map_destroy_default(void *data, void *destroy_arg)
 {
    /* cleanup the element's key */
    ((gcstl_map_destroy_arg *)destroy_arg)->destroy_key(

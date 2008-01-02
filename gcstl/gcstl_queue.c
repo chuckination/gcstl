@@ -23,7 +23,7 @@
 
 #include <gcstl/gcstl_queue.h>
 
-void gcstl_queue_destroy_null(void *data)
+static void gcstl_queue_destroy_null(void *data)
 {
    /* do nothing */
 }
