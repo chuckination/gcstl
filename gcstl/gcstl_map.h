@@ -79,8 +79,11 @@ extern int gcstl_map_destroy(gcstl_map *map);
 /* retrieve the number of elements in an map */
 extern int gcstl_map_size(gcstl_map *map);
 
-/* retrieve the data from an map element */
-extern void *gcstl_map_data(gcstl_map_element *element);
+/* retrieve the key from an map element */
+extern void *gcstl_map_key(gcstl_map_element *element);
+
+/* retrieve the value from an map element */
+extern void *gcstl_map_value(gcstl_map_element *element);
 
 /* retrieve the element at the beginning of the linked map */
 extern gcstl_map_element *gcstl_map_begin(gcstl_map *map);
