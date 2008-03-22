@@ -66,7 +66,7 @@ int gcstl_map_initialize(gcstl_map *map,
 
    /* allocate a destroy_arg structure */
    gcstl_map_destroy_arg *destroy_arg = NULL;
-   destroy_arg = (gcstl_map_destroy_arg *)malloc(sizeof(gcstl_map_destroy_arg));
+   destroy_arg = (gcstl_map_destroy_arg *) malloc(sizeof(gcstl_map_destroy_arg));
    if (!destroy_arg)
       return -1;
 
@@ -75,6 +75,14 @@ int gcstl_map_initialize(gcstl_map *map,
       destroy_key ? destroy_key : gcstl_destroy_default;
    destroy_arg->destroy_value =
       destroy_value ? destroy_value : gcstl_destroy_default;
+
+   /* allocate a rbtree structure */
+   map->rbtree = (gcstl_rbtree *) malloc(sizeof(gcstl_rbtree));
+   if (!map->rbtree)
+   {
+       free(destroy_arg);
+       return -1;
+   }
 
    return gcstl_rbtree_initialize(map->rbtree,
                                  gcstl_map_comparator,
