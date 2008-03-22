@@ -1,0 +1,17 @@
+gcstl-0.3.1
+-----------
+
+Did some maintenance on the 0.3.2 ebuild.  Previously, it was setup to pull
+the package from my personal server that wasn't hosting it, so I modified it
+to pull from a sourceforge mirror.  Also modified the LICENSE declaration to
+specify that the library is indeed dual licenses GPL-2/LGPL-2
+
+
+Fixed some bugs that came up through casual usage of the gcstl_map module:
+
+- gcstl_map_data() is exposed from gcstl_map.h, but is not a real function and breaks the linking stage if you attempt to use it.
+- Removed gcstl_map_data()
+- Added gcstl_map_value() and gcstl_map_key()
+
+- gcstl_map_initialize() is flawed and does not allow for proper initialization of the rbtree component of a map.
+- Added logic to properly handle the creation and initialization of the rbtree backend for the map.

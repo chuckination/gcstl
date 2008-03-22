@@ -14,3 +14,4 @@ gcstl-0.3.1
 I recently discovered that gcstl_map has some serious bugs.  I thought I got all of those nasty ones worked out when I was debugging gcstl_rbtree, but there were some more.
 
 - gcstl_map_data() is exposed from gcstl_map.h, but is not a real function and breaks the linking stage if you attempt to use it.
+- gcstl_map_initialize() is flawed and does not allow for proper initialization of the rbtree component of a map.
