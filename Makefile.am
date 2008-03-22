@@ -31,4 +31,4 @@ pkgconfig_DATA = gcstl.pc
 library_includedir=$(includedir)
 library_include_HEADERS = gcstl.h
 
-EXTRA_DIST = autogen.sh
+EXTRA_DIST = autogen.sh BUGS

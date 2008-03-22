@@ -33,7 +33,7 @@ GENERIC_LIBRARY_NAME=gcstl
 GENERIC_PACKAGE_DESCRIPTION="Generalized Standard Template Library for C"
 GENERIC_MAJOR_VERSION=0
 GENERIC_MINOR_VERSION=3
-GENERIC_MICRO_VERSION=1
+GENERIC_MICRO_VERSION=2
 GENERIC_API_VERSION=0.3
 GENERIC_LIBRARY_VERSION=1:0:0
 
@@ -61,7 +61,7 @@ AC_FUNC_MALLOC
 AC_OUTPUT(Makefile \
           gcstl.pc \
           gcstl/Makefile \
-			 tests/Makefile \
+           tests/Makefile \
           tests/destroy/Makefile \
           tests/list/Makefile \
           tests/rbtree/Makefile)
