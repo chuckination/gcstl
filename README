@@ -1,3 +1,11 @@
+09/01/2011
+----------
+
+After abandoning the project on sourceforge for a long hiatus, moving to github.
+Intend to create files necessary to build gcstl as an rpm or deb.
+
+- chucks
+
 gcstl-0.3.2
 -----------
 
